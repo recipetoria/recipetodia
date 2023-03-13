@@ -13,8 +13,8 @@ public class Recipe {
     private Long id;
     @ManyToOne
     private User owner;
-    private String recName;
-    private String timeToCook;
+    private String name;
+    private String mainPhoto;
 
 
 

@@ -5,13 +5,14 @@ import javax.persistence.*;
 
 @Entity
 @Data
-public class CategoryTag {
+public class Tag {
     @Id
     @SequenceGenerator(name = "sequence", sequenceName = "sequence", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence")
-    Long id;
-    String categoryName;
+    private Long id;
+    private String name;
     @ManyToOne
-    User categoryOwner;
+    private User categoryOwner;
+    private String icon;
 
 }

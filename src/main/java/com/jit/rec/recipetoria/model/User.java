@@ -21,9 +21,6 @@ public class User {
     private String email;
     @OneToMany
     private List<Recipe> listOfRecipes;
-    @OneToMany
-    private List<CategoryTag> listOfCategories;
-
 
     @Id
     public Long getId() {
