@@ -7,5 +7,5 @@ public class NewIngredientRequest {
 
     private String name;
     private Double amount;
-    private String measurementUnit;
+    private MeasurementUnit measurementUnit;
 }
