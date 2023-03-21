@@ -16,6 +16,6 @@ public class ShoppingList {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence")
     private Long id;
 
-    @OneToMany
-    private List<Ingredient> listOfIngredients;
+//    @OneToMany
+//    private List<Ingredient> listOfIngredients;
 }

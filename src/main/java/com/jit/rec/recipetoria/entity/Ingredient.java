@@ -16,5 +16,5 @@ public class Ingredient {
     private Long id;
     private String name;
     private Double amount;
-    private String measurementUnit;
+    private String measurementUnit; //TODO: enum
 }
