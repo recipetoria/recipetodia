@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/ingredients")
+@RequestMapping("/api/v1/client/ingredients")
 public class IngredientController {
 
     private final IngredientService ingredientService;

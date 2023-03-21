@@ -17,4 +17,7 @@ public class Ingredient {
     private String name;
     private Double amount;
     private MeasurementUnit measurementUnit;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    private ApplicationUser applicationUser;
 }

@@ -18,6 +18,6 @@ public class Recipe {
     private ApplicationUser applicationUser;
     private String name;
     private String mainPhoto;
-    @ManyToOne
-    private ShoppingList shoppingList;
+//    @ManyToOne
+//    private ShoppingList shoppingList;
 }

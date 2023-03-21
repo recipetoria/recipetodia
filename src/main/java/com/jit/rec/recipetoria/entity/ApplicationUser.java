@@ -22,8 +22,8 @@ public class ApplicationUser {
     private boolean locked = false;
     private boolean enabled = true;
 
-    @OneToOne
-    private ShoppingList shoppingList;
-    @OneToMany
-    private List<Recipe> listOfRecipes;
+    @OneToMany(mappedBy = "applicationUser", cascade = CascadeType.MERGE)
+    private List<Ingredient> shoppingList;
+//    @OneToMany
+//    private List<Recipe> listOfRecipes;
 }
