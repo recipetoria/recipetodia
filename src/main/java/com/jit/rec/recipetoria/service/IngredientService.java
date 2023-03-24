@@ -3,20 +3,16 @@ package com.jit.rec.recipetoria.service;
 import com.jit.rec.recipetoria.entity.Ingredient;
 import com.jit.rec.recipetoria.entity.NewIngredientRequest;
 import com.jit.rec.recipetoria.repository.IngredientRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class IngredientService {
 
     private final IngredientRepository ingredientRepository;
-
-    @Autowired
-    public IngredientService(IngredientRepository ingredientRepository) {
-        this.ingredientRepository = ingredientRepository;
-    }
 
     public List<Ingredient> getAllIngredients() {
         return ingredientRepository.findAll();

@@ -1,5 +1,6 @@
 package com.jit.rec.recipetoria.entity;
 
+import com.jit.rec.recipetoria.security.applicationUser.ApplicationUser;
 import lombok.Data;
 
 import jakarta.persistence.*;

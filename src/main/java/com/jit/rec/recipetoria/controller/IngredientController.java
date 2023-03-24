@@ -3,21 +3,17 @@ package com.jit.rec.recipetoria.controller;
 import com.jit.rec.recipetoria.entity.Ingredient;
 import com.jit.rec.recipetoria.entity.NewIngredientRequest;
 import com.jit.rec.recipetoria.service.IngredientService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/client/ingredients")
+@RequiredArgsConstructor
 public class IngredientController {
 
     private final IngredientService ingredientService;
-
-    @Autowired
-    public IngredientController(IngredientService ingredientService) {
-        this.ingredientService = ingredientService;
-    }
 
     @GetMapping
     public List<Ingredient> getAllIngredients() {
