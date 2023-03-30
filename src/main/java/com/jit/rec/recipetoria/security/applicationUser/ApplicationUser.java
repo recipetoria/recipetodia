@@ -1,10 +1,8 @@
 package com.jit.rec.recipetoria.security.applicationUser;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.jit.rec.recipetoria.entity.Ingredient;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -33,7 +31,8 @@ public class ApplicationUser implements UserDetails {
     private String name;
     private String photo;
 
-    @OneToMany(mappedBy = "applicationUser", cascade = CascadeType.MERGE)
+    @OneToMany(mappedBy = "applicationUser", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private List<Ingredient> shoppingList;
 
 //    @OneToMany

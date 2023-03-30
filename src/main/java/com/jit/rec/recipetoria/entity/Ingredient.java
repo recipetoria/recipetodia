@@ -19,6 +19,6 @@ public class Ingredient {
     private Double amount;
     private MeasurementUnit measurementUnit;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.MERGE)
     private ApplicationUser applicationUser;
 }

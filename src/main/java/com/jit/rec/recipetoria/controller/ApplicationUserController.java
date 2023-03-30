@@ -17,17 +17,11 @@ public class ApplicationUserController {
 
     @GetMapping
     public List<Ingredient> getAllIngredients() {
-//        return applicationUserService.getAllIngredients();
-        return null;
-    }
-
-    @PostMapping("/{ingredientId}")
-    public void addIngredient(@PathVariable Long ingredientId) {
-//        applicationUserService.addIngredientById(ingredientId);
+        return applicationUserService.getAllIngredients();
     }
 
     @PostMapping
     public void createIngredient(@RequestBody NewIngredientRequest newIngredientRequest) {
-//        applicationUserService.createIngredient(newIngredientRequest);
+        applicationUserService.createIngredient(newIngredientRequest);
     }
 }
