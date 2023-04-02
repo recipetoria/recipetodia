@@ -5,6 +5,8 @@ import lombok.Data;
 import jakarta.persistence.*;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Entity
 @Data
 @NoArgsConstructor
@@ -18,5 +20,8 @@ public class Tag {
     @ManyToOne
     private ApplicationUser applicationUser;
     private String icon;
+    @ManyToMany
+    private List<Recipe> recipes;
+
 
 }

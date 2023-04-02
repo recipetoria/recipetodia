@@ -2,6 +2,7 @@ package com.jit.rec.recipetoria.security.applicationUser;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.jit.rec.recipetoria.entity.Ingredient;
+import com.jit.rec.recipetoria.entity.Recipe;
 import lombok.*;
 
 import jakarta.persistence.*;
@@ -35,8 +36,8 @@ public class ApplicationUser implements UserDetails {
     @JsonIgnore
     private List<Ingredient> shoppingList;
 
-//    @OneToMany
-//    private List<Recipe> listOfRecipes;
+    @OneToMany
+    private List<Recipe> listOfRecipes;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
