@@ -46,5 +46,6 @@ public class AuthenticationService {
         String jwtToken = jwtService.generateToken(applicationUser);
         return AuthenticationResponse.builder()
                 .token(jwtToken)
-                .build();    }
+                .build();
+    }
 }
