@@ -16,6 +16,12 @@ public class AuthenticationController {
         return ResponseEntity.ok(authenticationService.register(registrationRequest));
     }
 
+    @GetMapping("/verify-email")
+    public ResponseEntity<?> verifyEmail(@RequestParam("token") String verificationToken) {
+        authenticationService.verifyEmail(verificationToken);
+        return ResponseEntity.ok("User verified successfully.");
+    }
+
     @PostMapping("/authenticate")
     public ResponseEntity<AuthenticationResponse> authenticate(@RequestBody AuthenticationRequest authenticationRequest) {
         return ResponseEntity.ok(authenticationService.authenticate(authenticationRequest));
