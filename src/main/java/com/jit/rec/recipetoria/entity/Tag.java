@@ -1,5 +1,6 @@
 package com.jit.rec.recipetoria.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.jit.rec.recipetoria.security.applicationUser.ApplicationUser;
 import lombok.Data;
 import jakarta.persistence.*;
@@ -17,11 +18,12 @@ public class Tag {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence")
     private Long id;
     private String name;
-    @ManyToOne
+    @ManyToOne (cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id")
     private ApplicationUser applicationUser;
     private String icon;
-    @ManyToMany
+    @ManyToMany(mappedBy = "tags", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Recipe> recipes;
-
 
 }

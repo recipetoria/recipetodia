@@ -21,4 +21,8 @@ public class Ingredient {
 
     @ManyToOne(cascade = CascadeType.MERGE)
     private ApplicationUser applicationUser;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "recipe_id")
+    private Recipe recipe;
 }

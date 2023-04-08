@@ -3,6 +3,7 @@ package com.jit.rec.recipetoria.security.applicationUser;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.jit.rec.recipetoria.entity.Ingredient;
 import com.jit.rec.recipetoria.entity.Recipe;
+import com.jit.rec.recipetoria.entity.Tag;
 import lombok.*;
 
 import jakarta.persistence.*;
@@ -12,6 +13,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @Builder
@@ -35,9 +37,14 @@ public class ApplicationUser implements UserDetails {
     @OneToMany(mappedBy = "applicationUser", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
     private List<Ingredient> shoppingList;
-
-    @OneToMany
+    //removed commenting from listOfRecipes
+    @OneToMany(mappedBy = "applicationUser", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Recipe> listOfRecipes;
+    //added field to activate db mapping with tags
+    @OneToMany(mappedBy = "applicationUser", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    private Set<Tag> tags;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
