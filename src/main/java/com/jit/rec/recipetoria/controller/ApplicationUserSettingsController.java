@@ -1,12 +1,9 @@
 package com.jit.rec.recipetoria.controller;
 
 import com.jit.rec.recipetoria.security.applicationUser.ApplicationUser;
-import com.jit.rec.recipetoria.security.applicationUser.ApplicationUserService;
 import com.jit.rec.recipetoria.security.authentication.RegistrationRequest;
 import com.jit.rec.recipetoria.service.ApplicationUserSettingsService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -39,12 +36,12 @@ public class ApplicationUserSettingsController {
         applicationUserSettingsService.updatePhoto(file);
     }
 
-    @GetMapping("/photo-delete")
+    @DeleteMapping("/photo-delete")
     public void deleteApplicationUserPhoto() throws IOException {
         applicationUserSettingsService.deletePhoto();
     }
 
-    @GetMapping("/account-delete")
+    @DeleteMapping("/account-delete")
     public void deleteApplicationUser() {
         applicationUserSettingsService.deleteApplicationUser();
     }

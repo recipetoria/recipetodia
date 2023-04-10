@@ -18,7 +18,7 @@ public class IngredientService {
         return ingredientRepository.findAll();
     }
 
-    public void createIngredient(NewIngredientRequest newIngredientRequest) {
+    public Ingredient createIngredient(NewIngredientRequest newIngredientRequest) {
         Ingredient ingredient = new Ingredient();
 
         ingredient.setName(newIngredientRequest.getName());
@@ -26,6 +26,8 @@ public class IngredientService {
         ingredient.setMeasurementUnit(newIngredientRequest.getMeasurementUnit());
 
         ingredientRepository.save(ingredient);
+
+        return ingredient;
     }
 
     public Ingredient getIngredientById(Long ingredientId) {
