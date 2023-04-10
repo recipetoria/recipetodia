@@ -19,11 +19,6 @@ public class IngredientController {
 
     private final IngredientService ingredientService;
 
-    @GetMapping
-    public List<Ingredient> getAllIngredients() {
-        return ingredientService.getAllIngredients();
-    }
-
     @PostMapping
     public ResponseEntity<Map<String, Object>> createIngredient(@RequestBody NewIngredientRequest newIngredientRequest) {
         Ingredient createdIngredient = ingredientService.createIngredient(newIngredientRequest);
