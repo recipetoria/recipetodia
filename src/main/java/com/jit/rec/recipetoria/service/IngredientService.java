@@ -1,12 +1,11 @@
 package com.jit.rec.recipetoria.service;
 
+import com.jit.rec.recipetoria.dto.IngredientDTO;
 import com.jit.rec.recipetoria.entity.Ingredient;
-import com.jit.rec.recipetoria.dto.NewIngredientRequest;
+import com.jit.rec.recipetoria.exception.ResourceNotFoundException;
 import com.jit.rec.recipetoria.repository.IngredientRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -14,35 +13,43 @@ public class IngredientService {
 
     private final IngredientRepository ingredientRepository;
 
-    public List<Ingredient> getAllIngredients() {
-        return ingredientRepository.findAll();
-    }
-
-    public void createIngredient(NewIngredientRequest newIngredientRequest) {
+    public IngredientDTO createIngredient(IngredientDTO newIngredientRequest) {
         Ingredient ingredient = new Ingredient();
 
-        ingredient.setName(newIngredientRequest.getName());
-        ingredient.setAmount(newIngredientRequest.getAmount());
-        ingredient.setMeasurementUnit(newIngredientRequest.getMeasurementUnit());
+        ingredient.setName(newIngredientRequest.name());
+        ingredient.setAmount(newIngredientRequest.amount());
+        ingredient.setMeasurementUnit(newIngredientRequest.measurementUnit());
 
         ingredientRepository.save(ingredient);
+
+        return IngredientDTO.convertToDTO(ingredient);
     }
 
-    public Ingredient getIngredientById(Long ingredientId) {
-        return ingredientRepository.findById(ingredientId).orElseThrow(() -> new IllegalStateException("NOT FOUND"));
+    public IngredientDTO getIngredientById(Long ingredientId) {
+        Ingredient ingredient = ingredientRepository.findById(ingredientId)
+                .orElseThrow(() -> new ResourceNotFoundException("Ingredient with ID: " + ingredientId + " not found!"));
+
+        return IngredientDTO.convertToDTO(ingredient);
     }
 
-    public void updateIngredientById(Long ingredientId, Ingredient updatedIngredientInfo) {
-        Ingredient ingredientToBeUpdated = getIngredientById(ingredientId);
+    public IngredientDTO updateIngredientById(Long ingredientId, IngredientDTO updatedIngredientInfo) {
+        Ingredient ingredientToBeUpdated = ingredientRepository.findById(ingredientId)
+                .orElseThrow(() -> new ResourceNotFoundException("Ingredient with ID: " + ingredientId + " not found!"));
 
-        ingredientToBeUpdated.setName(updatedIngredientInfo.getName());
-        ingredientToBeUpdated.setAmount(updatedIngredientInfo.getAmount());
-        ingredientToBeUpdated.setMeasurementUnit(updatedIngredientInfo.getMeasurementUnit());
+        ingredientToBeUpdated.setName(updatedIngredientInfo.name());
+        ingredientToBeUpdated.setAmount(updatedIngredientInfo.amount());
+        ingredientToBeUpdated.setMeasurementUnit(updatedIngredientInfo.measurementUnit());
 
         ingredientRepository.save(ingredientToBeUpdated);
+
+        return IngredientDTO.convertToDTO(ingredientToBeUpdated);
     }
 
     public void deleteIngredientById(Long ingredientId) {
+        if (!ingredientRepository.existsById(ingredientId)) {
+            throw new ResourceNotFoundException("Ingredient with ID: " + ingredientId + " not found!");
+        }
+
         ingredientRepository.deleteById(ingredientId);
     }
 }

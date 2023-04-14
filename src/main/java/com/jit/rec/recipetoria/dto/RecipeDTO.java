@@ -9,7 +9,7 @@ public class RecipeDTO {
     private String name;
     private String mainPhoto;
     private List<String> tags;
-    private List<NewIngredientRequest> ingredients;
+    private List<IngredientDTO> ingredients;
     private List<String> instructions;
     private List<String> instructionPhotos;
     private List<String> links;

@@ -8,12 +8,19 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="recipetoria" />
+        <module name="web" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="book-of-recipes" target="17" />
+      <module name="web" target="17" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="book-of-recipes" options="-parameters" />
       <module name="recipetoria" options="-parameters" />
+      <module name="web" options="-parameters" />
     </option>
   </component>
 </project>

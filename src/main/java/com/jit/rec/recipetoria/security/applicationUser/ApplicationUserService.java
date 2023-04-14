@@ -1,12 +1,13 @@
 package com.jit.rec.recipetoria.security.applicationUser;
 
+import com.jit.rec.recipetoria.dto.IngredientDTO;
 import com.jit.rec.recipetoria.entity.Ingredient;
-import com.jit.rec.recipetoria.dto.NewIngredientRequest;
 import com.jit.rec.recipetoria.repository.IngredientRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -15,20 +16,31 @@ public class ApplicationUserService {
 
     private final IngredientRepository ingredientRepository;
 
-    public List<Ingredient> getAllIngredients() {
-        ApplicationUser applicationUser = (ApplicationUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        return ingredientRepository.findAllByApplicationUser(applicationUser);
+    public ApplicationUser getApplicationUser() {
+        return (ApplicationUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     }
 
-    public void createIngredient(NewIngredientRequest newIngredientRequest) {
-        ApplicationUser applicationUser = (ApplicationUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    public List<IngredientDTO> getAllIngredients() {
+        List<Ingredient> allIngredients = ingredientRepository.findAllByApplicationUser(getApplicationUser());
+
+        List<IngredientDTO> allIngredientDTOs = new ArrayList<>();
+        for (Ingredient oneIngredient : allIngredients) {
+            allIngredientDTOs.add(IngredientDTO.convertToDTO(oneIngredient));
+        }
+
+        return allIngredientDTOs;
+    }
+
+    public IngredientDTO createIngredient(IngredientDTO newIngredientRequest) {
         Ingredient ingredient = new Ingredient();
 
-        ingredient.setName(newIngredientRequest.getName());
-        ingredient.setAmount(newIngredientRequest.getAmount());
-        ingredient.setMeasurementUnit(newIngredientRequest.getMeasurementUnit());
-        ingredient.setApplicationUser(applicationUser);
+        ingredient.setName(newIngredientRequest.name());
+        ingredient.setAmount(newIngredientRequest.amount());
+        ingredient.setMeasurementUnit(newIngredientRequest.measurementUnit());
+        ingredient.setApplicationUser(getApplicationUser());
 
-        ingredientRepository.save(ingredient);
+        Ingredient createdIngredient = ingredientRepository.save(ingredient);
+
+        return IngredientDTO.convertToDTO(createdIngredient);
     }
 }

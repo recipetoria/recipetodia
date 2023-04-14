@@ -1,6 +1,8 @@
 package com.jit.rec.recipetoria.service;
 
+import com.jit.rec.recipetoria.dto.IngredientDTO;
 import com.jit.rec.recipetoria.dto.RecipeDTO;
+import com.jit.rec.recipetoria.entity.Ingredient;
 import com.jit.rec.recipetoria.entity.Recipe;
 import com.jit.rec.recipetoria.repository.RecipeRepository;
 import org.springframework.stereotype.Service;
@@ -11,11 +13,8 @@ import java.util.List;
 @Service
 public class RecipeService {
     private final RecipeRepository recipeRepository;
-    private final IngredientService ingredientService;
-
-    public RecipeService(RecipeRepository recipeRepository, IngredientService ingredientService) {
+    public RecipeService(RecipeRepository recipeRepository) {
         this.recipeRepository = recipeRepository;
-        this.ingredientService = ingredientService;
     }
 
     public List<RecipeDTO> getAllRecipes(){
@@ -35,9 +34,16 @@ public class RecipeService {
             recipe.setInstructions(recipeDTO.getInstructions());
             recipe.setLinks(recipeDTO.getLinks());
             recipe.setTags(recipe.getTags());
-            //recipe.setIngredientList(recipeDTO.getIngredients());
             recipe.setInstructionPhotos(recipeDTO.getInstructionPhotos());
             recipe.setMainPhoto(recipeDTO.getMainPhoto());
+
+            for(IngredientDTO i : recipeDTO.getIngredients()){
+                Ingredient newIngredient = new Ingredient();
+                newIngredient.setName(i.name());
+                newIngredient.setAmount(i.amount());
+                newIngredient.setMeasurementUnit(i.measurementUnit());
+                recipe.getIngredientList().add(newIngredient);
+            }
             recipeRepository.save(recipe);
         }
     }

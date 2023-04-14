@@ -4,14 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9d8fdb90-e583-4a4a-ac36-8ca0b4776101" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+    <list default="true" id="9d8fdb90-e583-4a4a-ac36-8ca0b4776101" name="Changes" comment="Merge branch 'backend' into backend-s&#10;&#10;# Conflicts:&#10;#&#9;.idea/compiler.xml&#10;#&#9;.idea/misc.xml&#10;#&#9;src/main/java/com/jit/rec/recipetoria/controller/ApplicationUserController.java&#10;#&#9;src/main/java/com/jit/rec/recipetoria/controller/IngredientController.java&#10;#&#9;src/main/java/com/jit/rec/recipetoria/dto/NewIngredientRequest.java&#10;#&#9;src/main/java/com/jit/rec/recipetoria/security/applicationUser/ApplicationUserService.java&#10;#&#9;src/main/java/com/jit/rec/recipetoria/service/IngredientService.java&#10;#&#9;src/main/resources/application.properties">
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/controller/ApplicationUserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/controller/ApplicationUserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/controller/TagController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/controller/TagController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/entity/RecipeResponse.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/security/applicationUser/ApplicationUserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/security/applicationUser/ApplicationUserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/service/TagService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/service/TagService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/recipetoria.iml" beforeDir="false" afterPath="$PROJECT_DIR$/recipetoria.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/controller/RecipeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/controller/RecipeController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/dto/RecipeDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/dto/RecipeDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/entity/Recipe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/entity/Recipe.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/security/authentication/AuthenticationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/security/authentication/AuthenticationService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/service/RecipeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/service/RecipeService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,8 +36,18 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GithubProjectSettings">
+    <option name="branchProtectionPatterns">
+      <list>
+        <option value="main" />
+      </list>
+    </option>
+  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectId" id="2NolrSGlcmemY02TIYmKhnm2qMB" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
@@ -63,6 +75,7 @@
     &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
     &quot;spring.configuration.checksum&quot;: &quot;f8c453b760e87c3960dd25a1fc2e00e5&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
@@ -97,6 +110,8 @@
       <workItem from="1681131963426" duration="3797000" />
       <workItem from="1681313305611" duration="1305000" />
       <workItem from="1681466273877" duration="1432000" />
+      <workItem from="1681484936744" duration="1503000" />
+      <workItem from="1681806079255" duration="643000" />
     </task>
     <task id="LOCAL-00001" summary="1. Changed application.properties">
       <created>1680339848147</created>
@@ -140,7 +155,14 @@
       <option name="project" value="LOCAL" />
       <updated>1680953000820</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="add JPA annotations to Recipe, Tag, User, Ingredient">
+      <created>1681482796096</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1681482796096</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -163,6 +185,7 @@
     <MESSAGE value="Merging 'backend' into 'main'" />
     <MESSAGE value="add Recipe MVC &#10;+two endpoints to create a new rec and show all rec" />
     <MESSAGE value="add JPA annotations to Recipe, Tag, User, Ingredient" />
-    <option name="LAST_COMMIT_MESSAGE" value="add JPA annotations to Recipe, Tag, User, Ingredient" />
+    <MESSAGE value="Merge branch 'backend' into backend-s&#10;&#10;# Conflicts:&#10;#&#9;.idea/compiler.xml&#10;#&#9;.idea/misc.xml&#10;#&#9;src/main/java/com/jit/rec/recipetoria/controller/ApplicationUserController.java&#10;#&#9;src/main/java/com/jit/rec/recipetoria/controller/IngredientController.java&#10;#&#9;src/main/java/com/jit/rec/recipetoria/dto/NewIngredientRequest.java&#10;#&#9;src/main/java/com/jit/rec/recipetoria/security/applicationUser/ApplicationUserService.java&#10;#&#9;src/main/java/com/jit/rec/recipetoria/service/IngredientService.java&#10;#&#9;src/main/resources/application.properties" />
+    <option name="LAST_COMMIT_MESSAGE" value="Merge branch 'backend' into backend-s&#10;&#10;# Conflicts:&#10;#&#9;.idea/compiler.xml&#10;#&#9;.idea/misc.xml&#10;#&#9;src/main/java/com/jit/rec/recipetoria/controller/ApplicationUserController.java&#10;#&#9;src/main/java/com/jit/rec/recipetoria/controller/IngredientController.java&#10;#&#9;src/main/java/com/jit/rec/recipetoria/dto/NewIngredientRequest.java&#10;#&#9;src/main/java/com/jit/rec/recipetoria/security/applicationUser/ApplicationUserService.java&#10;#&#9;src/main/java/com/jit/rec/recipetoria/service/IngredientService.java&#10;#&#9;src/main/resources/application.properties" />
   </component>
 </project>
