@@ -33,7 +33,6 @@ public class ApplicationUser implements UserDetails {
     private boolean locked = true;
 
     @OneToMany(mappedBy = "applicationUser", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnore
     private List<Ingredient> shoppingList;
 
 //    @OneToMany

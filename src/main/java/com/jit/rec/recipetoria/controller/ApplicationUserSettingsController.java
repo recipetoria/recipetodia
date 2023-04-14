@@ -1,9 +1,11 @@
 package com.jit.rec.recipetoria.controller;
 
-import com.jit.rec.recipetoria.security.applicationUser.ApplicationUser;
-import com.jit.rec.recipetoria.security.authentication.RegistrationRequest;
+import com.jit.rec.recipetoria.dto.ApplicationUserDTO;
 import com.jit.rec.recipetoria.service.ApplicationUserSettingsService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -17,32 +19,61 @@ public class ApplicationUserSettingsController {
     private final ApplicationUserSettingsService applicationUserSettingsService;
 
     @GetMapping
-    public ApplicationUser showSettings() {
-        return applicationUserSettingsService.getApplicationUser();
+    public ResponseEntity<ApplicationUserDTO> showSettings() {
+        ApplicationUserDTO applicationUserDTO = applicationUserSettingsService.getApplicationUser();
+
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(applicationUserDTO);
     }
 
     @PatchMapping("/personal-info")
-    public void updateApplicationUserInfo(@RequestBody RegistrationRequest registrationRequest) {
-        applicationUserSettingsService.updatePersonalInfo(registrationRequest);
-    }
+    public ResponseEntity<ApplicationUserDTO> updateApplicationUserInfo(
+            @Valid @RequestBody ApplicationUserDTO applicationUserInfo) {
+        ApplicationUserDTO updatedApplicationUserDTO =
+                applicationUserSettingsService.updatePersonalInfo(applicationUserInfo);
 
-    @PatchMapping("/password")
-    public void updateApplicationUserPassword(@RequestBody RegistrationRequest registrationRequest) {
-        applicationUserSettingsService.updatePassword(registrationRequest.getPassword());
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(updatedApplicationUserDTO);
     }
 
     @PatchMapping("/photo")
-    public void updateApplicationUserPhoto(@RequestBody MultipartFile file) throws IOException {
-        applicationUserSettingsService.updatePhoto(file);
+    public ResponseEntity<ApplicationUserDTO> updateApplicationUserPhoto(@RequestBody MultipartFile file) throws IOException {
+        ApplicationUserDTO updatedApplicationUserDTO = applicationUserSettingsService.updatePhoto(file);
+
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(updatedApplicationUserDTO);
     }
 
     @DeleteMapping("/photo-delete")
-    public void deleteApplicationUserPhoto() throws IOException {
-        applicationUserSettingsService.deletePhoto();
+    public ResponseEntity<ApplicationUserDTO> deleteApplicationUserPhoto() throws IOException {
+        ApplicationUserDTO updatedApplicationUserDTO = applicationUserSettingsService.deletePhoto();
+
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(updatedApplicationUserDTO);
+    }
+
+    @PatchMapping("/password")
+    public ResponseEntity<ApplicationUserDTO> updateApplicationUserPassword(
+            @Valid @RequestBody ApplicationUserDTO applicationUserInfo) {
+        ApplicationUserDTO updatedApplicationUserDTO = applicationUserSettingsService.updatePassword(applicationUserInfo);
+
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(updatedApplicationUserDTO);
     }
 
     @DeleteMapping("/account-delete")
-    public void deleteApplicationUser() {
+    public ResponseEntity<String> deleteApplicationUser() {
         applicationUserSettingsService.deleteApplicationUser();
+
+        String message = "Account has been deleted!";
+
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(message);
     }
 }

@@ -1,5 +1,6 @@
 package com.jit.rec.recipetoria.security.authentication;
 
+import com.jit.rec.recipetoria.exception.EmailAlreadyExistsException;
 import com.jit.rec.recipetoria.security.applicationUser.ApplicationUser;
 import com.jit.rec.recipetoria.security.applicationUser.ApplicationUserRepository;
 import com.jit.rec.recipetoria.security.applicationUser.ApplicationUserRole;
@@ -14,6 +15,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.webjars.NotFoundException;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class AuthenticationService {
@@ -24,24 +27,33 @@ public class AuthenticationService {
     private final AuthenticationManager authenticationManager;
     private final JavaMailSender javaMailSender;
 
-    public AuthenticationResponse register(RegistrationRequest registrationRequest) {
+    public AuthenticationResponse register(AuthenticationRequest authenticationRequest) {
+        checkIfEmailExists(authenticationRequest.getEmail());
+
         ApplicationUser applicationUser = ApplicationUser.builder()
-                .name(registrationRequest.getName())
-                .email(registrationRequest.getEmail())
-                .password(passwordEncoder.encode(registrationRequest.getPassword()))
+                .email(authenticationRequest.getEmail())
+                .password(passwordEncoder.encode(authenticationRequest.getPassword()))
                 .applicationUserRole(ApplicationUserRole.USER)
-                .locked(true)
+//                .locked(true) //TODO: uncomment
                 .build();
 
         String jwtToken = jwtService.generateToken(applicationUser);
 
-        sendEmail(applicationUser, jwtToken);
+//        sendEmail(applicationUser, jwtToken); //TODO: uncomment
 
         applicationUserRepository.save(applicationUser);
 
         return AuthenticationResponse.builder()
                 .token(jwtToken)
                 .build();
+    }
+
+    private void checkIfEmailExists(String email) {
+        Optional<ApplicationUser> applicationUserOptional = applicationUserRepository.findByEmail(email);
+
+        if (applicationUserOptional.isPresent()) {
+            throw new EmailAlreadyExistsException("User with this email already exists.");
+        }
     }
 
     public void sendEmail(ApplicationUser applicationUser, String jwtToken) {

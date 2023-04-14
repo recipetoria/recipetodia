@@ -1,9 +1,11 @@
 package com.jit.rec.recipetoria.controller;
 
-import com.jit.rec.recipetoria.entity.Ingredient;
-import com.jit.rec.recipetoria.entity.NewIngredientRequest;
+import com.jit.rec.recipetoria.dto.IngredientDTO;
 import com.jit.rec.recipetoria.security.applicationUser.ApplicationUserService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,12 +18,19 @@ public class ApplicationUserController {
     private final ApplicationUserService applicationUserService;
 
     @GetMapping
-    public List<Ingredient> getAllIngredients() {
-        return applicationUserService.getAllIngredients();
+    public ResponseEntity<List<IngredientDTO>> getAllIngredients() {
+        List<IngredientDTO> ingredientDTOList = applicationUserService.getAllIngredients();
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(ingredientDTOList);
     }
 
     @PostMapping
-    public void createIngredient(@RequestBody NewIngredientRequest newIngredientRequest) {
-        applicationUserService.createIngredient(newIngredientRequest);
+    public ResponseEntity<IngredientDTO> createIngredient(@Valid @RequestBody IngredientDTO newIngredientRequest) {
+        IngredientDTO createdIngredientDTO = applicationUserService.createIngredient(newIngredientRequest);
+
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(createdIngredientDTO);
     }
 }
