@@ -5,16 +5,19 @@ import com.jit.rec.recipetoria.security.applicationUser.ApplicationUser;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
+@Data
 public class Recipe {
 
     @Id
@@ -47,7 +50,17 @@ public class Recipe {
     @Column(columnDefinition = "TEXT")
     private List<String> links;
 
+    public Recipe(String name) {
+        this.name = name;
+    }
 
+    public List<String> getRecipeTagNames(){
+        List<String>recipeTagNames = new ArrayList<>();
+        for (Tag t: tags){
+           recipeTagNames.add(t.getName());
+        }
+        return recipeTagNames;
 
+    }
 
 }
