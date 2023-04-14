@@ -4,21 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9d8fdb90-e583-4a4a-ac36-8ca0b4776101" name="Changes" comment="add JPA annotations to Recipe, Tag, User, Ingredient">
+    <list default="true" id="9d8fdb90-e583-4a4a-ac36-8ca0b4776101" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/controller/ApplicationUserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/controller/ApplicationUserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/controller/IngredientController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/controller/IngredientController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/controller/RecipeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/controller/RecipeController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/controller/TagController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/controller/TagController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/entity/NewIngredientRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/dto/NewIngredientRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/entity/NewRecipeRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/dto/RecipeDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/entity/NewTagRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/dto/TagDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/entity/Recipe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/entity/Recipe.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/entity/RecipeResponse.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/security/applicationUser/ApplicationUserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/security/applicationUser/ApplicationUserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/service/IngredientService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/service/IngredientService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/service/RecipeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/service/RecipeService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/service/TagService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/service/TagService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
