@@ -1,52 +1,58 @@
 package com.jit.rec.recipetoria.controller;
 
-import com.jit.rec.recipetoria.entity.Ingredient;
-import com.jit.rec.recipetoria.entity.NewIngredientRequest;
+import com.jit.rec.recipetoria.dto.IngredientDTO;
 import com.jit.rec.recipetoria.service.IngredientService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 @RestController
-@RequestMapping("/api/v1/client/ingredients")
 @RequiredArgsConstructor
+@RequestMapping(value = "/api/v1/client/ingredients",
+        produces = MediaType.APPLICATION_JSON_VALUE)
 public class IngredientController {
 
     private final IngredientService ingredientService;
 
-    @GetMapping
-    public List<Ingredient> getAllIngredients() {
-        return ingredientService.getAllIngredients();
-    }
-
     @PostMapping
-    public ResponseEntity<Map<String, Object>> createIngredient(@RequestBody NewIngredientRequest newIngredientRequest) {
-        Ingredient createdIngredient = ingredientService.createIngredient(newIngredientRequest);
+    public ResponseEntity<IngredientDTO> createIngredient(@RequestBody @Valid IngredientDTO newIngredientRequest) {
+        IngredientDTO createdIngredientDTO = ingredientService.createIngredient(newIngredientRequest);
 
-        Map<String, Object> response = new HashMap<>();
-        response.put("id", createdIngredient.getId());
-
-        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(createdIngredientDTO);
     }
 
     @GetMapping("/{ingredientId}")
-    public Ingredient getIngredientById(@PathVariable("ingredientId") Long ingredientId) {
-        return ingredientService.getIngredientById(ingredientId);
+    public ResponseEntity<IngredientDTO> getIngredientById(@PathVariable("ingredientId") Long ingredientId) {
+        IngredientDTO ingredientDTO = ingredientService.getIngredientById(ingredientId);
+
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(ingredientDTO);
     }
 
     @PatchMapping("/{ingredientId}")
-    public void updateIngredientById(@PathVariable("ingredientId") Long ingredientId,
-                                     @RequestBody Ingredient updatedIngredientInfo) {
-        ingredientService.updateIngredientById(ingredientId, updatedIngredientInfo);
+    public ResponseEntity<IngredientDTO> updateIngredientById(@PathVariable("ingredientId") Long ingredientId,
+                                                              @RequestBody @Valid IngredientDTO updatedIngredientInfo) {
+        IngredientDTO updatedIngredientDTO = ingredientService.updateIngredientById(ingredientId, updatedIngredientInfo);
+
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(updatedIngredientDTO);
     }
 
     @DeleteMapping("/{ingredientId}")
-    public void deleteIngredientById(@PathVariable("ingredientId") Long ingredientId) {
+    public ResponseEntity<String> deleteIngredientById(@PathVariable("ingredientId") Long ingredientId) {
         ingredientService.deleteIngredientById(ingredientId);
+
+        String message = "Ingredient with ID " + ingredientId + " has been deleted!";
+
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(message);
     }
 }
