@@ -11,11 +11,13 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -141,6 +143,23 @@ public class DefaultExceptionHandler {
         ApiError apiError = new ApiError(
                 request.getRequestURI(),
                 e.getMessage(),
+                HttpStatus.BAD_REQUEST.value(),
+                LocalDateTime.now()
+        );
+
+        return new ResponseEntity<>(apiError, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+    public ResponseEntity<ApiError> handleException(MethodArgumentTypeMismatchException e, HttpServletRequest request) {
+        String expectedType = Objects.requireNonNull(e.getRequiredType()).getSimpleName();
+        String actualValue = Objects.requireNonNull(e.getValue()).toString();
+
+        String errorMessage = "Failed to convert value '" + actualValue + "' to required type '" + expectedType + "'";
+
+        ApiError apiError = new ApiError(
+                request.getRequestURI(),
+                errorMessage,
                 HttpStatus.BAD_REQUEST.value(),
                 LocalDateTime.now()
         );
