@@ -1,8 +1,11 @@
 package com.jit.rec.recipetoria.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.jit.rec.recipetoria.dto.NewIngredientRequest;
 import com.jit.rec.recipetoria.security.applicationUser.ApplicationUser;
 
+import com.jit.rec.recipetoria.service.IngredientService;
+import com.jit.rec.recipetoria.service.RecipeService;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
@@ -60,7 +63,6 @@ public class Recipe {
            recipeTagNames.add(t.getName());
         }
         return recipeTagNames;
-
     }
 
 }

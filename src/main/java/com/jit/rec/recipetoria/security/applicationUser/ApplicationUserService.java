@@ -1,7 +1,7 @@
 package com.jit.rec.recipetoria.security.applicationUser;
 
 import com.jit.rec.recipetoria.entity.Ingredient;
-import com.jit.rec.recipetoria.entity.NewIngredientRequest;
+import com.jit.rec.recipetoria.dto.NewIngredientRequest;
 import com.jit.rec.recipetoria.repository.IngredientRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;

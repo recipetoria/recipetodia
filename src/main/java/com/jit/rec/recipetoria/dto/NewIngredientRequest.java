@@ -1,5 +1,6 @@
-package com.jit.rec.recipetoria.entity;
+package com.jit.rec.recipetoria.dto;
 
+import com.jit.rec.recipetoria.entity.MeasurementUnit;
 import lombok.Data;
 
 @Data

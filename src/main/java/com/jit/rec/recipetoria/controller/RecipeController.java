@@ -1,8 +1,6 @@
 package com.jit.rec.recipetoria.controller;
 
-import com.jit.rec.recipetoria.entity.NewRecipeRequest;
-import com.jit.rec.recipetoria.entity.Recipe;
-import com.jit.rec.recipetoria.entity.RecipeResponse;
+import com.jit.rec.recipetoria.dto.RecipeDTO;
 import com.jit.rec.recipetoria.service.RecipeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -17,13 +15,13 @@ public class RecipeController {
     private final RecipeService recipeService;
 
     @GetMapping
-    public List<RecipeResponse> getAllRecipes(){
+    public List<RecipeDTO> getAllRecipes(){
         return recipeService.getAllRecipes();
     }
 
     @PostMapping
-    public void createNewRecipe(@RequestBody NewRecipeRequest newRecipeRequest){
-        recipeService.createNewRecipe(newRecipeRequest);
+    public void createNewRecipe(@RequestBody RecipeDTO recipeDTO){
+        recipeService.createNewRecipe(recipeDTO);
     }
     @DeleteMapping("/{recipeId}")
     public void deleteRecipe(@PathVariable("recipeId") Long id){

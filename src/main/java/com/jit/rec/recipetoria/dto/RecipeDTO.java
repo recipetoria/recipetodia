@@ -1,15 +1,15 @@
-package com.jit.rec.recipetoria.entity;
+package com.jit.rec.recipetoria.dto;
 
 import lombok.Data;
 
 import java.util.List;
 
 @Data
-public class NewRecipeRequest {
+public class RecipeDTO {
     private String name;
     private String mainPhoto;
-    private List<Tag> tags;
-    private List<Ingredient> ingredients;
+    private List<String> tags;
+    private List<NewIngredientRequest> ingredients;
     private List<String> instructions;
     private List<String> instructionPhotos;
     private List<String> links;

@@ -1,6 +1,6 @@
 package com.jit.rec.recipetoria.controller;
 
-import com.jit.rec.recipetoria.entity.NewTagRequest;
+import com.jit.rec.recipetoria.dto.TagDTO;
 import com.jit.rec.recipetoria.entity.Tag;
 import com.jit.rec.recipetoria.service.TagService;
 import lombok.RequiredArgsConstructor;
@@ -18,8 +18,8 @@ public class TagController {
     @PostMapping
     @ResponseBody
     @ResponseStatus(HttpStatus.CREATED)
-    public void createNewTag(@RequestBody NewTagRequest newTagRequest){
-        tagService.createNewTag(newTagRequest);
+    public void createNewTag(@RequestBody TagDTO tagDTO){
+        tagService.createNewTag(tagDTO);
     }
 
     @GetMapping

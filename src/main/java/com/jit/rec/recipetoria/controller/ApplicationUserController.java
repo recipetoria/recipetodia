@@ -1,7 +1,7 @@
 package com.jit.rec.recipetoria.controller;
 
 import com.jit.rec.recipetoria.entity.Ingredient;
-import com.jit.rec.recipetoria.entity.NewIngredientRequest;
+import com.jit.rec.recipetoria.dto.NewIngredientRequest;
 import com.jit.rec.recipetoria.security.applicationUser.ApplicationUserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
