@@ -11,13 +11,12 @@ import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 
 @SuperBuilder
 @JsonInclude(NON_NULL)
-public record ApiResponse(
-        LocalDateTime timeStamp,
-        int statusCode,
-        HttpStatus status,
-        String reason,
-        String message,
-        String developerMessage,
-        Map<?, ?> data
-) {
+public class ApiResponse {
+    protected LocalDateTime timeStamp;
+    protected int statusCode;
+    protected HttpStatus status;
+    protected String reason;
+    protected String message;
+    protected String developerMessage;
+    protected Map<?, ?> data;
 }
