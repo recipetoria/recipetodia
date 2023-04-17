@@ -34,12 +34,12 @@ public class AuthenticationService {
                 .email(authenticationRequest.getEmail())
                 .password(passwordEncoder.encode(authenticationRequest.getPassword()))
                 .applicationUserRole(ApplicationUserRole.USER)
-                .locked(true) //TODO: uncomment
+//                .locked(true) //TODO: uncomment
                 .build();
 
         String jwtToken = jwtService.generateToken(applicationUser);
 
-        sendEmail(applicationUser, jwtToken); //TODO: uncomment
+//        sendEmail(applicationUser, jwtToken); //TODO: uncomment
 
         applicationUserRepository.save(applicationUser);
 
