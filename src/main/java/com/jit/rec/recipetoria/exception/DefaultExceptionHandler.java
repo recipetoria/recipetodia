@@ -28,10 +28,11 @@ public class DefaultExceptionHandler {
     @ExceptionHandler(UsernameNotFoundException.class)
     public ResponseEntity<ApiError> handleException(UsernameNotFoundException e, HttpServletRequest request) {
         ApiError apiError = new ApiError(
+                LocalDateTime.now(),
                 request.getRequestURI(),
-                e.getMessage(),
                 HttpStatus.FORBIDDEN.value(),
-                LocalDateTime.now()
+                e.getMessage(),
+                e.getCause().toString()
         );
 
         return new ResponseEntity<>(apiError, HttpStatus.FORBIDDEN);
@@ -40,10 +41,11 @@ public class DefaultExceptionHandler {
     @ExceptionHandler(BadCredentialsException.class)
     public ResponseEntity<ApiError> handleException(BadCredentialsException e, HttpServletRequest request) {
         ApiError apiError = new ApiError(
+                LocalDateTime.now(),
                 request.getRequestURI(),
-                e.getMessage(),
                 HttpStatus.UNAUTHORIZED.value(),
-                LocalDateTime.now()
+                e.getMessage(),
+                e.getCause().toString()
         );
 
         return new ResponseEntity<>(apiError, HttpStatus.UNAUTHORIZED);
@@ -52,10 +54,11 @@ public class DefaultExceptionHandler {
     @ExceptionHandler(EmailAlreadyExistsException.class)
     public ResponseEntity<ApiError> handleException(EmailAlreadyExistsException e, HttpServletRequest request) {
         ApiError apiError = new ApiError(
+                LocalDateTime.now(),
                 request.getRequestURI(),
-                e.getMessage(),
                 HttpStatus.CONFLICT.value(),
-                LocalDateTime.now()
+                e.getMessage(),
+                e.getCause().toString()
         );
 
         return new ResponseEntity<>(apiError, HttpStatus.CONFLICT);
@@ -71,10 +74,11 @@ public class DefaultExceptionHandler {
         }
 
         ApiError apiError = new ApiError(
+                LocalDateTime.now(),
                 request.getRequestURI(),
-                String.join(", ", errorMessages),
                 HttpStatus.BAD_REQUEST.value(),
-                LocalDateTime.now()
+                String.join(", ", errorMessages),
+                e.getCause().toString()
         );
 
         return new ResponseEntity<>(apiError, HttpStatus.BAD_REQUEST);
@@ -83,10 +87,11 @@ public class DefaultExceptionHandler {
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<ApiError> handleException(ResourceNotFoundException e, HttpServletRequest request) {
         ApiError apiError = new ApiError(
+                LocalDateTime.now(),
                 request.getRequestURI(),
-                e.getMessage(),
                 HttpStatus.NOT_FOUND.value(),
-                LocalDateTime.now()
+                e.getMessage(),
+                e.getCause().toString()
         );
 
         return new ResponseEntity<>(apiError, HttpStatus.NOT_FOUND);
@@ -129,10 +134,11 @@ public class DefaultExceptionHandler {
         }
 
         ApiError apiError = new ApiError(
+                LocalDateTime.now(),
                 request.getRequestURI(),
-                errorMessage,
                 HttpStatus.BAD_REQUEST.value(),
-                LocalDateTime.now()
+                errorMessage,
+                e.getCause().toString()
         );
 
         return new ResponseEntity<>(apiError, HttpStatus.BAD_REQUEST);
@@ -141,10 +147,11 @@ public class DefaultExceptionHandler {
     @ExceptionHandler({IllegalArgumentException.class})
     public ResponseEntity<ApiError> handleException(IllegalArgumentException e, HttpServletRequest request) {
         ApiError apiError = new ApiError(
+                LocalDateTime.now(),
                 request.getRequestURI(),
-                e.getMessage(),
                 HttpStatus.BAD_REQUEST.value(),
-                LocalDateTime.now()
+                e.getMessage(),
+                e.getCause().toString()
         );
 
         return new ResponseEntity<>(apiError, HttpStatus.BAD_REQUEST);
@@ -158,10 +165,11 @@ public class DefaultExceptionHandler {
         String errorMessage = "Failed to convert value '" + actualValue + "' to required type '" + expectedType + "'";
 
         ApiError apiError = new ApiError(
+                LocalDateTime.now(),
                 request.getRequestURI(),
-                errorMessage,
                 HttpStatus.BAD_REQUEST.value(),
-                LocalDateTime.now()
+                errorMessage,
+                e.getCause().toString()
         );
 
         return new ResponseEntity<>(apiError, HttpStatus.BAD_REQUEST);
@@ -170,10 +178,11 @@ public class DefaultExceptionHandler {
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ApiError> handleException(Exception e, HttpServletRequest request) {
         ApiError apiError = new ApiError(
+                LocalDateTime.now(),
                 request.getRequestURI(),
-                e.getMessage(),
                 HttpStatus.INTERNAL_SERVER_ERROR.value(),
-                LocalDateTime.now()
+                e.getMessage(),
+                e.getCause().toString()
         );
 
         return new ResponseEntity<>(apiError, HttpStatus.INTERNAL_SERVER_ERROR);
