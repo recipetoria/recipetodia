@@ -29,9 +29,10 @@ public class TagService {
         return TagDTO.convertToTagDto(tagRepository.findById(tagId).orElseThrow(()-> new IllegalStateException("TAG_NOT_FOUND")));
     }
 
-    public List<TagDTO> getAllTagsOfUser(Long userId){
+    public List<TagDTO> getAllTagsOfUser(){
         List<TagDTO> tagDTOList = new ArrayList<>();
-        List<Tag>allTags = tagRepository.findTagsByApplicationUser_Id(userId);
+        ApplicationUser currAppUser = (ApplicationUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        List<Tag>allTags = tagRepository.findTagsByApplicationUser_Id(currAppUser.getId());
         for(Tag tag : allTags){
             tagDTOList.add(TagDTO.convertToTagDto(tag));
         }

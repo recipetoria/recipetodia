@@ -21,11 +21,11 @@ public class TagController {
         return tagService.createNewTag(tagDTO);
     }
 
-    @GetMapping("/user/{userId}")
+    @GetMapping("/all")
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
-    public List<TagDTO> getAllTags(@PathVariable Long userId){
-        return tagService.getAllTagsOfUser(userId);
+    public List<TagDTO> getAllTags(){
+        return tagService.getAllTagsOfUser();
     }
 
     @GetMapping("/{tagId}")
