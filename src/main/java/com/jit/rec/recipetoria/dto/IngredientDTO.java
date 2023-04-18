@@ -1,7 +1,7 @@
 package com.jit.rec.recipetoria.dto;
 
 import com.jit.rec.recipetoria.entity.Ingredient;
-import com.jit.rec.recipetoria.entity.MeasurementUnit;
+import com.jit.rec.recipetoria.enumeration.MeasurementUnit;
 import jakarta.annotation.Nullable;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
@@ -11,12 +11,12 @@ public record IngredientDTO(
         @Nullable
         Long id,
 
-        @NotNull(message = "Name cannot be null")
-        @Size(min = 1, max = 30, message = "Name must be between 1 and 30 characters")
+        @NotNull(message = "{validation.ingredientDTO.name.NotNull}")
+        @Size(min = 1, max = 30, message = "{validation.ingredientDTO.name.Size}")
         String name,
 
-        @NotNull(message = "Amount cannot be null")
-        @Positive(message = "Amount must be positive")
+        @NotNull(message = "{validation.ingredientDTO.amount.NotNull}")
+        @Positive(message = "{validation.ingredientDTO.amount.Positive}")
         Double amount,
 
         MeasurementUnit measurementUnit,

@@ -1,6 +1,5 @@
 package com.jit.rec.recipetoria.security.applicationUser;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.jit.rec.recipetoria.entity.Ingredient;
 import com.jit.rec.recipetoria.entity.Recipe;
 import com.jit.rec.recipetoria.entity.Tag;

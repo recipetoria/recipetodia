@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -20,6 +21,7 @@ import java.util.*;
 public class ApplicationUserSettingsService {
 
     private static final String DIRECTORY_FOR_USER_PHOTOS = "src/main/resources/static/images/user-photos/";
+    private static final String[] USER_PHOTOS_SUPPORTED_EXTENSIONS = {".jpg", ".jpeg", ".png", ".gif"};
 
     private final ApplicationUserRepository applicationUserRepository;
     private final PasswordEncoder passwordEncoder;
@@ -61,8 +63,8 @@ public class ApplicationUserSettingsService {
         validatePhoto(file);
 
         String fileName = applicationUser.getId() + "-profile-photo"
-                + Objects.requireNonNull(file.getOriginalFilename()).toLowerCase()
-                .substring(file.getOriginalFilename().toLowerCase().lastIndexOf("."));
+                + Objects.requireNonNull(file.getOriginalFilename())
+                .substring(file.getOriginalFilename().lastIndexOf("."));
 
         deletePhoto();
 
@@ -84,10 +86,10 @@ public class ApplicationUserSettingsService {
 
         long maxSize = 5 * 1024 * 1024; // 5 MB
         if (file.getSize() > maxSize) {
-            throw new IllegalArgumentException("File size exceeds the allowed limit of 5 MB.");
+            throw new MaxUploadSizeExceededException(maxSize);
         }
 
-        Set<String> allowedExtensions = new HashSet<>(Arrays.asList(".jpg", ".jpeg", ".png", ".gif"));
+        Set<String> allowedExtensions = new HashSet<>(Arrays.asList(USER_PHOTOS_SUPPORTED_EXTENSIONS));
         boolean isAllowedExtension = false;
         for (String extension : allowedExtensions) {
             if (Objects.requireNonNull(file.getOriginalFilename()).toLowerCase().endsWith(extension)) {
@@ -128,9 +130,12 @@ public class ApplicationUserSettingsService {
         return ApplicationUserDTO.convertToDTO(updatedApplicationUser);
     }
 
-    public void deleteApplicationUser() {
+    public void deleteApplicationUser() throws IOException {
         ApplicationUser applicationUser =
                 (ApplicationUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        deletePhoto();
+
         applicationUserRepository.delete(applicationUser);
     }
 }

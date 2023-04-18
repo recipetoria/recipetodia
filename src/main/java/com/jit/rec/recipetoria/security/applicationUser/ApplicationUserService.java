@@ -31,12 +31,12 @@ public class ApplicationUserService {
         return allIngredientDTOs;
     }
 
-    public IngredientDTO createIngredient(IngredientDTO newIngredientRequest) {
+    public IngredientDTO createIngredient(IngredientDTO newIngredientInfo) {
         Ingredient ingredient = new Ingredient();
 
-        ingredient.setName(newIngredientRequest.name());
-        ingredient.setAmount(newIngredientRequest.amount());
-        ingredient.setMeasurementUnit(newIngredientRequest.measurementUnit());
+        ingredient.setName(newIngredientInfo.name());
+        ingredient.setAmount(newIngredientInfo.amount());
+        ingredient.setMeasurementUnit(newIngredientInfo.measurementUnit());
         ingredient.setApplicationUser(getApplicationUser());
 
         Ingredient createdIngredient = ingredientRepository.save(ingredient);

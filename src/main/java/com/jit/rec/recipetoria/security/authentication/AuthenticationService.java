@@ -32,6 +32,7 @@ public class AuthenticationService {
         checkIfEmailExists(authenticationRequest.getEmail());
 
         ApplicationUser applicationUser = ApplicationUser.builder()
+                .name(authenticationRequest.getName())
                 .email(authenticationRequest.getEmail())
                 .password(passwordEncoder.encode(authenticationRequest.getPassword()))
                 .applicationUserRole(ApplicationUserRole.USER)
