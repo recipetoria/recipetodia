@@ -12,6 +12,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -32,7 +33,7 @@ public class DefaultExceptionHandler {
                 request.getRequestURI(),
                 HttpStatus.FORBIDDEN.value(),
                 e.getMessage(),
-                e.getCause().toString()
+                Arrays.toString(e.getStackTrace())
         );
 
         return new ResponseEntity<>(apiError, HttpStatus.FORBIDDEN);
@@ -45,7 +46,7 @@ public class DefaultExceptionHandler {
                 request.getRequestURI(),
                 HttpStatus.UNAUTHORIZED.value(),
                 e.getMessage(),
-                e.getCause().toString()
+                Arrays.toString(e.getStackTrace())
         );
 
         return new ResponseEntity<>(apiError, HttpStatus.UNAUTHORIZED);
@@ -58,7 +59,7 @@ public class DefaultExceptionHandler {
                 request.getRequestURI(),
                 HttpStatus.CONFLICT.value(),
                 e.getMessage(),
-                e.getCause().toString()
+                Arrays.toString(e.getStackTrace())
         );
 
         return new ResponseEntity<>(apiError, HttpStatus.CONFLICT);
@@ -78,7 +79,7 @@ public class DefaultExceptionHandler {
                 request.getRequestURI(),
                 HttpStatus.BAD_REQUEST.value(),
                 String.join(", ", errorMessages),
-                e.getCause().toString()
+                Arrays.toString(e.getStackTrace())
         );
 
         return new ResponseEntity<>(apiError, HttpStatus.BAD_REQUEST);
@@ -91,7 +92,7 @@ public class DefaultExceptionHandler {
                 request.getRequestURI(),
                 HttpStatus.NOT_FOUND.value(),
                 e.getMessage(),
-                e.getCause().toString()
+                Arrays.toString(e.getStackTrace())
         );
 
         return new ResponseEntity<>(apiError, HttpStatus.NOT_FOUND);
@@ -138,7 +139,7 @@ public class DefaultExceptionHandler {
                 request.getRequestURI(),
                 HttpStatus.BAD_REQUEST.value(),
                 errorMessage,
-                e.getCause().toString()
+                Arrays.toString(e.getStackTrace())
         );
 
         return new ResponseEntity<>(apiError, HttpStatus.BAD_REQUEST);
@@ -151,7 +152,7 @@ public class DefaultExceptionHandler {
                 request.getRequestURI(),
                 HttpStatus.BAD_REQUEST.value(),
                 e.getMessage(),
-                e.getCause().toString()
+                Arrays.toString(e.getStackTrace())
         );
 
         return new ResponseEntity<>(apiError, HttpStatus.BAD_REQUEST);
@@ -169,7 +170,21 @@ public class DefaultExceptionHandler {
                 request.getRequestURI(),
                 HttpStatus.BAD_REQUEST.value(),
                 errorMessage,
-                e.getCause().toString()
+                Arrays.toString(e.getStackTrace())
+        );
+
+        return new ResponseEntity<>(apiError, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(MaxUploadSizeExceededException.class)
+    public ResponseEntity<ApiError> handleException(MaxUploadSizeExceededException e, HttpServletRequest request) {
+
+        ApiError apiError = new ApiError(
+                LocalDateTime.now(),
+                request.getRequestURI(),
+                HttpStatus.BAD_REQUEST.value(),
+                e.getMessage(),
+                Arrays.toString(e.getStackTrace())
         );
 
         return new ResponseEntity<>(apiError, HttpStatus.BAD_REQUEST);
@@ -182,7 +197,7 @@ public class DefaultExceptionHandler {
                 request.getRequestURI(),
                 HttpStatus.INTERNAL_SERVER_ERROR.value(),
                 e.getMessage(),
-                e.getCause().toString()
+                Arrays.toString(e.getStackTrace())
         );
 
         return new ResponseEntity<>(apiError, HttpStatus.INTERNAL_SERVER_ERROR);

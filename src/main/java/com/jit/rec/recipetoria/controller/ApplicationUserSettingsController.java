@@ -91,7 +91,7 @@ public class ApplicationUserSettingsController {
     }
 
     @DeleteMapping("/account-delete")
-    public ResponseEntity<ApiResponse> deleteApplicationUser() {
+    public ResponseEntity<ApiResponse> deleteApplicationUser() throws IOException {
         applicationUserSettingsService.deleteApplicationUser();
 
         return ResponseEntity.ok(
