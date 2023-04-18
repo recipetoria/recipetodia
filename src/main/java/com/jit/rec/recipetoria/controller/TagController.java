@@ -1,7 +1,6 @@
 package com.jit.rec.recipetoria.controller;
 
 import com.jit.rec.recipetoria.dto.TagDTO;
-import com.jit.rec.recipetoria.entity.Tag;
 import com.jit.rec.recipetoria.service.TagService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -18,17 +17,19 @@ public class TagController {
     @PostMapping
     @ResponseBody
     @ResponseStatus(HttpStatus.CREATED)
-    public void createNewTag(@RequestBody TagDTO tagDTO){
-        tagService.createNewTag(tagDTO);
+    public Long createNewTag(@RequestBody TagDTO tagDTO){
+        return tagService.createNewTag(tagDTO);
     }
 
-    @GetMapping
-    public List<Tag> getAllTags(){
-        return tagService.getAllTags();
+    @GetMapping("/user/{userId}")
+    @ResponseBody
+    @ResponseStatus(HttpStatus.OK)
+    public List<TagDTO> getAllTags(@PathVariable Long userId){
+        return tagService.getAllTagsOfUser(userId);
     }
 
     @GetMapping("/{tagId}")
-    public Tag getTagById(@PathVariable ("tagId") Long id){
+    public TagDTO getTagById(@PathVariable ("tagId") Long id){
         return tagService.getTagById(id);
     }
 

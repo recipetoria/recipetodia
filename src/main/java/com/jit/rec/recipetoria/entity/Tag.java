@@ -2,6 +2,7 @@ package com.jit.rec.recipetoria.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.jit.rec.recipetoria.security.applicationUser.ApplicationUser;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import jakarta.persistence.*;
 import lombok.NoArgsConstructor;
@@ -17,6 +18,7 @@ public class Tag {
     @SequenceGenerator(name = "sequence", sequenceName = "sequence", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence")
     private Long id;
+    @NotNull
     private String name;
     @ManyToOne (cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
