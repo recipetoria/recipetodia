@@ -13,9 +13,11 @@ public class TagDTO {
     private Long id;
     @NotBlank
     private String name;
+    @Nullable
+    private String icon;
 
     public static TagDTO convertToTagDto(Tag tag){
-        return new TagDTO(tag.getId(), tag.getName());
+        return new TagDTO(tag.getId(), tag.getName(), tag.getIcon());
     }
 
 

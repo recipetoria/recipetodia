@@ -46,7 +46,6 @@ public class IngredientController {
                         .build()
         );
     }
-
     @PatchMapping("/{ingredientId}")
     public ResponseEntity<ApiResponse> updateIngredientById(@PathVariable("ingredientId") Long ingredientId,
                                                             @RequestBody @Valid IngredientDTO updatedIngredientInfo) {

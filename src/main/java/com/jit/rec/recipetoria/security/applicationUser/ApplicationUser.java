@@ -38,11 +38,9 @@ public class ApplicationUser implements UserDetails {
     private List<Ingredient> shoppingList;
     //removed commenting from listOfRecipes
     @OneToMany(mappedBy = "applicationUser", cascade = CascadeType.ALL)
-    @JsonIgnore
     private List<Recipe> listOfRecipes;
     //added field to activate db mapping with tags
     @OneToMany(mappedBy = "applicationUser", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnore
     private Set<Tag> tags;
 
     @Override

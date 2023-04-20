@@ -220,3 +220,6 @@ $RECYCLE.BIN/
 /target/
 target/
 *.env
+.env
+
+

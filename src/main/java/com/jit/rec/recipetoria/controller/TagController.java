@@ -1,12 +1,15 @@
 package com.jit.rec.recipetoria.controller;
 
 import com.jit.rec.recipetoria.dto.TagDTO;
+import com.jit.rec.recipetoria.entity.ApiResponse;
 import com.jit.rec.recipetoria.service.TagService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.time.LocalDateTime;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1/client/tags")
@@ -15,27 +18,55 @@ public class TagController {
     private final TagService tagService;
 
     @PostMapping
-    @ResponseBody
-    @ResponseStatus(HttpStatus.CREATED)
-    public Long createNewTag(@RequestBody TagDTO tagDTO){
-        return tagService.createNewTag(tagDTO);
+    public ResponseEntity<ApiResponse> createNewTag(@RequestBody TagDTO tagDTO){
+        return ResponseEntity.ok(
+                ApiResponse.builder()
+                        .timeStamp(LocalDateTime.now())
+                        .statusCode(HttpStatus.CREATED.value())
+                        .status(HttpStatus.CREATED)
+                        .message("tag \"" + tagDTO.getName() + "\" was created")
+                        .data(Map.of("tagDTO", tagService.createNewTag(tagDTO)))
+                        .build()
+        );
     }
 
     @GetMapping("/all")
-    @ResponseBody
-    @ResponseStatus(HttpStatus.OK)
-    public List<TagDTO> getAllTags(){
-        return tagService.getAllTagsOfUser();
+    public ResponseEntity<ApiResponse> getAllTags(){
+        return ResponseEntity.ok(
+                ApiResponse.builder()
+                        .timeStamp(LocalDateTime.now())
+                        .statusCode(HttpStatus.OK.value())
+                        .status(HttpStatus.OK)
+                        .message("all tags of user retrieved")
+                        .data(Map.of("tagDTO", tagService.getAllTagsOfUser()))
+                        .build()
+        );
     }
 
     @GetMapping("/{tagId}")
-    public TagDTO getTagById(@PathVariable ("tagId") Long id){
-        return tagService.getTagById(id);
+    public ResponseEntity<ApiResponse> getTagById(@PathVariable ("tagId") Long id){
+        return ResponseEntity.ok(
+                ApiResponse.builder()
+                        .timeStamp(LocalDateTime.now())
+                        .statusCode(HttpStatus.OK.value())
+                        .status(HttpStatus.OK)
+                        .message("tag with ID " + id + " retrieved")
+                        .data(Map.of("tagDTO", tagService.getTagById(id)))
+                        .build()
+        );
     }
 
     @DeleteMapping("/{tagId}")
-    public void deleteTagById(@PathVariable ("tagId") Long id){
+    public ResponseEntity<ApiResponse> deleteTagById(@PathVariable ("tagId") Long id){
         tagService.deleteById(id);
-    }
 
+        return ResponseEntity.ok(
+                ApiResponse.builder()
+                        .timeStamp(LocalDateTime.now())
+                        .statusCode(HttpStatus.OK.value())
+                        .status(HttpStatus.OK)
+                        .message("tag with ID " + id + " was deleted")
+                        .build()
+        );
+    }
 }

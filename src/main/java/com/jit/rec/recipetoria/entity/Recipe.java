@@ -1,14 +1,10 @@
 package com.jit.rec.recipetoria.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.jit.rec.recipetoria.security.applicationUser.ApplicationUser;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +13,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @Data
 public class Recipe {
 
@@ -28,7 +25,7 @@ public class Recipe {
     @Column(nullable = false)
     private String name;
     private String mainPhoto;
-    @ManyToOne (cascade = CascadeType.ALL)
+    @ManyToOne (cascade = CascadeType.MERGE)
     @JoinColumn (name = "user_id")
     private ApplicationUser applicationUser;
     @ManyToMany(cascade = CascadeType.ALL)
@@ -37,9 +34,9 @@ public class Recipe {
             joinColumns = @JoinColumn(name = "recipe_id"),
             inverseJoinColumns = @JoinColumn(name = "tag_id")
     )
+
     private List<Tag> tags;
     @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL)
-    @JsonIgnore
     private List<Ingredient> ingredientList;
     @ElementCollection
     @Column(columnDefinition = "TEXT")
@@ -61,5 +58,42 @@ public class Recipe {
         }
         return recipeTagNames;
     }
+
+    public List<Ingredient> getIngredientList(){
+        if (this.ingredientList == null){
+            return this.ingredientList = new ArrayList<>();
+        }
+        else
+            return this.ingredientList;
+    }
+
+    public List<Tag> getTags(){
+        if (this.tags == null){
+            return this.tags = new ArrayList<>();
+        } else
+            return this.tags;
+    }
+
+    public List<String> getInstructions(){
+        if (this.instructions == null){
+            return this.instructions = new ArrayList<>();
+        } else
+            return this.instructions;
+    }
+
+    public List<String> getInstructionPhotos(){
+        if (this.instructionPhotos == null){
+            return this.instructionPhotos = new ArrayList<>();
+        } else
+            return this.instructionPhotos;
+    }
+
+    public List<String> getLinks(){
+        if (this.links == null){
+            return this.links = new ArrayList<>();
+        } else
+            return this.links;
+    }
+
 
 }
