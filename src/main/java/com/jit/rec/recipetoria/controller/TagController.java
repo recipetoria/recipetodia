@@ -24,8 +24,8 @@ public class TagController {
                         .timeStamp(LocalDateTime.now())
                         .statusCode(HttpStatus.CREATED.value())
                         .status(HttpStatus.CREATED)
-                        .message("tag \"" + tagDTO.getName() + "\" was created")
-                        .data(Map.of("tagDTO", tagService.createNewTag(tagDTO)))
+                        .message("tag \"" + tagDTO.getName() + "\" was created.")
+                        .data(Map.of("tag id", tagService.createNewTag(tagDTO)))
                         .build()
         );
     }
