@@ -221,5 +221,5 @@ $RECYCLE.BIN/
 target/
 *.env
 .env
-
-
+/.idea/workspace.xml
+/.idea/

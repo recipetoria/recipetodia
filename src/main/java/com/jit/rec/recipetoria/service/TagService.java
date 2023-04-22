@@ -24,16 +24,20 @@ public class TagService {
 
 
 
-    public Long createNewTag(TagDTO tagDTO) {
+    public TagDTO createNewTag(TagDTO tagDTO) {
         Tag newTag = new Tag();
-        newTag.setName(tagDTO.getName());
+        newTag.setName(tagDTO.name());
         newTag.setApplicationUser((ApplicationUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
 
-        return tagRepository.save(newTag).getId();
+        return TagDTO.convertToTagDto(tagRepository.save(newTag));
     }
 
-    public TagDTO getTagById(Long tagId){
+    public TagDTO getTagDTOById(Long tagId){
         return TagDTO.convertToTagDto(tagRepository.findById(tagId).orElseThrow(()-> new IllegalStateException("TAG_NOT_FOUND")));
+    }
+
+    public Tag getTagById(Long tagId){
+        return tagRepository.findById(tagId).orElseThrow(()->new IllegalStateException("TAG_NOT_FOUND"));
     }
 
     public List<TagDTO> getAllTagsOfUser(){

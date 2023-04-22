@@ -68,7 +68,6 @@ public class RecipeController {
     }
 
     @GetMapping("/{recipeId}")
-
     public ResponseEntity<ApiResponse> getRecipeById(@PathVariable("recipeId") Long id){
         return ResponseEntity.ok(
                 ApiResponse.builder()

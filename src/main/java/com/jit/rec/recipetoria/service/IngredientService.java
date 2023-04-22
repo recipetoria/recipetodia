@@ -14,7 +14,7 @@ public class IngredientService {
     private final IngredientRepository ingredientRepository;
 
     public IngredientDTO createIngredient(IngredientDTO newIngredientInfo) {
-        Ingredient ingredient = dtoToIngredientConverter(newIngredientInfo);
+        Ingredient ingredient = IngredientDTO.dtoToIngredientConverter(newIngredientInfo);
         ingredientRepository.save(ingredient);
 
         return IngredientDTO.convertToDTO(ingredient);
@@ -47,15 +47,4 @@ public class IngredientService {
 
         ingredientRepository.deleteById(ingredientId);
     }
-
-    public Ingredient dtoToIngredientConverter(IngredientDTO ingredientDTO){ //some optimization
-        Ingredient ingredient = new Ingredient();
-
-        ingredient.setName(ingredientDTO.name());
-        ingredient.setAmount(ingredientDTO.amount());
-        ingredient.setMeasurementUnit(ingredientDTO.measurementUnit());
-
-        return ingredient;
-    }
-
 }

@@ -2,56 +2,65 @@ package com.jit.rec.recipetoria.service;
 
 import com.jit.rec.recipetoria.dto.IngredientDTO;
 import com.jit.rec.recipetoria.dto.RecipeDTO;
+import com.jit.rec.recipetoria.dto.TagDTO;
 import com.jit.rec.recipetoria.entity.Ingredient;
 import com.jit.rec.recipetoria.entity.Recipe;
 import com.jit.rec.recipetoria.exception.ResourceNotFoundException;
+import com.jit.rec.recipetoria.repository.IngredientRepository;
 import com.jit.rec.recipetoria.repository.RecipeRepository;
 import com.jit.rec.recipetoria.security.applicationUser.ApplicationUser;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class RecipeService {
     private final RecipeRepository recipeRepository;
-    private final IngredientService ingredientService;
+    private final IngredientRepository ingredientRepository;
+    private final TagService tagService;
 
-    public RecipeService(RecipeRepository recipeRepository, IngredientService ingredientService) {
+    public RecipeService(RecipeRepository recipeRepository,
+                         TagService tagService,
+                         IngredientRepository ingredientRepository) {
         this.recipeRepository = recipeRepository;
-        this.ingredientService = ingredientService;
+        this.tagService = tagService;
+        this.ingredientRepository = ingredientRepository;
     }
 
-    public List<RecipeDTO> getAllRecipes(){
-        List<Recipe>allRecipes = recipeRepository.findAll();
+    public List<RecipeDTO> getAllRecipes() {
+        List<Recipe> allRecipes = recipeRepository.findAll();
         List<RecipeDTO> recipeResponses = new ArrayList<>();
-        for (Recipe recipe : allRecipes){
+        for (Recipe recipe : allRecipes) {
             recipeResponses.add(RecipeDTO.convertToDTO(recipe));
         }
         return recipeResponses;
     }
 
-    public RecipeDTO createNewRecipe(RecipeDTO recipeDTO){
-        //todo: adjust tag saving from ids or from tag names?
+    public RecipeDTO createNewRecipe(RecipeDTO recipeDTO) {
         Recipe recipe = new Recipe();
 
-        if(recipeDTO.getName()!=null){
+        if (recipeDTO.getName() != null) {
             recipe.setName(recipeDTO.getName());
+
+//todo:
+
+            // future logic for creation new tag at the same tima as recipe
+            // if only id in dto -> add tag(s) to recipe
+            // if no id, but name -> create new tag for user, add tag to recipe
+
+            Optional.ofNullable(recipeDTO.getTagDTOs())
+                    .stream()
+                    .flatMap(Collection::stream)
+                    .map(TagDTO::id)
+                    .map(tagService::getTagById)
+                    .forEach(recipe.getTags()::add);
 
             Optional.ofNullable(recipeDTO.getInstructions())
                     .ifPresent(recipe::setInstructions);
 
             Optional.ofNullable(recipeDTO.getLinks())
                     .ifPresent(recipe::setLinks);
-
-//todo:  adjust tag logic
-
-            if (recipe.getTags() != null) {
-                recipe.setTags(recipe.getTags());
-            }
 
             Optional.ofNullable(recipeDTO.getInstructionPhotos())
                     .ifPresent(recipe::setInstructionPhotos);
@@ -59,28 +68,24 @@ public class RecipeService {
             Optional.ofNullable(recipeDTO.getMainPhoto())
                     .ifPresent(recipe::setMainPhoto);
 
-            Optional.ofNullable(recipeDTO.getInstructions())
-                    .ifPresent(recipe::setInstructions);
-
             Optional.ofNullable(recipeDTO.getInstructionPhotos())
                     .ifPresent(recipe::setInstructionPhotos);
 
-            Optional.ofNullable(recipeDTO.getLinks())
-                    .ifPresent(recipe::setLinks);
+//todo: debug optional
 
-            Optional.ofNullable(recipeDTO.getIngredients())
-                    .orElse(Collections.emptyList())
-                    .stream()
-                    .map(ingredientService::dtoToIngredientConverter)
-                    .forEach(recipe.getIngredientList()::add);
+//            Optional.ofNullable(recipeDTO.getIngredients())
+//                    .orElse(Collections.emptyList())
+//                    .stream()
+//                    .map(ingredientService::dtoToIngredientConverter)
+//                    .forEach(recipe.getIngredientList()::add);
 
-//            if (recipeDTO.getIngredients() != null) {
-//                for(IngredientDTO newIngredientDTO : recipeDTO.getIngredients()){
-//                    Ingredient newIngredient = ingredientService.dtoToIngredientConverter(newIngredientDTO);
-//                    recipe.getIngredientList().add(newIngredient);
-//                }
-//            }
+            if (recipeDTO.getIngredients() != null) {
+                for (IngredientDTO newIngredientDTO : recipeDTO.getIngredients()) {
 
+                    Ingredient newIngredient = IngredientDTO.dtoToIngredientConverter(newIngredientDTO);
+                    recipe.getIngredientList().add(ingredientRepository.save(newIngredient));
+                }
+            }
 
             recipe.setApplicationUser((ApplicationUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
             recipeRepository.save(recipe);
@@ -88,21 +93,25 @@ public class RecipeService {
         return RecipeDTO.convertToDTO(recipe);
     }
 
-    public RecipeDTO updateRecipeById(Long recipeToUpdateId, RecipeDTO updatedRecipeDTO){
+    public RecipeDTO updateRecipeById(Long recipeToUpdateId, RecipeDTO updatedRecipeDTO) {
         Recipe recipeToBeUpdated = recipeRepository.findById(recipeToUpdateId)
                 .orElseThrow(() -> new ResourceNotFoundException("Recipe with ID " + recipeToUpdateId + " not found"));
 
-        if(updatedRecipeDTO.getName()!=null){
+        if (updatedRecipeDTO.getName() != null) {
             recipeToBeUpdated.setName(updatedRecipeDTO.getName());
 
             Optional.ofNullable(updatedRecipeDTO.getMainPhoto())
                     .ifPresent(recipeToBeUpdated::setMainPhoto);
 
-//todo:  adjust tag updating process
-
-//            if (updatedRecipeDTO.getTags() != null){
-//                recipeToBeUpdated.setTags();
-//            }
+            if (updatedRecipeDTO.getTagDTOs() != null) {
+                recipeToBeUpdated.setTags(new ArrayList<>());
+            }
+            Optional.ofNullable(updatedRecipeDTO.getTagDTOs())
+                    .stream()
+                    .flatMap(Collection::stream)
+                    .map(TagDTO::id)
+                    .map(tagService::getTagById)
+                    .forEach(recipeToBeUpdated.getTags()::add);
 
             Optional.ofNullable(updatedRecipeDTO.getInstructions())
                     .ifPresent(recipeToBeUpdated::setInstructions);
@@ -116,8 +125,8 @@ public class RecipeService {
 //todo: turn into Optional
             if (updatedRecipeDTO.getIngredients() != null) {
                 List<Ingredient> newIngredients = new ArrayList<>();
-                for(IngredientDTO newIngredientDTO : updatedRecipeDTO.getIngredients()){
-                    Ingredient ingredient = ingredientService.dtoToIngredientConverter(newIngredientDTO);
+                for (IngredientDTO newIngredientDTO : updatedRecipeDTO.getIngredients()) {
+                    Ingredient ingredient = IngredientDTO.dtoToIngredientConverter(newIngredientDTO);
                     newIngredients.add(ingredient);
                 }
                 recipeToBeUpdated.setIngredientList(newIngredients);
@@ -126,12 +135,12 @@ public class RecipeService {
         return RecipeDTO.convertToDTO(recipeRepository.save(recipeToBeUpdated));
     }
 
-    public void deleteRecipeById(Long id){
+    public void deleteRecipeById(Long id) {
         recipeRepository.deleteById(id);
     }
 
     public RecipeDTO getRecipeById(Long id) {
-       return RecipeDTO.convertToDTO(recipeRepository.findById(id).orElseThrow(() -> new IllegalStateException("NOT FOUND")));
+        return RecipeDTO.convertToDTO(recipeRepository.findById(id).orElseThrow(() -> new IllegalStateException("NOT FOUND")));
     }
 
 
