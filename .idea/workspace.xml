@@ -4,20 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9d8fdb90-e583-4a4a-ac36-8ca0b4776101" name="Changes" comment="Merge remote-tracking branch 'origin/backend-s' into backend-s">
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/jit/rec/recipetoria/service/RecipeServiceTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    <list default="true" id="9d8fdb90-e583-4a4a-ac36-8ca0b4776101" name="Changes" comment="fixed tagging recipe&#10;minor changes">
+      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/recipetoria.iml" beforeDir="false" afterPath="$PROJECT_DIR$/recipetoria.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/controller/RecipeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/controller/RecipeController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/controller/TagController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/controller/TagController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/dto/IngredientDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/dto/IngredientDTO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/dto/RecipeDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/dto/RecipeDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/dto/TagDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/dto/TagDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/service/IngredientService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/service/IngredientService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/service/RecipeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/service/RecipeService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/service/TagService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/service/TagService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -62,37 +53,37 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
-    "git-widget-placeholder": "main",
-    "last_directory_selection": "/Users/cgrey/projects/jit-rec/web/src/test/java/com/jit/rec",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Libraries",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "run.code.analysis.last.selected.profile": "pProject Default",
-    "spring.configuration.checksum": "f8c453b760e87c3960dd25a1fc2e00e5",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_directory_selection&quot;: &quot;/Users/cgrey/projects/jit-rec/web/src/test/java/com/jit/rec&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
+    &quot;spring.configuration.checksum&quot;: &quot;f8c453b760e87c3960dd25a1fc2e00e5&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "postgresql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;postgresql&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
@@ -101,7 +92,23 @@
       <recent name="com.jit.rec.recipetoria.service" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Spring Boot.RecipetoriaApplication">
+    <configuration name="RecipeServiceTest.getAllRecipes" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="recipetoria" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.jit.rec.recipetoria.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.jit.rec.recipetoria.service" />
+      <option name="MAIN_CLASS_NAME" value="com.jit.rec.recipetoria.service.RecipeServiceTest" />
+      <option name="METHOD_NAME" value="getAllRecipes" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="RecipetoriaApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="recipetoria" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.jit.rec.recipetoria.RecipetoriaApplication" />
@@ -109,6 +116,11 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.RecipeServiceTest.getAllRecipes" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SpringBeansView">
@@ -138,7 +150,9 @@
       <workItem from="1681842030748" duration="27599000" />
       <workItem from="1682073349401" duration="6670000" />
       <workItem from="1682097244552" duration="106000" />
-      <workItem from="1682158009280" duration="13384000" />
+      <workItem from="1682158009280" duration="15128000" />
+      <workItem from="1682245330361" duration="6520000" />
+      <workItem from="1682345110859" duration="5760000" />
     </task>
     <task id="LOCAL-00001" summary="1. Changed application.properties">
       <created>1680339848147</created>
@@ -245,7 +259,14 @@
       <option name="project" value="LOCAL" />
       <updated>1682030556722</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="fixed tagging recipe&#10;minor changes">
+      <created>1682193779790</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1682193779790</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -284,6 +305,7 @@
     <MESSAGE value="merged with fresh backend" />
     <MESSAGE value="upd CRUD for Recipe. tag field is out of service&#10;add responses for Recipe CRUD&#10;add responses for Tag CRUD&#10;add dtoToIngredientConverter to IngredientService" />
     <MESSAGE value="Merge remote-tracking branch 'origin/backend-s' into backend-s" />
-    <option name="LAST_COMMIT_MESSAGE" value="Merge remote-tracking branch 'origin/backend-s' into backend-s" />
+    <MESSAGE value="fixed tagging recipe&#10;minor changes" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed tagging recipe&#10;minor changes" />
   </component>
 </project>

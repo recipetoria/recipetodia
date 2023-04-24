@@ -13,6 +13,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.function.Consumer;
 
 @Service
 public class RecipeService {
@@ -26,6 +27,10 @@ public class RecipeService {
         this.recipeRepository = recipeRepository;
         this.tagService = tagService;
         this.ingredientRepository = ingredientRepository;
+    }
+
+    private <T> void setPropertyValue(T value, Consumer<T> setter) {
+        Optional.ofNullable(value).ifPresent(setter);
     }
 
     public List<RecipeDTO> getAllRecipes() {
@@ -43,11 +48,19 @@ public class RecipeService {
         if (recipeDTO.getName() != null) {
             recipe.setName(recipeDTO.getName());
 
-//todo:
+            setPropertyValue(recipeDTO.getInstructions(), recipe::setInstructions);
+            setPropertyValue(recipeDTO.getLinks(), recipe::setLinks);
+            setPropertyValue(recipeDTO.getInstructionPhotos(), recipe::setInstructionPhotos);
+            setPropertyValue(recipeDTO.getMainPhoto(), recipe::setMainPhoto);
+//todo: update logic
 
             // future logic for creation new tag at the same tima as recipe
             // if only id in dto -> add tag(s) to recipe
             // if no id, but name -> create new tag for user, add tag to recipe
+
+//todo: normalno sdelai da
+            Optional.ofNullable(recipeDTO.getTagDTOs())
+                    .orElse(Collections.emptyList());
 
             Optional.ofNullable(recipeDTO.getTagDTOs())
                     .stream()
@@ -56,42 +69,29 @@ public class RecipeService {
                     .map(tagService::getTagById)
                     .forEach(recipe.getTags()::add);
 
-            Optional.ofNullable(recipeDTO.getInstructions())
-                    .ifPresent(recipe::setInstructions);
+//todo: debug
 
-            Optional.ofNullable(recipeDTO.getLinks())
-                    .ifPresent(recipe::setLinks);
+            Optional.ofNullable(recipeDTO.getIngredientDTOs())
+                    .stream()
+                    .flatMap(Collection::stream)
+                    .map(IngredientDTO::dtoToIngredientConverter)
+                    .map(ingredientRepository::save)
+                    .forEach(recipe.getIngredientList()::add);
 
-            Optional.ofNullable(recipeDTO.getInstructionPhotos())
-                    .ifPresent(recipe::setInstructionPhotos);
-
-            Optional.ofNullable(recipeDTO.getMainPhoto())
-                    .ifPresent(recipe::setMainPhoto);
-
-            Optional.ofNullable(recipeDTO.getInstructionPhotos())
-                    .ifPresent(recipe::setInstructionPhotos);
-
-//todo: debug optional
-
-//            Optional.ofNullable(recipeDTO.getIngredients())
-//                    .orElse(Collections.emptyList())
-//                    .stream()
-//                    .map(ingredientService::dtoToIngredientConverter)
-//                    .forEach(recipe.getIngredientList()::add);
-
-            if (recipeDTO.getIngredients() != null) {
-                for (IngredientDTO newIngredientDTO : recipeDTO.getIngredients()) {
-
-                    Ingredient newIngredient = IngredientDTO.dtoToIngredientConverter(newIngredientDTO);
-                    recipe.getIngredientList().add(ingredientRepository.save(newIngredient));
-                }
-            }
+//            if (recipeDTO.getIngredientDTOs() != null) {
+//                for (IngredientDTO newIngredientDTO : recipeDTO.getIngredientDTOs()) {
+//                    Ingredient newIngredient = IngredientDTO.dtoToIngredientConverter(newIngredientDTO);
+//                    recipe.getIngredientList().add(ingredientRepository.save(newIngredient));
+//                }
+//            }
 
             recipe.setApplicationUser((ApplicationUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+
             recipeRepository.save(recipe);
         }
         return RecipeDTO.convertToDTO(recipe);
     }
+
 
     public RecipeDTO updateRecipeById(Long recipeToUpdateId, RecipeDTO updatedRecipeDTO) {
         Recipe recipeToBeUpdated = recipeRepository.findById(recipeToUpdateId)
@@ -99,9 +99,6 @@ public class RecipeService {
 
         if (updatedRecipeDTO.getName() != null) {
             recipeToBeUpdated.setName(updatedRecipeDTO.getName());
-
-            Optional.ofNullable(updatedRecipeDTO.getMainPhoto())
-                    .ifPresent(recipeToBeUpdated::setMainPhoto);
 
             if (updatedRecipeDTO.getTagDTOs() != null) {
                 recipeToBeUpdated.setTags(new ArrayList<>());
@@ -113,24 +110,21 @@ public class RecipeService {
                     .map(tagService::getTagById)
                     .forEach(recipeToBeUpdated.getTags()::add);
 
-            Optional.ofNullable(updatedRecipeDTO.getInstructions())
-                    .ifPresent(recipeToBeUpdated::setInstructions);
-
-            Optional.ofNullable(updatedRecipeDTO.getInstructionPhotos())
-                    .ifPresent(recipeToBeUpdated::setInstructionPhotos);
-
-            Optional.ofNullable(updatedRecipeDTO.getLinks())
-                    .ifPresent(recipeToBeUpdated::setLinks);
-
 //todo: turn into Optional
-            if (updatedRecipeDTO.getIngredients() != null) {
+            if (updatedRecipeDTO.getIngredientDTOs() != null) {
                 List<Ingredient> newIngredients = new ArrayList<>();
-                for (IngredientDTO newIngredientDTO : updatedRecipeDTO.getIngredients()) {
+                for (IngredientDTO newIngredientDTO : updatedRecipeDTO.getIngredientDTOs()) {
                     Ingredient ingredient = IngredientDTO.dtoToIngredientConverter(newIngredientDTO);
                     newIngredients.add(ingredient);
                 }
                 recipeToBeUpdated.setIngredientList(newIngredients);
             }
+
+            setPropertyValue(updatedRecipeDTO.getMainPhoto(), recipeToBeUpdated::setMainPhoto);
+            setPropertyValue(updatedRecipeDTO.getInstructions(), recipeToBeUpdated::setInstructions);
+            setPropertyValue(updatedRecipeDTO.getInstructionPhotos(), recipeToBeUpdated::setInstructionPhotos);
+            setPropertyValue(updatedRecipeDTO.getLinks(), recipeToBeUpdated::setLinks);
+
         }
         return RecipeDTO.convertToDTO(recipeRepository.save(recipeToBeUpdated));
     }
