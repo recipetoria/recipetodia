@@ -29,7 +29,7 @@ public class RecipeDTO {
     private List<TagDTO> tagDTOs;
 
     @Nullable
-    private List<IngredientDTO> ingredients;
+    private List<IngredientDTO> ingredientDTOs;
 
     @Nullable
     private List<String> instructions;
@@ -40,11 +40,11 @@ public class RecipeDTO {
     @Nullable
     private List<String> links;
 
-    public List<IngredientDTO> getIngredients() {
-        if (this.ingredients == null) {
-            return this.ingredients = new ArrayList<>();
+    public List<IngredientDTO> getIngredientDTOs() {
+        if (this.ingredientDTOs == null) {
+            return this.ingredientDTOs = new ArrayList<>();
         } else
-            return this.ingredients;
+            return this.ingredientDTOs;
     }
 
     public static RecipeDTO convertToDTO(Recipe recipe) {
@@ -72,7 +72,7 @@ public class RecipeDTO {
         recipeDTO.setInstructionPhotos((recipe.getInstructionPhotos()));
         recipeDTO.setLinks(recipe.getLinks());
         for (Ingredient ingredientFromRecipe : recipe.getIngredientList()) {
-            recipeDTO.getIngredients().add(IngredientDTO.convertToDTO(ingredientFromRecipe));
+            recipeDTO.getIngredientDTOs().add(IngredientDTO.convertToDTO(ingredientFromRecipe));
         }
         return recipeDTO;
     }
