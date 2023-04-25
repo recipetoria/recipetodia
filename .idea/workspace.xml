@@ -5,7 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9d8fdb90-e583-4a4a-ac36-8ca0b4776101" name="Changes" comment="omg">
-      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -39,15 +38,6 @@
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
-  </component>
-  <component name="MavenRunner">
-    <option name="environmentProperties">
-      <map>
-        <entry key="DATASOURCE_PASSWORD" value="12345670" />
-        <entry key="DATASOURCE_URL" value="jdbc:postgresql://localhost:5432/recipetoria" />
-        <entry key="DATASOURCE_USERNAME" value="postgres" />
-      </map>
-    </option>
   </component>
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="CurrentFile" />
@@ -265,7 +255,14 @@
       <option name="project" value="LOCAL" />
       <updated>1682437391064</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="omg">
+      <created>1682438763706</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1682438763706</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
