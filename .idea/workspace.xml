@@ -4,10 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9d8fdb90-e583-4a4a-ac36-8ca0b4776101" name="Changes" comment="minor changes">
-      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
+    <list default="true" id="9d8fdb90-e583-4a4a-ac36-8ca0b4776101" name="Changes" comment="Merge remote-tracking branch 'origin/backend-s' into backend-s">
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/jit/rec/recipetoria/service/RecipeServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/recipetoria.iml" beforeDir="false" afterPath="$PROJECT_DIR$/recipetoria.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/controller/RecipeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/controller/RecipeController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/controller/TagController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/controller/TagController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/dto/IngredientDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/dto/IngredientDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/dto/RecipeDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/dto/RecipeDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/dto/TagDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/dto/TagDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/service/IngredientService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/service/IngredientService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/service/RecipeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/service/RecipeService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/service/TagService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/service/TagService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -91,23 +101,7 @@
       <recent name="com.jit.rec.recipetoria.service" />
     </key>
   </component>
-  <component name="RunManager" selected="Spring Boot.RecipetoriaApplication">
-    <configuration name="RecipeServiceTest.getAllRecipes" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="recipetoria" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.jit.rec.recipetoria.service.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.jit.rec.recipetoria.service" />
-      <option name="MAIN_CLASS_NAME" value="com.jit.rec.recipetoria.service.RecipeServiceTest" />
-      <option name="METHOD_NAME" value="getAllRecipes" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager">
     <configuration name="RecipetoriaApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="recipetoria" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.jit.rec.recipetoria.RecipetoriaApplication" />
@@ -115,11 +109,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <recent_temporary>
-      <list>
-        <item itemvalue="JUnit.RecipeServiceTest.getAllRecipes" />
-      </list>
-    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SpringBeansView">
@@ -149,9 +138,7 @@
       <workItem from="1681842030748" duration="27599000" />
       <workItem from="1682073349401" duration="6670000" />
       <workItem from="1682097244552" duration="106000" />
-      <workItem from="1682158009280" duration="15128000" />
-      <workItem from="1682245330361" duration="6520000" />
-      <workItem from="1682345110859" duration="9414000" />
+      <workItem from="1682158009280" duration="13384000" />
     </task>
     <task id="LOCAL-00001" summary="1. Changed application.properties">
       <created>1680339848147</created>
@@ -258,25 +245,22 @@
       <option name="project" value="LOCAL" />
       <updated>1682030556722</updated>
     </task>
-    <task id="LOCAL-00016" summary="fixed tagging recipe&#10;minor changes">
-      <created>1682193779790</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1682193779790</updated>
-    </task>
-    <task id="LOCAL-00017" summary="minor changes">
-      <created>1682362236772</created>
-      <option name="number" value="00017" />
-      <option name="presentableId" value="LOCAL-00017" />
-      <option name="project" value="LOCAL" />
-      <updated>1682362236772</updated>
-    </task>
-    <option name="localTasksCounter" value="18" />
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="COLUMN_ID_ORDER">
+      <list>
+        <option value="Default.Root" />
+        <option value="Default.Author" />
+        <option value="Default.Date" />
+        <option value="Default.Subject" />
+        <option value="Space.CommitStatus" />
+      </list>
+    </option>
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -311,8 +295,6 @@
     <MESSAGE value="merged with fresh backend" />
     <MESSAGE value="upd CRUD for Recipe. tag field is out of service&#10;add responses for Recipe CRUD&#10;add responses for Tag CRUD&#10;add dtoToIngredientConverter to IngredientService" />
     <MESSAGE value="Merge remote-tracking branch 'origin/backend-s' into backend-s" />
-    <MESSAGE value="fixed tagging recipe&#10;minor changes" />
-    <MESSAGE value="minor changes" />
-    <option name="LAST_COMMIT_MESSAGE" value="minor changes" />
+    <option name="LAST_COMMIT_MESSAGE" value="Merge remote-tracking branch 'origin/backend-s' into backend-s" />
   </component>
 </project>
