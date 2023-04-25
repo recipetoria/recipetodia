@@ -73,6 +73,7 @@ local.properties
 
 # User-specific stuff
 .idea/**/workspace.xml
+.idea/workspace.xml
 .idea/**/tasks.xml
 .idea/**/usage.statistics.xml
 .idea/**/dictionaries
@@ -215,4 +216,10 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.toptal.com/developers/gitignore/api/windows,macos,intellij+all,eclipse
+
 /target/
+target/
+*.env
+.env
+/.idea/workspace.xml
+/.idea/
