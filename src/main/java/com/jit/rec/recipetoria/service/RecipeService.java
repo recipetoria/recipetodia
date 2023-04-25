@@ -52,13 +52,13 @@ public class RecipeService {
             setPropertyValue(recipeDTO.getLinks(), recipe::setLinks);
             setPropertyValue(recipeDTO.getInstructionPhotos(), recipe::setInstructionPhotos);
             setPropertyValue(recipeDTO.getMainPhoto(), recipe::setMainPhoto);
+
 //todo: update logic
 
             // future logic for creation new tag at the same tima as recipe
             // if only id in dto -> add tag(s) to recipe
             // if no id, but name -> create new tag for user, add tag to recipe
 
-//todo: normalno sdelai da
             Optional.ofNullable(recipeDTO.getTagDTOs())
                     .orElse(Collections.emptyList());
 
@@ -69,21 +69,13 @@ public class RecipeService {
                     .map(tagService::getTagById)
                     .forEach(recipe.getTags()::add);
 
-//todo: debug
 
             Optional.ofNullable(recipeDTO.getIngredientDTOs())
                     .stream()
                     .flatMap(Collection::stream)
-                    .map(IngredientDTO::dtoToIngredientConverter)
+                    .map(IngredientDTO::convertToIngredient)
                     .map(ingredientRepository::save)
                     .forEach(recipe.getIngredientList()::add);
-
-//            if (recipeDTO.getIngredientDTOs() != null) {
-//                for (IngredientDTO newIngredientDTO : recipeDTO.getIngredientDTOs()) {
-//                    Ingredient newIngredient = IngredientDTO.dtoToIngredientConverter(newIngredientDTO);
-//                    recipe.getIngredientList().add(ingredientRepository.save(newIngredient));
-//                }
-//            }
 
             recipe.setApplicationUser((ApplicationUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
 
@@ -91,7 +83,6 @@ public class RecipeService {
         }
         return RecipeDTO.convertToDTO(recipe);
     }
-
 
     public RecipeDTO updateRecipeById(Long recipeToUpdateId, RecipeDTO updatedRecipeDTO) {
         Recipe recipeToBeUpdated = recipeRepository.findById(recipeToUpdateId)
@@ -110,11 +101,10 @@ public class RecipeService {
                     .map(tagService::getTagById)
                     .forEach(recipeToBeUpdated.getTags()::add);
 
-//todo: turn into Optional
             if (updatedRecipeDTO.getIngredientDTOs() != null) {
                 List<Ingredient> newIngredients = new ArrayList<>();
                 for (IngredientDTO newIngredientDTO : updatedRecipeDTO.getIngredientDTOs()) {
-                    Ingredient ingredient = IngredientDTO.dtoToIngredientConverter(newIngredientDTO);
+                    Ingredient ingredient = IngredientDTO.convertToIngredient(newIngredientDTO);
                     newIngredients.add(ingredient);
                 }
                 recipeToBeUpdated.setIngredientList(newIngredients);
@@ -136,7 +126,5 @@ public class RecipeService {
     public RecipeDTO getRecipeById(Long id) {
         return RecipeDTO.convertToDTO(recipeRepository.findById(id).orElseThrow(() -> new IllegalStateException("NOT FOUND")));
     }
-
-
 }
 

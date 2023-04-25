@@ -38,7 +38,7 @@ public record IngredientDTO(
         );
     }
 
-    public static Ingredient dtoToIngredientConverter(IngredientDTO ingredientDTO) { //some optimization
+    public static Ingredient convertToIngredient(IngredientDTO ingredientDTO) { //some optimization
         Ingredient ingredient = new Ingredient();
         //todo move to IngredientDTO
         ingredient.setName(ingredientDTO.name());
