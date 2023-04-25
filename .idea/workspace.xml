@@ -4,20 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9d8fdb90-e583-4a4a-ac36-8ca0b4776101" name="Changes" comment="Merge remote-tracking branch 'origin/backend-s' into backend-s">
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/jit/rec/recipetoria/service/RecipeServiceTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    <list default="true" id="9d8fdb90-e583-4a4a-ac36-8ca0b4776101" name="Changes" comment="omg">
+      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/recipetoria.iml" beforeDir="false" afterPath="$PROJECT_DIR$/recipetoria.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/controller/RecipeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/controller/RecipeController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/controller/TagController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/controller/TagController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/dto/IngredientDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/dto/IngredientDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/dto/RecipeDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/dto/RecipeDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/dto/TagDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/dto/TagDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/service/IngredientService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/service/IngredientService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/service/RecipeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/service/RecipeService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/service/TagService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/service/TagService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,6 +39,15 @@
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
+  </component>
+  <component name="MavenRunner">
+    <option name="environmentProperties">
+      <map>
+        <entry key="DATASOURCE_PASSWORD" value="12345670" />
+        <entry key="DATASOURCE_URL" value="jdbc:postgresql://localhost:5432/recipetoria" />
+        <entry key="DATASOURCE_USERNAME" value="postgres" />
+      </map>
+    </option>
   </component>
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="CurrentFile" />
@@ -84,6 +82,7 @@
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
     "run.code.analysis.last.selected.profile": "pProject Default",
+    "settings.editor.selected.configurable": "reference.settings.project.maven.runner",
     "spring.configuration.checksum": "f8c453b760e87c3960dd25a1fc2e00e5",
     "vue.rearranger.settings.migration": "true"
   },
@@ -245,7 +244,28 @@
       <option name="project" value="LOCAL" />
       <updated>1682030556722</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="Merge remote-tracking branch 'origin/backend-s' into backend-s&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml">
+      <created>1682437127297</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1682437127297</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Merge remote-tracking branch 'origin/backend-s' into backend-s&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml">
+      <created>1682437303117</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1682437303117</updated>
+    </task>
+    <task id="LOCAL-00018" summary="omg">
+      <created>1682437391064</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1682437391064</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -295,6 +315,8 @@
     <MESSAGE value="merged with fresh backend" />
     <MESSAGE value="upd CRUD for Recipe. tag field is out of service&#10;add responses for Recipe CRUD&#10;add responses for Tag CRUD&#10;add dtoToIngredientConverter to IngredientService" />
     <MESSAGE value="Merge remote-tracking branch 'origin/backend-s' into backend-s" />
-    <option name="LAST_COMMIT_MESSAGE" value="Merge remote-tracking branch 'origin/backend-s' into backend-s" />
+    <MESSAGE value="Merge remote-tracking branch 'origin/backend-s' into backend-s&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml" />
+    <MESSAGE value="omg" />
+    <option name="LAST_COMMIT_MESSAGE" value="omg" />
   </component>
 </project>
