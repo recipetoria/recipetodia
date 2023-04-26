@@ -9,6 +9,7 @@ import com.jit.rec.recipetoria.exception.ResourceNotFoundException;
 import com.jit.rec.recipetoria.repository.IngredientRepository;
 import com.jit.rec.recipetoria.repository.RecipeRepository;
 import com.jit.rec.recipetoria.security.applicationUser.ApplicationUser;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
@@ -16,18 +17,11 @@ import java.util.*;
 import java.util.function.Consumer;
 
 @Service
+@RequiredArgsConstructor
 public class RecipeService {
     private final RecipeRepository recipeRepository;
     private final IngredientRepository ingredientRepository;
     private final TagService tagService;
-
-    public RecipeService(RecipeRepository recipeRepository,
-                         TagService tagService,
-                         IngredientRepository ingredientRepository) {
-        this.recipeRepository = recipeRepository;
-        this.tagService = tagService;
-        this.ingredientRepository = ingredientRepository;
-    }
 
     private <T> void setPropertyValue(T value, Consumer<T> setter) {
         Optional.ofNullable(value).ifPresent(setter);
@@ -55,12 +49,9 @@ public class RecipeService {
 
 //todo: update logic
 
-            // future logic for creation new tag at the same tima as recipe
+            // future logic for creation new tag at the same time as recipe
             // if only id in dto -> add tag(s) to recipe
             // if no id, but name -> create new tag for user, add tag to recipe
-
-            Optional.ofNullable(recipeDTO.getTagDTOs())
-                    .orElse(Collections.emptyList());
 
             Optional.ofNullable(recipeDTO.getTagDTOs())
                     .stream()
