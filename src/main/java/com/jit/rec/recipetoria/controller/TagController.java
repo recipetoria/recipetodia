@@ -3,6 +3,7 @@ package com.jit.rec.recipetoria.controller;
 import com.jit.rec.recipetoria.dto.TagDTO;
 import com.jit.rec.recipetoria.entity.ApiResponse;
 import com.jit.rec.recipetoria.service.TagService;
+import com.jit.rec.recipetoria.swagger.TagControllerInterface;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -16,7 +17,7 @@ import java.util.Map;
 @RestController
 @RequestMapping(value = "/api/v1/client/tags", produces = MediaType.APPLICATION_JSON_VALUE)
 @RequiredArgsConstructor
-public class TagController {
+public class TagController implements TagControllerInterface {
 
     private final TagService tagService;
 
