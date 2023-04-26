@@ -60,6 +60,20 @@ public class TagController implements TagControllerInterface {
         );
     }
 
+    @PatchMapping("/{tagId}")
+    public ResponseEntity<ApiResponse> updateTagById(@PathVariable("tagId") Long tagId,
+                                                     TagDTO updatedTag){
+        return ResponseEntity.ok(
+                ApiResponse.builder()
+                        .timeStamp(LocalDateTime.now())
+                        .statusCode(HttpStatus.OK.value())
+                        .status(HttpStatus.OK)
+                        .message("Tag with id " + tagId + " updated")
+                        .data(Map.of("updated tagDTO", tagService.updateTagById(tagId, updatedTag)))
+                        .build()
+        );
+    }
+
     @DeleteMapping("/{tagId}")
     public ResponseEntity<ApiResponse> deleteTagById(@PathVariable("tagId") Long tagId) {
         tagService.deleteTagById(tagId);

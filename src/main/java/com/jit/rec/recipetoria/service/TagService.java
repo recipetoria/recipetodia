@@ -10,7 +10,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -45,6 +47,15 @@ public class TagService {
     public Tag getTagById(Long tagId) {
         return tagRepository.findById(tagId)
                 .orElseThrow(() -> new ResourceNotFoundException("Tag with ID: " + tagId + " not found!"));
+    }
+
+    public TagDTO updateTagById(Long tagId, TagDTO updatedTag){
+        Tag tagToBeUpdated = tagRepository.findById(tagId).
+                orElseThrow(() -> new ResourceNotFoundException("Tag with ID: " + tagId + " not found!"));
+        tagToBeUpdated.setName(updatedTag.name());
+        tagToBeUpdated.setIcon(updatedTag.icon());
+
+        return TagDTO.convertToDTO(tagRepository.save(tagToBeUpdated));
     }
 
     public void deleteTagById(Long tagId) {
