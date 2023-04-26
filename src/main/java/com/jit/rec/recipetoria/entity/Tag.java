@@ -17,11 +17,12 @@ public class Tag {
     @SequenceGenerator(name = "sequence", sequenceName = "sequence", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence")
     private Long id;
+
     @NotNull
     private String name;
 
     @ManyToOne (cascade = CascadeType.MERGE)
-    @JoinColumn(name = "user_id")
+    @JoinColumn
     private ApplicationUser applicationUser;
     private String icon;
 

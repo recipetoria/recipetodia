@@ -19,6 +19,7 @@ import java.util.function.Consumer;
 @Service
 @RequiredArgsConstructor
 public class RecipeService {
+
     private final RecipeRepository recipeRepository;
     private final IngredientRepository ingredientRepository;
     private final TagService tagService;
@@ -36,24 +37,22 @@ public class RecipeService {
         return recipeResponses;
     }
 
-    public RecipeDTO createNewRecipe(RecipeDTO recipeDTO) {
+    public RecipeDTO createRecipe(RecipeDTO newRecipeInfo) {
         Recipe recipe = new Recipe();
 
-        if (recipeDTO.getName() != null) {
-            recipe.setName(recipeDTO.getName());
+        if (newRecipeInfo.getName() != null) {
+            recipe.setName(newRecipeInfo.getName());
 
-            setPropertyValue(recipeDTO.getInstructions(), recipe::setInstructions);
-            setPropertyValue(recipeDTO.getLinks(), recipe::setLinks);
-            setPropertyValue(recipeDTO.getInstructionPhotos(), recipe::setInstructionPhotos);
-            setPropertyValue(recipeDTO.getMainPhoto(), recipe::setMainPhoto);
-
-//todo: update logic
+            setPropertyValue(newRecipeInfo.getInstructions(), recipe::setInstructions);
+            setPropertyValue(newRecipeInfo.getLinks(), recipe::setLinks);
+            setPropertyValue(newRecipeInfo.getInstructionPhotos(), recipe::setInstructionPhotos);
+            setPropertyValue(newRecipeInfo.getMainPhoto(), recipe::setMainPhoto);
 
             // future logic for creation new tag at the same time as recipe
             // if only id in dto -> add tag(s) to recipe
             // if no id, but name -> create new tag for user, add tag to recipe
 
-            Optional.ofNullable(recipeDTO.getTagDTOs())
+            Optional.ofNullable(newRecipeInfo.getTagDTOs())
                     .stream()
                     .flatMap(Collection::stream)
                     .map(TagDTO::id)
@@ -61,7 +60,7 @@ public class RecipeService {
                     .forEach(recipe.getTags()::add);
 
 
-            Optional.ofNullable(recipeDTO.getIngredientDTOs())
+            Optional.ofNullable(newRecipeInfo.getIngredientDTOs())
                     .stream()
                     .flatMap(Collection::stream)
                     .map(IngredientDTO::convertToIngredient)
@@ -75,9 +74,14 @@ public class RecipeService {
         return RecipeDTO.convertToDTO(recipe);
     }
 
+    public RecipeDTO getRecipeById(Long recipeId) {
+        return RecipeDTO.convertToDTO(recipeRepository.findById(recipeId)
+                .orElseThrow(() -> new IllegalStateException("Recipe with ID: " + recipeId + " not found!")));
+    }
+
     public RecipeDTO updateRecipeById(Long recipeToUpdateId, RecipeDTO updatedRecipeDTO) {
         Recipe recipeToBeUpdated = recipeRepository.findById(recipeToUpdateId)
-                .orElseThrow(() -> new ResourceNotFoundException("Recipe with ID " + recipeToUpdateId + " not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Recipe with ID: " + recipeToUpdateId + " not found!"));
 
         if (updatedRecipeDTO.getName() != null) {
             recipeToBeUpdated.setName(updatedRecipeDTO.getName());
@@ -110,12 +114,11 @@ public class RecipeService {
         return RecipeDTO.convertToDTO(recipeRepository.save(recipeToBeUpdated));
     }
 
-    public void deleteRecipeById(Long id) {
-        recipeRepository.deleteById(id);
+    public void deleteRecipeById(Long recipeId) {
+        if (!ingredientRepository.existsById(recipeId)) {
+            throw new ResourceNotFoundException("Recipe with ID: " + recipeId + " not found!");
+        }
+        recipeRepository.deleteById(recipeId);
     }
 
-    public RecipeDTO getRecipeById(Long id) {
-        return RecipeDTO.convertToDTO(recipeRepository.findById(id).orElseThrow(() -> new IllegalStateException("NOT FOUND")));
-    }
 }
-

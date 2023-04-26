@@ -11,12 +11,11 @@ import lombok.Data;
 import java.util.*;
 
 @Data
-//@JsonInclude(JsonInclude.Include.NON_NULL)
 public class RecipeDTO {
     @Nullable
     private Long id;
 
-    @NotNull(message = "name should not be null")
+    @NotNull(message = "{validation.recipeDTO.name.NotNull}")
     private String name;
 
     @Nullable
@@ -54,7 +53,7 @@ public class RecipeDTO {
         if (recipe.getTags() != null) {
             List<Tag> tags = recipe.getTags();
             for (Tag tag : tags) {
-                TagDTO newTagDTO = TagDTO.convertToTagDto(tag);
+                TagDTO newTagDTO = TagDTO.convertToDTO(tag);
                 tagDTOs.add(newTagDTO);
             }
         }

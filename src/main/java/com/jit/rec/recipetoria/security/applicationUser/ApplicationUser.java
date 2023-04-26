@@ -36,10 +36,10 @@ public class ApplicationUser implements UserDetails {
 
     @OneToMany(mappedBy = "applicationUser", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Ingredient> shoppingList;
-    //removed commenting from listOfRecipes
+
     @OneToMany(mappedBy = "applicationUser", cascade = CascadeType.ALL)
     private List<Recipe> listOfRecipes;
-    //added field to activate db mapping with tags
+
     @OneToMany(mappedBy = "applicationUser", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Tag> tags;
 

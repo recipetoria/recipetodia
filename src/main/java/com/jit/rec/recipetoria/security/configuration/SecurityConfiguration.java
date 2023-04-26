@@ -9,8 +9,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 @EnableWebSecurity
@@ -26,7 +24,7 @@ public class SecurityConfiguration {
                 .csrf().disable()
 
                 .authorizeHttpRequests()
-                .requestMatchers("/api/v1/auth/**", "/**") //TODO: edit
+                .requestMatchers("/api/v1/auth/**")
                 .permitAll()
                 .anyRequest().authenticated()
 

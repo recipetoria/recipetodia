@@ -44,7 +44,6 @@ public class IngredientService {
         if (!ingredientRepository.existsById(ingredientId)) {
             throw new ResourceNotFoundException("Ingredient with ID: " + ingredientId + " not found!");
         }
-
         ingredientRepository.deleteById(ingredientId);
     }
 }

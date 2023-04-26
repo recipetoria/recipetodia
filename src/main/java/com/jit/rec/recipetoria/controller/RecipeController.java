@@ -6,78 +6,86 @@ import com.jit.rec.recipetoria.service.RecipeService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/v1/client/recipes")
+@RequestMapping(value = "/api/v1/client/recipes", produces = MediaType.APPLICATION_JSON_VALUE)
 @RequiredArgsConstructor
 public class RecipeController {
 
     private final RecipeService recipeService;
 
     @GetMapping
-    public List<RecipeDTO> getAllRecipes(){
-        return recipeService.getAllRecipes();
+    public ResponseEntity<ApiResponse> getAllRecipes() {
+        return ResponseEntity.ok(
+                ApiResponse.builder()
+                        .timeStamp(LocalDateTime.now())
+                        .statusCode(HttpStatus.OK.value())
+                        .status(HttpStatus.OK)
+                        .message("Recipes retrieved")
+                        .data(Map.of("allRecipesDTOs", recipeService.getAllRecipes()))
+                        .build()
+        );
     }
 
     @PostMapping
-    public ResponseEntity<ApiResponse> createNewRecipe(@RequestBody @Valid RecipeDTO newRecipe){
+    public ResponseEntity<ApiResponse> createRecipe(@RequestBody @Valid RecipeDTO newRecipeInfo) {
         return ResponseEntity.ok(
                 ApiResponse.builder()
                         .timeStamp(LocalDateTime.now())
                         .statusCode(HttpStatus.CREATED.value())
                         .status(HttpStatus.CREATED)
                         .message("Recipe created")
-                        .data(Map.of("createdRecipeDTO", recipeService.createNewRecipe(newRecipe)))
+                        .data(Map.of("createdRecipeDTO", recipeService.createRecipe(newRecipeInfo)))
+                        .build()
+        );
+    }
+
+    @GetMapping("/{recipeId}")
+    public ResponseEntity<ApiResponse> getRecipeById(@PathVariable("recipeId") Long recipeId) {
+        return ResponseEntity.ok(
+                ApiResponse.builder()
+                        .timeStamp(LocalDateTime.now())
+                        .statusCode(HttpStatus.OK.value())
+                        .status(HttpStatus.OK)
+                        .message("Recipe retrieved")
+                        .data(Map.of("recipeDTO", recipeService.getRecipeById(recipeId)))
                         .build()
         );
     }
 
     @PatchMapping("/{recipeId}")
     public ResponseEntity<ApiResponse> updateRecipeById(@PathVariable("recipeId") Long recipeId,
-                                                        @RequestBody @Valid RecipeDTO updatedRecipe){
+                                                        @RequestBody @Valid RecipeDTO updatedRecipeInfo) {
         return ResponseEntity.ok(
                 ApiResponse.builder()
                         .timeStamp(LocalDateTime.now())
                         .statusCode(HttpStatus.OK.value())
                         .status(HttpStatus.OK)
                         .message("Recipe updated")
-                        .data(Map.of("updatedRecipe", recipeService.updateRecipeById(recipeId, updatedRecipe)))
+                        .data(Map.of("updatedRecipeDTO",
+                                recipeService.updateRecipeById(recipeId, updatedRecipeInfo)))
                         .build()
         );
     }
 
 
     @DeleteMapping("/{recipeId}")
-    public ResponseEntity<ApiResponse> deleteRecipe(@PathVariable("recipeId") Long id){
-        recipeService.deleteRecipeById(id);
+    public ResponseEntity<ApiResponse> deleteRecipeById(@PathVariable("recipeId") Long recipeId) {
+        recipeService.deleteRecipeById(recipeId);
 
         return ResponseEntity.ok(
                 ApiResponse.builder()
                         .timeStamp(LocalDateTime.now())
                         .statusCode(HttpStatus.OK.value())
                         .status(HttpStatus.OK)
-                        .message("Ingredient with ID " + id + " was deleted")
+                        .message("Recipe with ID " + recipeId + " has been deleted!")
                         .build()
         );
     }
-
-    @GetMapping("/{recipeId}")
-    public ResponseEntity<ApiResponse> getRecipeById(@PathVariable("recipeId") Long id){
-        return ResponseEntity.ok(
-                ApiResponse.builder()
-                        .timeStamp(LocalDateTime.now())
-                        .statusCode(HttpStatus.OK.value())
-                        .status(HttpStatus.OK)
-                        .message("here is your recipe, bro")
-                        .data(Map.of("recipeDTO", recipeService.getRecipeById(id)))
-                        .build()
-        );
-    }
-
 }

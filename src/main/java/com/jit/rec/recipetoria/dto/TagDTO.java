@@ -13,18 +13,20 @@ import java.util.Optional;
 public record TagDTO(
         @Nullable
         Long id,
+
         @Nullable
         String name,
+
         @Nullable
         String icon,
+
         @Nullable
         Long applicationUserId,
+
         @Nullable
         List<Long> recipeIds
 ) {
-    public static TagDTO convertToTagDto(Tag tag) {
-
-        //create a list of recipe ids
+    public static TagDTO convertToDTO(Tag tag) {
         List<Long> recipeIdList = new ArrayList<>();
         Optional.ofNullable(tag.getRecipes())
                 .orElse(Collections.emptyList())
@@ -32,6 +34,11 @@ public record TagDTO(
                 .map(Recipe::getId)
                 .forEach(recipeIdList::add);
 
-        return new TagDTO(tag.getId(), tag.getName(), tag.getIcon(), tag.getApplicationUser().getId(), recipeIdList);
+        return new TagDTO(
+                tag.getId(),
+                tag.getName(),
+                tag.getIcon(),
+                tag.getApplicationUser().getId(),
+                recipeIdList);
     }
 }

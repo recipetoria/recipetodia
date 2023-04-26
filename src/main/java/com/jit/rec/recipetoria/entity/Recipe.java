@@ -21,28 +21,34 @@ public class Recipe {
     @SequenceGenerator(name = "sequence", sequenceName = "sequence", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence")
     private Long id;
+
     @NotBlank
     @Column(nullable = false)
     private String name;
+
     private String mainPhoto;
-    @ManyToOne (cascade = CascadeType.MERGE)
-    @JoinColumn (name = "user_id")
+
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn
     private ApplicationUser applicationUser;
+
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
-            name = "recipe_tags",
-            joinColumns = @JoinColumn(name = "recipe_id"),
-            inverseJoinColumns = @JoinColumn(name = "tag_id")
+            joinColumns = @JoinColumn,
+            inverseJoinColumns = @JoinColumn
     )
-
     private List<Tag> tags;
+
     @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL)
     private List<Ingredient> ingredientList;
+
     @ElementCollection
     @Column(columnDefinition = "TEXT")
     private List<String> instructions;
+
     @ElementCollection
     private List<String> instructionPhotos;
+
     @ElementCollection
     @Column(columnDefinition = "TEXT")
     private List<String> links;
@@ -51,49 +57,38 @@ public class Recipe {
         this.name = name;
     }
 
-    public List<String> getRecipeTagNames(){
-        List<String>recipeTagNames = new ArrayList<>();
-        for (Tag t: tags){
-           recipeTagNames.add(t.getName());
-        }
-        return recipeTagNames;
-    }
-
-    public List<Ingredient> getIngredientList(){
-        if (this.ingredientList == null){
+    public List<Ingredient> getIngredientList() {
+        if (this.ingredientList == null) {
             return this.ingredientList = new ArrayList<>();
-        }
-        else
+        } else
             return this.ingredientList;
     }
 
-    public List<Tag> getTags(){
-        if (this.tags == null){
+    public List<Tag> getTags() {
+        if (this.tags == null) {
             return this.tags = new ArrayList<>();
         } else
             return this.tags;
     }
 
-    public List<String> getInstructions(){
-        if (this.instructions == null){
+    public List<String> getInstructions() {
+        if (this.instructions == null) {
             return this.instructions = new ArrayList<>();
         } else
             return this.instructions;
     }
 
-    public List<String> getInstructionPhotos(){
-        if (this.instructionPhotos == null){
+    public List<String> getInstructionPhotos() {
+        if (this.instructionPhotos == null) {
             return this.instructionPhotos = new ArrayList<>();
         } else
             return this.instructionPhotos;
     }
 
-    public List<String> getLinks(){
-        if (this.links == null){
+    public List<String> getLinks() {
+        if (this.links == null) {
             return this.links = new ArrayList<>();
         } else
             return this.links;
     }
-
-
 }

@@ -21,10 +21,10 @@ public class Ingredient {
     private MeasurementUnit measurementUnit;
 
     @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "user_id")
+    @JoinColumn
     private ApplicationUser applicationUser;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "recipe_id")
+    @JoinColumn
     private Recipe recipe;
 }

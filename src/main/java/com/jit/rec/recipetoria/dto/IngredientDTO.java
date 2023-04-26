@@ -38,9 +38,9 @@ public record IngredientDTO(
         );
     }
 
-    public static Ingredient convertToIngredient(IngredientDTO ingredientDTO) { //some optimization
+    public static Ingredient convertToIngredient(IngredientDTO ingredientDTO) {
         Ingredient ingredient = new Ingredient();
-        //todo move to IngredientDTO
+
         ingredient.setName(ingredientDTO.name());
         ingredient.setAmount(ingredientDTO.amount());
         ingredient.setMeasurementUnit(ingredientDTO.measurementUnit());
