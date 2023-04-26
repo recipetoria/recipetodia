@@ -219,7 +219,6 @@ $RECYCLE.BIN/
 
 /target/
 target/
-*.env
-.env
+local.env
 /.idea/workspace.xml
 /.idea/

@@ -14,12 +14,7 @@ public class IngredientService {
     private final IngredientRepository ingredientRepository;
 
     public IngredientDTO createIngredient(IngredientDTO newIngredientInfo) {
-        Ingredient ingredient = new Ingredient();
-
-        ingredient.setName(newIngredientInfo.name());
-        ingredient.setAmount(newIngredientInfo.amount());
-        ingredient.setMeasurementUnit(newIngredientInfo.measurementUnit());
-
+        Ingredient ingredient = IngredientDTO.convertToIngredient(newIngredientInfo);
         ingredientRepository.save(ingredient);
 
         return IngredientDTO.convertToDTO(ingredient);
@@ -49,7 +44,6 @@ public class IngredientService {
         if (!ingredientRepository.existsById(ingredientId)) {
             throw new ResourceNotFoundException("Ingredient with ID: " + ingredientId + " not found!");
         }
-
         ingredientRepository.deleteById(ingredientId);
     }
 }

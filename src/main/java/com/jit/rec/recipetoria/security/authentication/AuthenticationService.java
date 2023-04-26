@@ -6,6 +6,7 @@ import com.jit.rec.recipetoria.security.applicationUser.ApplicationUserRepositor
 import com.jit.rec.recipetoria.security.applicationUser.ApplicationUserRole;
 import com.jit.rec.recipetoria.security.configuration.JwtService;
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.authentication.AuthenticationManager;

@@ -21,5 +21,10 @@ public class Ingredient {
     private MeasurementUnit measurementUnit;
 
     @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn
     private ApplicationUser applicationUser;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn
+    private Recipe recipe;
 }

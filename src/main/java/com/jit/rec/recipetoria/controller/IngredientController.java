@@ -14,9 +14,8 @@ import java.time.LocalDateTime;
 import java.util.Map;
 
 @RestController
+@RequestMapping(value = "/api/v1/client/ingredients", produces = MediaType.APPLICATION_JSON_VALUE)
 @RequiredArgsConstructor
-@RequestMapping(value = "/api/v1/client/ingredients",
-        produces = MediaType.APPLICATION_JSON_VALUE)
 public class IngredientController {
 
     private final IngredientService ingredientService;

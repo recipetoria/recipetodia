@@ -8,5 +8,12 @@
       <jdbc-url>jdbc:postgresql://localhost:5432/recipetoria</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+    <data-source source="LOCAL" name="postgres@containers-us-west-140.railway.app" uuid="c369376f-6c87-43b7-a133-761bd658916d">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://containers-us-west-140.railway.app:6248/postgres</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
   </component>
 </project>

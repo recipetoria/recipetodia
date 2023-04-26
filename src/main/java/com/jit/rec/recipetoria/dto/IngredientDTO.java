@@ -37,4 +37,14 @@ public record IngredientDTO(
                 applicationUserId
         );
     }
+
+    public static Ingredient convertToIngredient(IngredientDTO ingredientDTO) {
+        Ingredient ingredient = new Ingredient();
+
+        ingredient.setName(ingredientDTO.name());
+        ingredient.setAmount(ingredientDTO.amount());
+        ingredient.setMeasurementUnit(ingredientDTO.measurementUnit());
+
+        return ingredient;
+    }
 }
