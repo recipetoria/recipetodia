@@ -5,11 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9d8fdb90-e583-4a4a-ac36-8ca0b4776101" name="Changes" comment="Merge remote-tracking branch 'origin/backend-s' into backend-s&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/dto/SwaggerMethodInterface.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/swagger/RecipeControllerInterface.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/swagger/TagControllerInterface.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/controller/ApplicationUserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/controller/ApplicationUserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/security/configuration/SecurityConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/security/configuration/SecurityConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/controller/RecipeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/controller/RecipeController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/controller/TagController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/controller/TagController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,7 +28,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="backend-study" />
+        <entry key="$PROJECT_DIR$" value="backend" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />

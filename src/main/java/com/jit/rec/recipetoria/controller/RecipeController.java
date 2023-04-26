@@ -3,6 +3,7 @@ package com.jit.rec.recipetoria.controller;
 import com.jit.rec.recipetoria.dto.RecipeDTO;
 import com.jit.rec.recipetoria.entity.ApiResponse;
 import com.jit.rec.recipetoria.service.RecipeService;
+import com.jit.rec.recipetoria.swagger.RecipeControllerInterface;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -16,7 +17,7 @@ import java.util.Map;
 @RestController
 @RequestMapping(value = "/api/v1/client/recipes", produces = MediaType.APPLICATION_JSON_VALUE)
 @RequiredArgsConstructor
-public class RecipeController {
+public class RecipeController implements RecipeControllerInterface {
 
     private final RecipeService recipeService;
 
@@ -73,7 +74,6 @@ public class RecipeController {
                         .build()
         );
     }
-
 
     @DeleteMapping("/{recipeId}")
     public ResponseEntity<ApiResponse> deleteRecipeById(@PathVariable("recipeId") Long recipeId) {
