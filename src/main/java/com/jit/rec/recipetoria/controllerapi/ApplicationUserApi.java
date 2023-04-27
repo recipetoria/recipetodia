@@ -1,8 +1,10 @@
-package com.jit.rec.recipetoria.swagger;
+package com.jit.rec.recipetoria.controllerapi;
 
 import com.jit.rec.recipetoria.dto.IngredientDTO;
+import com.jit.rec.recipetoria.entity.Response;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -20,7 +22,7 @@ import org.springframework.web.bind.annotation.PostMapping;
                 responseCode = "400", description = "Invalid data sent to the server",
                 content = @Content(
                         mediaType = MediaType.APPLICATION_JSON_VALUE,
-                        schema = @Schema(implementation = com.jit.rec.recipetoria.entity.ApiResponse.class)
+                        schema = @Schema(implementation = Response.class)
                 )
         ),
         @ApiResponse(
@@ -48,10 +50,9 @@ import org.springframework.web.bind.annotation.PostMapping;
                 )
         )
 })
-public interface ApplicationUserInterface {
+public interface ApplicationUserApi {
 
     @Operation(
-            operationId = "getAllIngredients",
             summary = "Get all ingredients in the Shopping List",
             description = "Retrieves a list of all ingredients in the Shopping List"
     )
@@ -60,10 +61,9 @@ public interface ApplicationUserInterface {
             content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE)
     )
     @GetMapping
-    ResponseEntity<com.jit.rec.recipetoria.entity.ApiResponse> getAllIngredients();
+    ResponseEntity<Response> getAllIngredients();
 
     @Operation(
-            operationId = "createIngredient",
             summary = "Create new ingredient",
             description = "Creates a new ingredient and adds it to the Shopping List"
     )
@@ -71,8 +71,7 @@ public interface ApplicationUserInterface {
             responseCode = "201", description = "Ingredient created successfully",
             content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE)
     )
-    @PostMapping
-    ResponseEntity<com.jit.rec.recipetoria.entity.ApiResponse> createIngredient(
+    @Parameters({
             @Parameter(
                     name = "newIngredientInfo",
                     required = true,
@@ -85,5 +84,7 @@ public interface ApplicationUserInterface {
                             applicationUserId: ignored \n
                             """
             )
-            IngredientDTO newIngredientInfo);
+    })
+    @PostMapping
+    ResponseEntity<Response> createIngredient(IngredientDTO newIngredientInfo);
 }

@@ -1,6 +1,6 @@
 package com.jit.rec.recipetoria.security.authentication;
 
-import com.jit.rec.recipetoria.entity.ApiResponse;
+import com.jit.rec.recipetoria.entity.Response;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -18,9 +18,9 @@ public class AuthenticationController {
     private final AuthenticationService authenticationService;
 
     @PostMapping("/register")
-    public ResponseEntity<ApiResponse> register(@Valid @RequestBody AuthenticationRequest authenticationRequest) {
+    public ResponseEntity<Response> register(@Valid @RequestBody AuthenticationRequest authenticationRequest) {
         return ResponseEntity.ok(
-                ApiResponse.builder()
+                Response.builder()
                         .timeStamp(LocalDateTime.now())
                         .statusCode(HttpStatus.OK.value())
                         .status(HttpStatus.OK)
@@ -32,11 +32,11 @@ public class AuthenticationController {
     }
 
     @GetMapping("/verify-email") //TODO: check exceptions
-    public ResponseEntity<ApiResponse> verifyEmail(@RequestParam("token") String verificationToken) {
+    public ResponseEntity<Response> verifyEmail(@RequestParam("token") String verificationToken) {
         authenticationService.verifyEmail(verificationToken);
 
         return ResponseEntity.ok(
-                ApiResponse.builder()
+                Response.builder()
                         .timeStamp(LocalDateTime.now())
                         .statusCode(HttpStatus.OK.value())
                         .status(HttpStatus.OK)
@@ -46,9 +46,9 @@ public class AuthenticationController {
     }
 
     @PostMapping("/authenticate")
-    public ResponseEntity<ApiResponse> authenticate(@Valid @RequestBody AuthenticationRequest authenticationRequest) {
+    public ResponseEntity<Response> authenticate(@Valid @RequestBody AuthenticationRequest authenticationRequest) {
         return ResponseEntity.ok(
-                ApiResponse.builder()
+                Response.builder()
                         .timeStamp(LocalDateTime.now())
                         .statusCode(HttpStatus.OK.value())
                         .status(HttpStatus.OK)

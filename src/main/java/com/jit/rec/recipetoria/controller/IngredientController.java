@@ -1,12 +1,12 @@
 package com.jit.rec.recipetoria.controller;
 
+import com.jit.rec.recipetoria.controllerapi.IngredientApi;
 import com.jit.rec.recipetoria.dto.IngredientDTO;
-import com.jit.rec.recipetoria.entity.ApiResponse;
+import com.jit.rec.recipetoria.entity.Response;
 import com.jit.rec.recipetoria.service.IngredientService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,64 +14,60 @@ import java.time.LocalDateTime;
 import java.util.Map;
 
 @RestController
-@RequestMapping(value = "/api/v1/client/ingredients", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping("/api/v1/client/ingredients")
 @RequiredArgsConstructor
-public class IngredientController {
+public class IngredientController implements IngredientApi {
 
     private final IngredientService ingredientService;
 
     @PostMapping
-    public ResponseEntity<ApiResponse> createIngredient(@RequestBody @Valid IngredientDTO newIngredientInfo) {
-        return ResponseEntity.ok(
-                ApiResponse.builder()
+    public ResponseEntity<Response> createIngredient(@RequestBody @Valid IngredientDTO newIngredientInfo) {
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(Response.builder()
                         .timeStamp(LocalDateTime.now())
                         .statusCode(HttpStatus.CREATED.value())
-                        .status(HttpStatus.CREATED)
-                        .message("Ingredient created")
+                        .message("Ingredient created successfully")
                         .data(Map.of("createdIngredientDTO", ingredientService.createIngredient(newIngredientInfo)))
-                        .build()
-        );
+                        .build());
     }
 
     @GetMapping("/{ingredientId}")
-    public ResponseEntity<ApiResponse> getIngredientById(@PathVariable("ingredientId") Long ingredientId) {
-        return ResponseEntity.ok(
-                ApiResponse.builder()
+    public ResponseEntity<Response> getIngredientById(@PathVariable("ingredientId") Long ingredientId) {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(Response.builder()
                         .timeStamp(LocalDateTime.now())
                         .statusCode(HttpStatus.OK.value())
-                        .status(HttpStatus.OK)
-                        .message("Ingredient retrieved")
+                        .message("Ingredient retrieved successfully")
                         .data(Map.of("ingredientDTO", ingredientService.getIngredientById(ingredientId)))
-                        .build()
-        );
+                        .build());
     }
 
     @PatchMapping("/{ingredientId}")
-    public ResponseEntity<ApiResponse> updateIngredientById(@PathVariable("ingredientId") Long ingredientId,
-                                                            @RequestBody @Valid IngredientDTO updatedIngredientInfo) {
-        return ResponseEntity.ok(
-                ApiResponse.builder()
+    public ResponseEntity<Response> updateIngredientById(@PathVariable("ingredientId") Long ingredientId,
+                                                         @RequestBody @Valid IngredientDTO updatedIngredientInfo) {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(Response.builder()
                         .timeStamp(LocalDateTime.now())
                         .statusCode(HttpStatus.OK.value())
-                        .status(HttpStatus.OK)
-                        .message("Ingredient updated")
+                        .message("Ingredient updated successfully")
                         .data(Map.of("updatedIngredientDTO",
                                 ingredientService.updateIngredientById(ingredientId, updatedIngredientInfo)))
-                        .build()
-        );
+                        .build());
     }
 
     @DeleteMapping("/{ingredientId}")
-    public ResponseEntity<ApiResponse> deleteIngredientById(@PathVariable("ingredientId") Long ingredientId) {
+    public ResponseEntity<Response> deleteIngredientById(@PathVariable("ingredientId") Long ingredientId) {
         ingredientService.deleteIngredientById(ingredientId);
 
-        return ResponseEntity.ok(
-                ApiResponse.builder()
+        return ResponseEntity
+                .status(HttpStatus.NO_CONTENT)
+                .body(Response.builder()
                         .timeStamp(LocalDateTime.now())
-                        .statusCode(HttpStatus.OK.value())
-                        .status(HttpStatus.OK)
-                        .message("Ingredient with ID " + ingredientId + " has been deleted!")
-                        .build()
-        );
+                        .statusCode(HttpStatus.NO_CONTENT.value())
+                        .message("Ingredient deleted successfully")
+                        .build());
     }
 }
