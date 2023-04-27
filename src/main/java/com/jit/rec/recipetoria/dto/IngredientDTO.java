@@ -15,7 +15,6 @@ public record IngredientDTO(
         @Size(min = 1, max = 30, message = "{validation.ingredientDTO.name.Size}")
         String name,
 
-        @NotNull(message = "{validation.ingredientDTO.amount.NotNull}")
         @Positive(message = "{validation.ingredientDTO.amount.Positive}")
         Double amount,
 

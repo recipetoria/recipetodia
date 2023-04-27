@@ -11,7 +11,8 @@ import java.util.List;
 @Entity
 @Data
 @NoArgsConstructor
-public class Tag {
+public class
+Tag {
 
     @Id
     @SequenceGenerator(name = "sequence", sequenceName = "sequence", allocationSize = 1)
