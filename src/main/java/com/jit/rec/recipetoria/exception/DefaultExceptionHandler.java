@@ -65,7 +65,7 @@ public class DefaultExceptionHandler {
         return new ResponseEntity<>(apiError, HttpStatus.CONFLICT);
     }
 
-    @ExceptionHandler({MethodArgumentNotValidException.class,})
+    @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ApiError> handleException(MethodArgumentNotValidException e, HttpServletRequest request) {
         BindingResult bindingResult = e.getBindingResult();
 
@@ -98,7 +98,7 @@ public class DefaultExceptionHandler {
         return new ResponseEntity<>(apiError, HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler({HttpMessageNotReadableException.class})
+    @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<ApiError> handleException(HttpMessageNotReadableException e, HttpServletRequest request) {
         String rootCause = e.getMostSpecificCause().getMessage();
         String errorMessage;
@@ -145,7 +145,7 @@ public class DefaultExceptionHandler {
         return new ResponseEntity<>(apiError, HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler({IllegalArgumentException.class})
+    @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<ApiError> handleException(IllegalArgumentException e, HttpServletRequest request) {
         ApiError apiError = new ApiError(
                 LocalDateTime.now(),

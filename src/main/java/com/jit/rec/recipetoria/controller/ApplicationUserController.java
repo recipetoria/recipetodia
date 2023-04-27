@@ -1,7 +1,8 @@
 package com.jit.rec.recipetoria.controller;
 
+import com.jit.rec.recipetoria.controllerapi.ApplicationUserApi;
 import com.jit.rec.recipetoria.dto.IngredientDTO;
-import com.jit.rec.recipetoria.entity.ApiResponse;
+import com.jit.rec.recipetoria.entity.Response;
 import com.jit.rec.recipetoria.security.applicationUser.ApplicationUserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -15,34 +16,32 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/v1/client")
 @RequiredArgsConstructor
-public class ApplicationUserController {
+public class ApplicationUserController implements ApplicationUserApi {
 
     private final ApplicationUserService applicationUserService;
 
     @GetMapping
-    public ResponseEntity<ApiResponse> getAllIngredients() {
-        return ResponseEntity.ok(
-                ApiResponse.builder()
+    public ResponseEntity<Response> getAllIngredients() {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(Response.builder()
                         .timeStamp(LocalDateTime.now())
                         .statusCode(HttpStatus.OK.value())
-                        .status(HttpStatus.OK)
-                        .message("Ingredients retrieved")
+                        .message("List of ingredients in the Shopping List retrieved successfully")
                         .data(Map.of("allIngredientDTOs", applicationUserService.getAllIngredients()))
-                        .build()
-        );
+                        .build());
     }
 
     @PostMapping
-    public ResponseEntity<ApiResponse> createIngredient(@Valid @RequestBody IngredientDTO newIngredientInfo) {
-        return ResponseEntity.ok(
-                ApiResponse.builder()
+    public ResponseEntity<Response> createIngredient(@Valid @RequestBody IngredientDTO newIngredientInfo) {
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(Response.builder()
                         .timeStamp(LocalDateTime.now())
                         .statusCode(HttpStatus.CREATED.value())
-                        .status(HttpStatus.CREATED)
                         .message("Ingredient created")
                         .data(Map.of("createdIngredientDTO",
                                 applicationUserService.createIngredient(newIngredientInfo)))
-                        .build()
-        );
+                        .build());
     }
 }

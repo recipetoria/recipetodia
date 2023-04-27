@@ -40,13 +40,6 @@ public class ApplicationUserSettingsService {
         ApplicationUser applicationUser =
                 (ApplicationUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-        if (applicationUserInfo.email() != null) {
-            boolean emailExists = checkIfExists(applicationUserInfo.email());
-            if (!emailExists || applicationUserInfo.email().equals(applicationUser.getEmail())) {
-                applicationUser.setEmail(applicationUserInfo.email());
-            }
-        }
-
         if (applicationUserInfo.name() != null) {
             applicationUser.setName(applicationUserInfo.name());
         }

@@ -1,7 +1,8 @@
 package com.jit.rec.recipetoria.controller;
 
+import com.jit.rec.recipetoria.controllerapi.ApplicationUserSettingsApi;
 import com.jit.rec.recipetoria.dto.ApplicationUserDTO;
-import com.jit.rec.recipetoria.entity.ApiResponse;
+import com.jit.rec.recipetoria.entity.Response;
 import com.jit.rec.recipetoria.service.ApplicationUserSettingsService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -17,90 +18,84 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/v1/client/settings")
 @RequiredArgsConstructor
-public class ApplicationUserSettingsController {
+public class ApplicationUserSettingsController implements ApplicationUserSettingsApi {
 
     private final ApplicationUserSettingsService applicationUserSettingsService;
 
     @GetMapping
-    public ResponseEntity<ApiResponse> showSettings() {
-        return ResponseEntity.ok(
-                ApiResponse.builder()
+    public ResponseEntity<Response> showSettings() {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(Response.builder()
                         .timeStamp(LocalDateTime.now())
                         .statusCode(HttpStatus.OK.value())
-                        .status(HttpStatus.OK)
-                        .message("User information retrieved successfully")
+                        .message("User personal information retrieved successfully")
                         .data(Map.of("applicationUserDTO", applicationUserSettingsService.getApplicationUser()))
-                        .build()
-        );
+                        .build());
     }
 
     @PatchMapping("/personal-info")
-    public ResponseEntity<ApiResponse> updateApplicationUserInfo(
+    public ResponseEntity<Response> updateApplicationUserInfo(
             @Valid @RequestBody ApplicationUserDTO applicationUserInfo) {
-        return ResponseEntity.ok(
-                ApiResponse.builder()
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(Response.builder()
                         .timeStamp(LocalDateTime.now())
                         .statusCode(HttpStatus.OK.value())
-                        .status(HttpStatus.OK)
-                        .message("User information updated")
+                        .message("User personal information updated successfully")
                         .data(Map.of("updatedApplicationUserDTO",
                                 applicationUserSettingsService.updatePersonalInfo(applicationUserInfo)))
-                        .build()
-        );
+                        .build());
     }
 
     @PatchMapping("/photo")
-    public ResponseEntity<ApiResponse> updateApplicationUserPhoto(@RequestBody MultipartFile file) throws IOException {
-        return ResponseEntity.ok(
-                ApiResponse.builder()
+    public ResponseEntity<Response> updateApplicationUserPhoto(@RequestBody MultipartFile file) throws IOException {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(Response.builder()
                         .timeStamp(LocalDateTime.now())
                         .statusCode(HttpStatus.OK.value())
-                        .status(HttpStatus.OK)
-                        .message("User photo updated")
+                        .message("User profile photo updated successfully")
                         .data(Map.of("updatedApplicationUserDTO", applicationUserSettingsService.updatePhoto(file)))
-                        .build()
-        );
+                        .build());
     }
 
     @DeleteMapping("/photo-delete")
-    public ResponseEntity<ApiResponse> deleteApplicationUserPhoto() throws IOException {
-        return ResponseEntity.ok(
-                ApiResponse.builder()
+    public ResponseEntity<Response> deleteApplicationUserPhoto() throws IOException {
+        return ResponseEntity
+                .status(HttpStatus.NO_CONTENT)
+                .body(Response.builder()
                         .timeStamp(LocalDateTime.now())
-                        .statusCode(HttpStatus.OK.value())
-                        .status(HttpStatus.OK)
-                        .message("Profile photo updated")
+                        .statusCode(HttpStatus.NO_CONTENT.value())
+                        .message("User profile photo deleted successfully")
                         .data(Map.of("updatedApplicationUserDTO", applicationUserSettingsService.deletePhoto()))
-                        .build()
-        );
+                        .build());
     }
 
     @PatchMapping("/password")
-    public ResponseEntity<ApiResponse> updateApplicationUserPassword(
+    public ResponseEntity<Response> updateApplicationUserPassword(
             @Valid @RequestBody ApplicationUserDTO applicationUserInfo) {
-        return ResponseEntity.ok(
-                ApiResponse.builder()
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(Response.builder()
                         .timeStamp(LocalDateTime.now())
                         .statusCode(HttpStatus.OK.value())
-                        .status(HttpStatus.OK)
-                        .message("User password updated")
+                        .message("User password updated successfully")
                         .data(Map.of("updatedApplicationUserDTO",
                                 applicationUserSettingsService.updatePassword(applicationUserInfo)))
-                        .build()
-        );
+                        .build());
     }
 
     @DeleteMapping("/account-delete")
-    public ResponseEntity<ApiResponse> deleteApplicationUser() throws IOException {
+    public ResponseEntity<Response> deleteApplicationUser() throws IOException {
         applicationUserSettingsService.deleteApplicationUser();
 
-        return ResponseEntity.ok(
-                ApiResponse.builder()
+        return ResponseEntity
+                .status(HttpStatus.NO_CONTENT)
+                .body(Response.builder()
                         .timeStamp(LocalDateTime.now())
-                        .statusCode(HttpStatus.OK.value())
-                        .status(HttpStatus.OK)
-                        .message("Account has been deleted!")
-                        .build()
-        );
+                        .statusCode(HttpStatus.NO_CONTENT.value())
+                        .message("User account deleted successfully")
+                        .build());
     }
 }

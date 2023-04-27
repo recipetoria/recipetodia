@@ -1,6 +1,8 @@
 package com.jit.rec.recipetoria.security.applicationUser;
 
 import com.jit.rec.recipetoria.entity.Ingredient;
+import com.jit.rec.recipetoria.entity.Recipe;
+import com.jit.rec.recipetoria.entity.Tag;
 import lombok.*;
 
 import jakarta.persistence.*;
@@ -10,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @Builder
@@ -34,8 +37,11 @@ public class ApplicationUser implements UserDetails {
     @OneToMany(mappedBy = "applicationUser", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Ingredient> shoppingList;
 
-//    @OneToMany
-//    private List<Recipe> listOfRecipes;
+    @OneToMany(mappedBy = "applicationUser", cascade = CascadeType.ALL)
+    private List<Recipe> listOfRecipes;
+
+    @OneToMany(mappedBy = "applicationUser", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Tag> tags;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

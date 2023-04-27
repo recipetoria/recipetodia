@@ -1,0 +1,374 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="9d8fdb90-e583-4a4a-ac36-8ca0b4776101" name="Changes" comment="1. Added ApiResponse layer for ApplicationUserController, ApplicationUserSettingsController, IngredientController;&#10;2. Removed changing email;&#10;3. Removed @NotNull at 'amount' in IngredientDTO;&#10;4. Renamed 'ApiResponse' into 'Response';&#10;5. Merged with Sergei's commit;&#10;6. Minor changes.">
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/controller/IngredientApi.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/controller/IngredientApi.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/controller/TagApi.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/controller/TagApi.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+        <option value="JUnit5 Test Class" />
+        <option value="Interface" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="backend-s" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectId" id="2NolrSGlcmemY02TIYmKhnm2qMB" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Git.Branch.Popup.ShowAllRemotes&quot;: &quot;true&quot;,
+    &quot;Notification.DoNotAsk-null&quot;: &quot;true&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;backend.REC-17&quot;,
+    &quot;last_directory_selection&quot;: &quot;/Users/cgrey/projects/jit-rec/web/src/test/java/com/jit/rec&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/Nikolai/Documents/JavaWorkspaces/JuniorITClub/book-of-recipes/src/main/resources&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.project.maven.runner&quot;,
+    &quot;spring.configuration.checksum&quot;: &quot;f8c453b760e87c3960dd25a1fc2e00e5&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  },
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;postgresql&quot;
+    ]
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/resources" />
+    </key>
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="com.jit.rec.recipetoria.service" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.jit.rec.recipetoria.controller" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="RecipetoriaApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <option name="ACTIVE_PROFILES" />
+      <module name="recipetoria" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.jit.rec.recipetoria.RecipetoriaApplication" />
+      <extension name="net.ashald.envfile">
+        <option name="IS_ENABLED" value="true" />
+        <option name="IS_SUBST" value="false" />
+        <option name="IS_PATH_MACRO_SUPPORTED" value="false" />
+        <option name="IS_IGNORE_MISSING_FILES" value="false" />
+        <option name="IS_ENABLE_EXPERIMENTAL_INTEGRATIONS" value="false" />
+        <ENTRIES>
+          <ENTRY IS_ENABLED="true" PARSER="env" IS_EXECUTABLE="false" PATH="local.env" />
+          <ENTRY IS_ENABLED="true" PARSER="runconfig" IS_EXECUTABLE="false" />
+        </ENTRIES>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="SpringBeansView">
+    <option name="showModules" value="false" />
+    <option name="showImplicitBeans" value="false" />
+    <option name="showDoc" value="false" />
+    <option name="showGraph" value="false" />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="9d8fdb90-e583-4a4a-ac36-8ca0b4776101" name="Changes" comment="." />
+      <created>1680338513539</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1680338513539</updated>
+      <workItem from="1680338514603" duration="1383000" />
+      <workItem from="1680339903284" duration="129000" />
+      <workItem from="1680521436047" duration="5054000" />
+      <workItem from="1680798236430" duration="20315000" />
+      <workItem from="1681047136620" duration="5856000" />
+      <workItem from="1681131963426" duration="3797000" />
+      <workItem from="1681313305611" duration="1305000" />
+      <workItem from="1681466273877" duration="1432000" />
+      <workItem from="1681484936744" duration="1503000" />
+      <workItem from="1681806079255" duration="643000" />
+      <workItem from="1681830272217" duration="1214000" />
+      <workItem from="1681842030748" duration="27599000" />
+      <workItem from="1682073349401" duration="6670000" />
+      <workItem from="1682097244552" duration="106000" />
+      <workItem from="1682158009280" duration="13384000" />
+      <workItem from="1682568984627" duration="8262000" />
+    </task>
+    <task id="LOCAL-00001" summary="1. Changed application.properties">
+      <created>1680339848147</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1680339848147</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Merging 'backend' into 'main'">
+      <created>1680339944133</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1680339944133</updated>
+    </task>
+    <task id="LOCAL-00003" summary="add Recipe MVC &#10;+two endpoints to create a new rec and show all rec">
+      <created>1680451600286</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1680451600288</updated>
+    </task>
+    <task id="LOCAL-00004" summary="add Recipe MVC &#10;+two endpoints to create a new rec and show all rec">
+      <created>1680451658937</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1680451658937</updated>
+    </task>
+    <task id="LOCAL-00005" summary="add Recipe MVC &#10;+two endpoints to create a new rec and show all rec">
+      <created>1680459833924</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1680459833924</updated>
+    </task>
+    <task id="LOCAL-00006" summary="add JPA annotations to Recipe, Tag, User, Ingredient">
+      <created>1680953000820</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1680953000820</updated>
+    </task>
+    <task id="LOCAL-00007" summary="add JPA annotations to Recipe, Tag, User, Ingredient">
+      <created>1681482796096</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1681482796096</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Merge branch 'backend' into backend-s&#10;&#10;# Conflicts:&#10;#&#9;.idea/compiler.xml&#10;#&#9;.idea/misc.xml&#10;#&#9;src/main/java/com/jit/rec/recipetoria/controller/ApplicationUserController.java&#10;#&#9;src/main/java/com/jit/rec/recipetoria/controller/IngredientController.java&#10;#&#9;src/main/java/com/jit/rec/recipetoria/dto/NewIngredientRequest.java&#10;#&#9;src/main/java/com/jit/rec/recipetoria/security/applicationUser/ApplicationUserService.java&#10;#&#9;src/main/java/com/jit/rec/recipetoria/service/IngredientService.java&#10;#&#9;src/main/resources/application.properties">
+      <created>1681824136863</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1681824136863</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Merge branch 'backend' into backend-s&#10;&#10;# Conflicts:&#10;#&#9;.idea/compiler.xml&#10;#&#9;.idea/misc.xml&#10;#&#9;src/main/java/com/jit/rec/recipetoria/controller/ApplicationUserController.java&#10;#&#9;src/main/java/com/jit/rec/recipetoria/controller/IngredientController.java&#10;#&#9;src/main/java/com/jit/rec/recipetoria/dto/NewIngredientRequest.java&#10;#&#9;src/main/java/com/jit/rec/recipetoria/security/applicationUser/ApplicationUserService.java&#10;#&#9;src/main/java/com/jit/rec/recipetoria/service/IngredientService.java&#10;#&#9;src/main/resources/application.properties">
+      <created>1681828227551</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1681828227551</updated>
+    </task>
+    <task id="LOCAL-00010" summary="merged with fresh backend">
+      <created>1681828712632</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1681828712632</updated>
+    </task>
+    <task id="LOCAL-00011" summary="merged with fresh backend">
+      <created>1681828803295</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1681828803295</updated>
+    </task>
+    <task id="LOCAL-00012" summary="merged with fresh backend">
+      <created>1681828808878</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1681828808878</updated>
+    </task>
+    <task id="LOCAL-00013" summary="merged with fresh backend">
+      <created>1681828841062</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1681828841062</updated>
+    </task>
+    <task id="LOCAL-00014" summary="upd CRUD for Recipe. tag field is out of service&#10;add responses for Recipe CRUD&#10;add responses for Tag CRUD&#10;add dtoToIngredientConverter to IngredientService">
+      <created>1682029804819</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1682029804819</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Merge remote-tracking branch 'origin/backend-s' into backend-s">
+      <created>1682030556722</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1682030556722</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Merge remote-tracking branch 'origin/backend-s' into backend-s&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml">
+      <created>1682437127297</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1682437127297</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Merge remote-tracking branch 'origin/backend-s' into backend-s&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml">
+      <created>1682437303117</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1682437303117</updated>
+    </task>
+    <task id="LOCAL-00018" summary="omg">
+      <created>1682437391064</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1682437391064</updated>
+    </task>
+    <task id="LOCAL-00019" summary="omg">
+      <created>1682438763706</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1682438763706</updated>
+    </task>
+    <task id="LOCAL-00020" summary="Merge remote-tracking branch 'origin/backend-s' into backend-s&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml">
+      <created>1682441850595</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1682441850595</updated>
+    </task>
+    <task id="LOCAL-00021" summary="Merge remote-tracking branch 'origin/backend-s' into backend-s&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml">
+      <created>1682441873000</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1682441873000</updated>
+    </task>
+    <task id="LOCAL-00022" summary="1. Started Swagger description">
+      <created>1682523027548</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1682523027548</updated>
+    </task>
+    <task id="LOCAL-00023" summary="1. Added ApiResponse layer for ApplicationUserController, ApplicationUserSettingsController, IngredientController;&#10;2. Removed changing email;&#10;3. Removed @NotNull at 'amount' in IngredientDTO;&#10;4. Renamed 'ApiResponse' into 'Response';&#10;5. Merged with Sergei's commit.">
+      <created>1682612298005</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1682612298005</updated>
+    </task>
+    <task id="LOCAL-00024" summary="1. Added ApiResponse layer for ApplicationUserController, ApplicationUserSettingsController, IngredientController;&#10;2. Removed changing email;&#10;3. Removed @NotNull at 'amount' in IngredientDTO;&#10;4. Renamed 'ApiResponse' into 'Response';&#10;5. Merged with Sergei's commit;&#10;6. Minor changes.">
+      <created>1682612376308</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1682612376308</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="COLUMN_ID_ORDER">
+      <list>
+        <option value="Default.Root" />
+        <option value="Default.Author" />
+        <option value="Default.Date" />
+        <option value="Default.Subject" />
+        <option value="Space.CommitStatus" />
+      </list>
+    </option>
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="origin/backend-s" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="." />
+    <MESSAGE value="1. Changed application.properties" />
+    <MESSAGE value="Merging 'backend' into 'main'" />
+    <MESSAGE value="add Recipe MVC &#10;+two endpoints to create a new rec and show all rec" />
+    <MESSAGE value="add JPA annotations to Recipe, Tag, User, Ingredient" />
+    <MESSAGE value="Merge branch 'backend' into backend-s&#10;&#10;# Conflicts:&#10;#&#9;.idea/compiler.xml&#10;#&#9;.idea/misc.xml&#10;#&#9;src/main/java/com/jit/rec/recipetoria/controller/ApplicationUserController.java&#10;#&#9;src/main/java/com/jit/rec/recipetoria/controller/IngredientController.java&#10;#&#9;src/main/java/com/jit/rec/recipetoria/dto/NewIngredientRequest.java&#10;#&#9;src/main/java/com/jit/rec/recipetoria/security/applicationUser/ApplicationUserService.java&#10;#&#9;src/main/java/com/jit/rec/recipetoria/service/IngredientService.java&#10;#&#9;src/main/resources/application.properties" />
+    <MESSAGE value="merged with fresh backend" />
+    <MESSAGE value="upd CRUD for Recipe. tag field is out of service&#10;add responses for Recipe CRUD&#10;add responses for Tag CRUD&#10;add dtoToIngredientConverter to IngredientService" />
+    <MESSAGE value="Merge remote-tracking branch 'origin/backend-s' into backend-s" />
+    <MESSAGE value="omg" />
+    <MESSAGE value="Merge remote-tracking branch 'origin/backend-s' into backend-s&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml" />
+    <MESSAGE value="1. Started Swagger description" />
+    <MESSAGE value="1. Security fix." />
+    <MESSAGE value="1. Added ApiResponse layer for ApplicationUserController, ApplicationUserSettingsController, IngredientController;&#10;2. Removed changing email;&#10;3. Removed @NotNull at 'amount' in IngredientDTO;&#10;4. Renamed 'ApiResponse' into 'Response';&#10;5. Merged with Sergei's commit." />
+    <MESSAGE value="1. Added ApiResponse layer for ApplicationUserController, ApplicationUserSettingsController, IngredientController;&#10;2. Removed changing email;&#10;3. Removed @NotNull at 'amount' in IngredientDTO;&#10;4. Renamed 'ApiResponse' into 'Response';&#10;5. Merged with Sergei's commit;&#10;6. Minor changes." />
+    <option name="LAST_COMMIT_MESSAGE" value="1. Added ApiResponse layer for ApplicationUserController, ApplicationUserSettingsController, IngredientController;&#10;2. Removed changing email;&#10;3. Removed @NotNull at 'amount' in IngredientDTO;&#10;4. Renamed 'ApiResponse' into 'Response';&#10;5. Merged with Sergei's commit;&#10;6. Minor changes." />
+  </component>
+</project>

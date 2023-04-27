@@ -15,7 +15,6 @@ public record IngredientDTO(
         @Size(min = 1, max = 30, message = "{validation.ingredientDTO.name.Size}")
         String name,
 
-        @NotNull(message = "{validation.ingredientDTO.amount.NotNull}")
         @Positive(message = "{validation.ingredientDTO.amount.Positive}")
         Double amount,
 
@@ -36,5 +35,15 @@ public record IngredientDTO(
                 ingredient.getMeasurementUnit(),
                 applicationUserId
         );
+    }
+
+    public static Ingredient convertToIngredient(IngredientDTO ingredientDTO) {
+        Ingredient ingredient = new Ingredient();
+
+        ingredient.setName(ingredientDTO.name());
+        ingredient.setAmount(ingredientDTO.amount());
+        ingredient.setMeasurementUnit(ingredientDTO.measurementUnit());
+
+        return ingredient;
     }
 }
