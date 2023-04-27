@@ -1,12 +1,12 @@
 package com.jit.rec.recipetoria.controller;
 
+import com.jit.rec.recipetoria.controllerapi.TagApi;
 import com.jit.rec.recipetoria.dto.TagDTO;
-import com.jit.rec.recipetoria.entity.ApiResponse;
+import com.jit.rec.recipetoria.entity.Response;
 import com.jit.rec.recipetoria.service.TagService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,62 +14,72 @@ import java.time.LocalDateTime;
 import java.util.Map;
 
 @RestController
-@RequestMapping(value = "/api/v1/client/tags", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping("/api/v1/client/tags")
 @RequiredArgsConstructor
-public class TagController {
+public class TagController implements TagApi {
 
     private final TagService tagService;
 
     @GetMapping
-    public ResponseEntity<ApiResponse> getAllTags() {
-        return ResponseEntity.ok(
-                ApiResponse.builder()
+    public ResponseEntity<Response> getAllTags() {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(Response.builder()
                         .timeStamp(LocalDateTime.now())
                         .statusCode(HttpStatus.OK.value())
-                        .status(HttpStatus.OK)
                         .message("Tags retrieved")
                         .data(Map.of("allTagsDTOs", tagService.getAllTags()))
-                        .build()
-        );
+                        .build());
     }
 
     @PostMapping
-    public ResponseEntity<ApiResponse> createTag(@RequestBody @Valid TagDTO newTagDTO) {
-        return ResponseEntity.ok(
-                ApiResponse.builder()
+    public ResponseEntity<Response> createTag(@RequestBody @Valid TagDTO newTagDTO) {
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(Response.builder()
                         .timeStamp(LocalDateTime.now())
                         .statusCode(HttpStatus.CREATED.value())
-                        .status(HttpStatus.CREATED)
                         .message("Tag \"" + newTagDTO.name() + "\" created")
                         .data(Map.of("createdTagDTO", tagService.createTag(newTagDTO)))
-                        .build()
-        );
+                        .build());
     }
 
     @GetMapping("/{tagId}")
-    public ResponseEntity<ApiResponse> getTagById(@PathVariable("tagId") Long tagId) {
+    public ResponseEntity<Response> getTagById(@PathVariable("tagId") Long tagId) {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(Response.builder()
+                        .timeStamp(LocalDateTime.now())
+                        .statusCode(HttpStatus.OK.value())
+                        .message("Tag with ID " + tagId + " retrieved")
+                        .data(Map.of("tagDTO", tagService.getTagDTOById(tagId)))
+                        .build());
+    }
+
+    @PatchMapping("/{tagId}")
+    public ResponseEntity<Response> updateTagById(@PathVariable("tagId") Long tagId,
+                                                     TagDTO updatedTag){
         return ResponseEntity.ok(
-                ApiResponse.builder()
+                Response.builder()
                         .timeStamp(LocalDateTime.now())
                         .statusCode(HttpStatus.OK.value())
                         .status(HttpStatus.OK)
-                        .message("Tag with ID " + tagId + " retrieved")
-                        .data(Map.of("tagDTO", tagService.getTagDTOById(tagId)))
+                        .message("Tag with id " + tagId + " updated")
+                        .data(Map.of("updated tagDTO", tagService.updateTagById(tagId, updatedTag)))
                         .build()
         );
     }
 
     @DeleteMapping("/{tagId}")
-    public ResponseEntity<ApiResponse> deleteTagById(@PathVariable("tagId") Long tagId) {
+    public ResponseEntity<Response> deleteTagById(@PathVariable("tagId") Long tagId) {
         tagService.deleteTagById(tagId);
 
-        return ResponseEntity.ok(
-                ApiResponse.builder()
+        return ResponseEntity
+                .status(HttpStatus.NO_CONTENT)
+                .body(Response.builder()
                         .timeStamp(LocalDateTime.now())
-                        .statusCode(HttpStatus.OK.value())
-                        .status(HttpStatus.OK)
+                        .statusCode(HttpStatus.NO_CONTENT.value())
                         .message("Tag with ID " + tagId + " has been deleted")
-                        .build()
-        );
+                        .build());
     }
 }

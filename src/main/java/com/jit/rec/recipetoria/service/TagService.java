@@ -47,6 +47,15 @@ public class TagService {
                 .orElseThrow(() -> new ResourceNotFoundException("Tag with ID: " + tagId + " not found!"));
     }
 
+    public TagDTO updateTagById(Long tagId, TagDTO updatedTag){
+        Tag tagToBeUpdated = tagRepository.findById(tagId).
+                orElseThrow(() -> new ResourceNotFoundException("Tag with ID: " + tagId + " not found!"));
+        tagToBeUpdated.setName(updatedTag.name());
+        tagToBeUpdated.setIcon(updatedTag.icon());
+
+        return TagDTO.convertToDTO(tagRepository.save(tagToBeUpdated));
+    }
+
     public void deleteTagById(Long tagId) {
         if (!tagRepository.existsById(tagId)) {
             throw new ResourceNotFoundException("Tag with ID: " + tagId + " not found!");
