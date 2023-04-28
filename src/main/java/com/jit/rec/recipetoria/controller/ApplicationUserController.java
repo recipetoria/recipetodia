@@ -2,15 +2,17 @@ package com.jit.rec.recipetoria.controller;
 
 import com.jit.rec.recipetoria.controllerapi.ApplicationUserApi;
 import com.jit.rec.recipetoria.dto.IngredientDTO;
-import com.jit.rec.recipetoria.entity.Response;
-import com.jit.rec.recipetoria.security.applicationUser.ApplicationUserService;
+import com.jit.rec.recipetoria.dto.Response;
+import com.jit.rec.recipetoria.service.ApplicationUserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.Locale;
 import java.util.Map;
 
 @RestController
@@ -19,6 +21,7 @@ import java.util.Map;
 public class ApplicationUserController implements ApplicationUserApi {
 
     private final ApplicationUserService applicationUserService;
+    MessageSource messageSource;
 
     @GetMapping
     public ResponseEntity<Response> getAllIngredients() {
@@ -27,7 +30,8 @@ public class ApplicationUserController implements ApplicationUserApi {
                 .body(Response.builder()
                         .timeStamp(LocalDateTime.now())
                         .statusCode(HttpStatus.OK.value())
-                        .message("List of ingredients in the Shopping List retrieved successfully")
+                        .message(messageSource.getMessage(
+                                "response.user.getAllIngredients", null, Locale.getDefault()))
                         .data(Map.of("allIngredientDTOs", applicationUserService.getAllIngredients()))
                         .build());
     }
@@ -39,9 +43,9 @@ public class ApplicationUserController implements ApplicationUserApi {
                 .body(Response.builder()
                         .timeStamp(LocalDateTime.now())
                         .statusCode(HttpStatus.CREATED.value())
-                        .message("Ingredient created")
-                        .data(Map.of("createdIngredientDTO",
-                                applicationUserService.createIngredient(newIngredientInfo)))
+                        .message(messageSource.getMessage(
+                                "response.user.createIngredient", null, Locale.getDefault()))
+                        .data(Map.of("createdIngredientDTO", applicationUserService.createIngredient(newIngredientInfo)))
                         .build());
     }
 }

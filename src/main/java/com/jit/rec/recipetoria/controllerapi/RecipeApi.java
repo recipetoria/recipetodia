@@ -1,7 +1,7 @@
 package com.jit.rec.recipetoria.controllerapi;
 
 import com.jit.rec.recipetoria.dto.RecipeDTO;
-import com.jit.rec.recipetoria.entity.Response;
+import com.jit.rec.recipetoria.dto.Response;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -214,6 +214,4 @@ public interface RecipeApi {
                     response: status 200(ok) \n
                     """)
     ResponseEntity<Response> deleteRecipeById(Long recipeId);
-
-
 }

@@ -23,6 +23,7 @@ public record IngredientDTO(
         @Nullable
         Long applicationUserId
 ) {
+
     public static IngredientDTO convertToDTO(Ingredient ingredient) {
         Long applicationUserId = null;
         if (ingredient.getApplicationUser() != null) {

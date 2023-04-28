@@ -15,14 +15,6 @@ import java.util.Set;
 public class MessageSourceConfiguration {
 
     @Bean
-    public MessageSource messageSource() {
-        ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
-        messageSource.setBasename("classpath:validation");
-        messageSource.setDefaultEncoding("UTF-8");
-        return messageSource;
-    }
-
-    @Bean
     public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
         Dotenv dotenv = Dotenv.load();
 
@@ -35,5 +27,17 @@ public class MessageSourceConfiguration {
         PropertySourcesPlaceholderConfigurer configurer = new PropertySourcesPlaceholderConfigurer();
         configurer.setProperties(properties);
         return configurer;
+    }
+
+    @Bean
+    public MessageSource messageSource() {
+        ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
+        messageSource.setBasenames(
+                "classpath:validation",
+                "classpath:responses",
+                "classpath:exceptions"
+        );
+        messageSource.setDefaultEncoding("UTF-8");
+        return messageSource;
     }
 }

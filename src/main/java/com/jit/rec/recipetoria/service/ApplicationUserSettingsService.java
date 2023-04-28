@@ -1,9 +1,10 @@
 package com.jit.rec.recipetoria.service;
 
 import com.jit.rec.recipetoria.dto.ApplicationUserDTO;
-import com.jit.rec.recipetoria.security.applicationUser.ApplicationUser;
-import com.jit.rec.recipetoria.security.applicationUser.ApplicationUserRepository;
+import com.jit.rec.recipetoria.entity.ApplicationUser;
+import com.jit.rec.recipetoria.repository.ApplicationUserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.MessageSource;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -25,6 +26,7 @@ public class ApplicationUserSettingsService {
 
     private final ApplicationUserRepository applicationUserRepository;
     private final PasswordEncoder passwordEncoder;
+    private final MessageSource messageSource;
 
     public ApplicationUserDTO getApplicationUser() {
         ApplicationUser applicationUser =
@@ -74,7 +76,8 @@ public class ApplicationUserSettingsService {
 
     private void validatePhoto(MultipartFile file) {
         if (file.isEmpty()) {
-            throw new IllegalArgumentException("Uploaded file is empty.");
+            throw new IllegalArgumentException(messageSource.getMessage(
+                    "exception.applicationUserSettings.validatePhoto.emptyFile", null, Locale.getDefault()));
         }
 
         long maxSize = 5 * 1024 * 1024; // 5 MB
@@ -91,8 +94,9 @@ public class ApplicationUserSettingsService {
             }
         }
         if (!isAllowedExtension) {
-            throw new IllegalArgumentException("File extension is not allowed. Allowed extensions are: "
-                    + allowedExtensions);
+            String message = messageSource.getMessage(
+                    "exception.applicationUserSettings.validatePhoto.invalidExtension", null, Locale.getDefault());
+            throw new IllegalArgumentException(message + " " + allowedExtensions);
         }
     }
 

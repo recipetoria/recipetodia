@@ -1,6 +1,5 @@
 package com.jit.rec.recipetoria.entity;
 
-import com.jit.rec.recipetoria.security.applicationUser.ApplicationUser;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import jakarta.persistence.*;
@@ -29,5 +28,4 @@ Tag {
 
     @ManyToMany(mappedBy = "tags", cascade = CascadeType.ALL)
     private List<Recipe> recipes;
-
 }

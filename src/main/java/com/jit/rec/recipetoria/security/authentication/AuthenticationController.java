@@ -1,13 +1,15 @@
 package com.jit.rec.recipetoria.security.authentication;
 
-import com.jit.rec.recipetoria.entity.Response;
+import com.jit.rec.recipetoria.dto.Response;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.Locale;
 import java.util.Map;
 
 @RestController
@@ -16,46 +18,50 @@ import java.util.Map;
 public class AuthenticationController {
 
     private final AuthenticationService authenticationService;
+    private final MessageSource messageSource;
 
     @PostMapping("/register")
     public ResponseEntity<Response> register(@Valid @RequestBody AuthenticationRequest authenticationRequest) {
-        return ResponseEntity.ok(
-                Response.builder()
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(Response.builder()
                         .timeStamp(LocalDateTime.now())
-                        .statusCode(HttpStatus.OK.value())
-                        .status(HttpStatus.OK)
-                        .message("User registered successfully")
+                        .statusCode(HttpStatus.CREATED.value())
+                        .message(messageSource.getMessage(
+                                "response.authentication.register", null, Locale.getDefault()))
                         .data(Map.of("authenticationResponse",
                                 authenticationService.register(authenticationRequest)))
                         .build()
-        );
+                );
     }
 
     @GetMapping("/verify-email") //TODO: check exceptions
     public ResponseEntity<Response> verifyEmail(@RequestParam("token") String verificationToken) {
         authenticationService.verifyEmail(verificationToken);
 
-        return ResponseEntity.ok(
-                Response.builder()
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(Response.builder()
                         .timeStamp(LocalDateTime.now())
                         .statusCode(HttpStatus.OK.value())
-                        .status(HttpStatus.OK)
-                        .message("User verified successfully")
+                        .message(messageSource.getMessage(
+                                "response.authentication.verifyEmail", null, Locale.getDefault()))
                         .build()
-        );
+                );
     }
 
     @PostMapping("/authenticate")
     public ResponseEntity<Response> authenticate(@Valid @RequestBody AuthenticationRequest authenticationRequest) {
-        return ResponseEntity.ok(
-                Response.builder()
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(Response.builder()
                         .timeStamp(LocalDateTime.now())
                         .statusCode(HttpStatus.OK.value())
-                        .status(HttpStatus.OK)
-                        .message("User authenticated successfully")
+                        .message(messageSource.getMessage(
+                                "response.authentication.authenticate", null, Locale.getDefault()))
                         .data(Map.of("authenticationResponse",
                                 authenticationService.authenticate(authenticationRequest)))
                         .build()
-        );
+                );
     }
 }

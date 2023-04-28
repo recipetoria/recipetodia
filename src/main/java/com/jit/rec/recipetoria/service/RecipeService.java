@@ -8,8 +8,9 @@ import com.jit.rec.recipetoria.entity.Recipe;
 import com.jit.rec.recipetoria.exception.ResourceNotFoundException;
 import com.jit.rec.recipetoria.repository.IngredientRepository;
 import com.jit.rec.recipetoria.repository.RecipeRepository;
-import com.jit.rec.recipetoria.security.applicationUser.ApplicationUser;
+import com.jit.rec.recipetoria.entity.ApplicationUser;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.MessageSource;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +24,7 @@ public class RecipeService {
     private final RecipeRepository recipeRepository;
     private final IngredientRepository ingredientRepository;
     private final TagService tagService;
+    private final MessageSource messageSource;
 
     private <T> void setPropertyValue(T value, Consumer<T> setter) {
         Optional.ofNullable(value).ifPresent(setter);
@@ -76,12 +78,14 @@ public class RecipeService {
 
     public RecipeDTO getRecipeById(Long recipeId) {
         return RecipeDTO.convertToDTO(recipeRepository.findById(recipeId)
-                .orElseThrow(() -> new IllegalStateException("Recipe with ID: " + recipeId + " not found!")));
+                .orElseThrow(() -> new ResourceNotFoundException(messageSource.getMessage(
+                        "exception.recipe.notFound", null, Locale.getDefault()))));
     }
 
     public RecipeDTO updateRecipeById(Long recipeToUpdateId, RecipeDTO updatedRecipeDTO) {
         Recipe recipeToBeUpdated = recipeRepository.findById(recipeToUpdateId)
-                .orElseThrow(() -> new ResourceNotFoundException("Recipe with ID: " + recipeToUpdateId + " not found!"));
+                .orElseThrow(() -> new ResourceNotFoundException(messageSource.getMessage(
+                        "exception.recipe.notFound", null, Locale.getDefault())));
 
         if (updatedRecipeDTO.getName() != null) {
             recipeToBeUpdated.setName(updatedRecipeDTO.getName());
@@ -116,9 +120,9 @@ public class RecipeService {
 
     public void deleteRecipeById(Long recipeId) {
         if (!ingredientRepository.existsById(recipeId)) {
-            throw new ResourceNotFoundException("Recipe with ID: " + recipeId + " not found!");
+            throw new ResourceNotFoundException(messageSource.getMessage(
+                    "exception.recipe.notFound", null, Locale.getDefault()));
         }
         recipeRepository.deleteById(recipeId);
     }
-
 }

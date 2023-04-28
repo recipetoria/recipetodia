@@ -1,4 +1,4 @@
-package com.jit.rec.recipetoria.entity;
+package com.jit.rec.recipetoria.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;

@@ -1,7 +1,7 @@
 package com.jit.rec.recipetoria.controllerapi;
 
 import com.jit.rec.recipetoria.dto.ApplicationUserDTO;
-import com.jit.rec.recipetoria.entity.Response;
+import com.jit.rec.recipetoria.dto.Response;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;

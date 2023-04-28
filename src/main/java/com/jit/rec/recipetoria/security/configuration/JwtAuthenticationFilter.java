@@ -6,6 +6,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.MessageSource;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.util.Locale;
 
 @Component
 @RequiredArgsConstructor
@@ -22,6 +24,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final JwtService jwtService;
     private final UserDetailsService userDetailsService;
+    private final MessageSource messageSource;
 
     @Override
     protected void doFilterInternal(
@@ -41,7 +44,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             UserDetails userDetails = this.userDetailsService.loadUserByUsername(userEmail);
             if (!userDetails.isAccountNonLocked()) {
-                response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "User account is locked");
+                response.sendError(
+                        HttpServletResponse.SC_UNAUTHORIZED,
+                        messageSource.getMessage("message.authentication.userLocked", null, Locale.getDefault())
+                );
                 return;
             }
             if (jwtService.isTokenValid(jwt, userDetails)) {

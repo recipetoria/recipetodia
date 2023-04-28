@@ -1,7 +1,5 @@
 package com.jit.rec.recipetoria.entity;
 
-import com.jit.rec.recipetoria.security.applicationUser.ApplicationUser;
-
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;

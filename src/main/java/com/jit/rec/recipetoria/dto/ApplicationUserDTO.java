@@ -1,6 +1,6 @@
 package com.jit.rec.recipetoria.dto;
 
-import com.jit.rec.recipetoria.security.applicationUser.ApplicationUser;
+import com.jit.rec.recipetoria.entity.ApplicationUser;
 import jakarta.annotation.Nullable;
 import jakarta.validation.constraints.*;
 

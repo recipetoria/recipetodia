@@ -4,19 +4,22 @@ import com.jit.rec.recipetoria.dto.TagDTO;
 import com.jit.rec.recipetoria.entity.Tag;
 import com.jit.rec.recipetoria.exception.ResourceNotFoundException;
 import com.jit.rec.recipetoria.repository.TagRepository;
-import com.jit.rec.recipetoria.security.applicationUser.ApplicationUser;
+import com.jit.rec.recipetoria.entity.ApplicationUser;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.MessageSource;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 @Service
 @RequiredArgsConstructor
 public class TagService {
 
     private final TagRepository tagRepository;
+    private final MessageSource messageSource;
 
     public List<TagDTO> getAllTags() {
         List<TagDTO> allTagDTOs = new ArrayList<>();
@@ -44,12 +47,14 @@ public class TagService {
 
     public Tag getTagById(Long tagId) {
         return tagRepository.findById(tagId)
-                .orElseThrow(() -> new ResourceNotFoundException("Tag with ID: " + tagId + " not found!"));
+                .orElseThrow(() -> new ResourceNotFoundException(messageSource.getMessage(
+                        "exception.tag.notFound", null, Locale.getDefault())));
     }
 
-    public TagDTO updateTagById(Long tagId, TagDTO updatedTag){
+    public TagDTO updateTagById(Long tagId, TagDTO updatedTag) {
         Tag tagToBeUpdated = tagRepository.findById(tagId).
-                orElseThrow(() -> new ResourceNotFoundException("Tag with ID: " + tagId + " not found!"));
+                orElseThrow(() -> new ResourceNotFoundException(messageSource.getMessage(
+                        "exception.tag.notFound", null, Locale.getDefault())));
         tagToBeUpdated.setName(updatedTag.name());
         tagToBeUpdated.setIcon(updatedTag.icon());
 
@@ -58,7 +63,8 @@ public class TagService {
 
     public void deleteTagById(Long tagId) {
         if (!tagRepository.existsById(tagId)) {
-            throw new ResourceNotFoundException("Tag with ID: " + tagId + " not found!");
+            throw new ResourceNotFoundException(messageSource.getMessage(
+                    "exception.tag.notFound", null, Locale.getDefault()));
         }
         tagRepository.deleteById(tagId);
     }

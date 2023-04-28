@@ -2,15 +2,17 @@ package com.jit.rec.recipetoria.controller;
 
 import com.jit.rec.recipetoria.controllerapi.RecipeApi;
 import com.jit.rec.recipetoria.dto.RecipeDTO;
-import com.jit.rec.recipetoria.entity.Response;
+import com.jit.rec.recipetoria.dto.Response;
 import com.jit.rec.recipetoria.service.RecipeService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.Locale;
 import java.util.Map;
 
 @RestController
@@ -19,6 +21,7 @@ import java.util.Map;
 public class RecipeController implements RecipeApi {
 
     private final RecipeService recipeService;
+    private final MessageSource messageSource;
 
     @GetMapping
     public ResponseEntity<Response> getAllRecipes() {
@@ -27,7 +30,8 @@ public class RecipeController implements RecipeApi {
                 .body(Response.builder()
                         .timeStamp(LocalDateTime.now())
                         .statusCode(HttpStatus.OK.value())
-                        .message("Recipes retrieved")
+                        .message(messageSource.getMessage(
+                                "response.recipe.getAllRecipes", null, Locale.getDefault()))
                         .data(Map.of("allRecipesDTOs", recipeService.getAllRecipes()))
                         .build());
     }
@@ -39,7 +43,8 @@ public class RecipeController implements RecipeApi {
                 .body(Response.builder()
                         .timeStamp(LocalDateTime.now())
                         .statusCode(HttpStatus.CREATED.value())
-                        .message("Recipe created")
+                        .message(messageSource.getMessage(
+                                "response.recipe.createRecipe", null, Locale.getDefault()))
                         .data(Map.of("createdRecipeDTO", recipeService.createRecipe(newRecipeInfo)))
                         .build());
     }
@@ -51,7 +56,8 @@ public class RecipeController implements RecipeApi {
                 .body(Response.builder()
                         .timeStamp(LocalDateTime.now())
                         .statusCode(HttpStatus.OK.value())
-                        .message("Recipe retrieved")
+                        .message(messageSource.getMessage(
+                                "response.recipe.getRecipeById", null, Locale.getDefault()))
                         .data(Map.of("recipeDTO", recipeService.getRecipeById(recipeId)))
                         .build());
     }
@@ -64,7 +70,8 @@ public class RecipeController implements RecipeApi {
                 .body(Response.builder()
                         .timeStamp(LocalDateTime.now())
                         .statusCode(HttpStatus.OK.value())
-                        .message("Recipe updated")
+                        .message(messageSource.getMessage(
+                                "response.recipe.updateRecipeById", null, Locale.getDefault()))
                         .data(Map.of("updatedRecipeDTO",
                                 recipeService.updateRecipeById(recipeId, updatedRecipeInfo)))
                         .build());
@@ -79,7 +86,8 @@ public class RecipeController implements RecipeApi {
                 .body(Response.builder()
                         .timeStamp(LocalDateTime.now())
                         .statusCode(HttpStatus.NO_CONTENT.value())
-                        .message("Recipe with ID " + recipeId + " has been deleted!")
+                        .message(messageSource.getMessage(
+                                "response.recipe.deleteRecipeById", null, Locale.getDefault()))
                         .build());
     }
 }

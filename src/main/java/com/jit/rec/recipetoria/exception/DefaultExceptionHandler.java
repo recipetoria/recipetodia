@@ -10,6 +10,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.multipart.MaxUploadSizeExceededException;
@@ -26,9 +27,10 @@ import java.util.stream.Collectors;
 @RestControllerAdvice
 public class DefaultExceptionHandler {
 
+    @ResponseStatus(HttpStatus.FORBIDDEN)
     @ExceptionHandler(UsernameNotFoundException.class)
-    public ResponseEntity<ApiError> handleException(UsernameNotFoundException e, HttpServletRequest request) {
-        ApiError apiError = new ApiError(
+    public ResponseEntity<ErrorResponse> handleException(UsernameNotFoundException e, HttpServletRequest request) {
+        ErrorResponse errorResponse = new ErrorResponse(
                 LocalDateTime.now(),
                 request.getRequestURI(),
                 HttpStatus.FORBIDDEN.value(),
@@ -36,12 +38,13 @@ public class DefaultExceptionHandler {
                 Arrays.toString(e.getStackTrace())
         );
 
-        return new ResponseEntity<>(apiError, HttpStatus.FORBIDDEN);
+        return new ResponseEntity<>(errorResponse, HttpStatus.FORBIDDEN);
     }
 
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
     @ExceptionHandler(BadCredentialsException.class)
-    public ResponseEntity<ApiError> handleException(BadCredentialsException e, HttpServletRequest request) {
-        ApiError apiError = new ApiError(
+    public ResponseEntity<ErrorResponse> handleException(BadCredentialsException e, HttpServletRequest request) {
+        ErrorResponse errorResponse = new ErrorResponse(
                 LocalDateTime.now(),
                 request.getRequestURI(),
                 HttpStatus.UNAUTHORIZED.value(),
@@ -49,12 +52,13 @@ public class DefaultExceptionHandler {
                 Arrays.toString(e.getStackTrace())
         );
 
-        return new ResponseEntity<>(apiError, HttpStatus.UNAUTHORIZED);
+        return new ResponseEntity<>(errorResponse, HttpStatus.UNAUTHORIZED);
     }
 
+    @ResponseStatus(HttpStatus.CONFLICT)
     @ExceptionHandler(EmailAlreadyExistsException.class)
-    public ResponseEntity<ApiError> handleException(EmailAlreadyExistsException e, HttpServletRequest request) {
-        ApiError apiError = new ApiError(
+    public ResponseEntity<ErrorResponse> handleException(EmailAlreadyExistsException e, HttpServletRequest request) {
+        ErrorResponse errorResponse = new ErrorResponse(
                 LocalDateTime.now(),
                 request.getRequestURI(),
                 HttpStatus.CONFLICT.value(),
@@ -62,11 +66,12 @@ public class DefaultExceptionHandler {
                 Arrays.toString(e.getStackTrace())
         );
 
-        return new ResponseEntity<>(apiError, HttpStatus.CONFLICT);
+        return new ResponseEntity<>(errorResponse, HttpStatus.CONFLICT);
     }
 
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<ApiError> handleException(MethodArgumentNotValidException e, HttpServletRequest request) {
+    public ResponseEntity<ErrorResponse> handleException(MethodArgumentNotValidException e, HttpServletRequest request) {
         BindingResult bindingResult = e.getBindingResult();
 
         List<String> errorMessages = new ArrayList<>();
@@ -74,7 +79,7 @@ public class DefaultExceptionHandler {
             errorMessages.add(fieldError.getDefaultMessage());
         }
 
-        ApiError apiError = new ApiError(
+        ErrorResponse errorResponse = new ErrorResponse(
                 LocalDateTime.now(),
                 request.getRequestURI(),
                 HttpStatus.BAD_REQUEST.value(),
@@ -82,12 +87,13 @@ public class DefaultExceptionHandler {
                 Arrays.toString(e.getStackTrace())
         );
 
-        return new ResponseEntity<>(apiError, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
 
+    @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(ResourceNotFoundException.class)
-    public ResponseEntity<ApiError> handleException(ResourceNotFoundException e, HttpServletRequest request) {
-        ApiError apiError = new ApiError(
+    public ResponseEntity<ErrorResponse> handleException(ResourceNotFoundException e, HttpServletRequest request) {
+        ErrorResponse errorResponse = new ErrorResponse(
                 LocalDateTime.now(),
                 request.getRequestURI(),
                 HttpStatus.NOT_FOUND.value(),
@@ -95,11 +101,12 @@ public class DefaultExceptionHandler {
                 Arrays.toString(e.getStackTrace())
         );
 
-        return new ResponseEntity<>(apiError, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
     }
 
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(HttpMessageNotReadableException.class)
-    public ResponseEntity<ApiError> handleException(HttpMessageNotReadableException e, HttpServletRequest request) {
+    public ResponseEntity<ErrorResponse> handleException(HttpMessageNotReadableException e, HttpServletRequest request) {
         String rootCause = e.getMostSpecificCause().getMessage();
         String errorMessage;
         String variableName = null;
@@ -134,7 +141,7 @@ public class DefaultExceptionHandler {
         } catch (ClassNotFoundException ignored) {
         }
 
-        ApiError apiError = new ApiError(
+        ErrorResponse errorResponse = new ErrorResponse(
                 LocalDateTime.now(),
                 request.getRequestURI(),
                 HttpStatus.BAD_REQUEST.value(),
@@ -142,12 +149,13 @@ public class DefaultExceptionHandler {
                 Arrays.toString(e.getStackTrace())
         );
 
-        return new ResponseEntity<>(apiError, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
 
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(IllegalArgumentException.class)
-    public ResponseEntity<ApiError> handleException(IllegalArgumentException e, HttpServletRequest request) {
-        ApiError apiError = new ApiError(
+    public ResponseEntity<ErrorResponse> handleException(IllegalArgumentException e, HttpServletRequest request) {
+        ErrorResponse errorResponse = new ErrorResponse(
                 LocalDateTime.now(),
                 request.getRequestURI(),
                 HttpStatus.BAD_REQUEST.value(),
@@ -155,17 +163,18 @@ public class DefaultExceptionHandler {
                 Arrays.toString(e.getStackTrace())
         );
 
-        return new ResponseEntity<>(apiError, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
 
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
-    public ResponseEntity<ApiError> handleException(MethodArgumentTypeMismatchException e, HttpServletRequest request) {
+    public ResponseEntity<ErrorResponse> handleException(MethodArgumentTypeMismatchException e, HttpServletRequest request) {
         String expectedType = Objects.requireNonNull(e.getRequiredType()).getSimpleName();
         String actualValue = Objects.requireNonNull(e.getValue()).toString();
 
         String errorMessage = "Failed to convert value '" + actualValue + "' to required type '" + expectedType + "'";
 
-        ApiError apiError = new ApiError(
+        ErrorResponse errorResponse = new ErrorResponse(
                 LocalDateTime.now(),
                 request.getRequestURI(),
                 HttpStatus.BAD_REQUEST.value(),
@@ -173,13 +182,14 @@ public class DefaultExceptionHandler {
                 Arrays.toString(e.getStackTrace())
         );
 
-        return new ResponseEntity<>(apiError, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
 
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MaxUploadSizeExceededException.class)
-    public ResponseEntity<ApiError> handleException(MaxUploadSizeExceededException e, HttpServletRequest request) {
+    public ResponseEntity<ErrorResponse> handleException(MaxUploadSizeExceededException e, HttpServletRequest request) {
 
-        ApiError apiError = new ApiError(
+        ErrorResponse errorResponse = new ErrorResponse(
                 LocalDateTime.now(),
                 request.getRequestURI(),
                 HttpStatus.BAD_REQUEST.value(),
@@ -187,12 +197,13 @@ public class DefaultExceptionHandler {
                 Arrays.toString(e.getStackTrace())
         );
 
-        return new ResponseEntity<>(apiError, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
 
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<ApiError> handleException(Exception e, HttpServletRequest request) {
-        ApiError apiError = new ApiError(
+    public ResponseEntity<ErrorResponse> handleException(Exception e, HttpServletRequest request) {
+        ErrorResponse errorResponse = new ErrorResponse(
                 LocalDateTime.now(),
                 request.getRequestURI(),
                 HttpStatus.INTERNAL_SERVER_ERROR.value(),
@@ -200,6 +211,6 @@ public class DefaultExceptionHandler {
                 Arrays.toString(e.getStackTrace())
         );
 
-        return new ResponseEntity<>(apiError, HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

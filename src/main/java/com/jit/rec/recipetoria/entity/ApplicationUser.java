@@ -1,8 +1,6 @@
-package com.jit.rec.recipetoria.security.applicationUser;
+package com.jit.rec.recipetoria.entity;
 
-import com.jit.rec.recipetoria.entity.Ingredient;
-import com.jit.rec.recipetoria.entity.Recipe;
-import com.jit.rec.recipetoria.entity.Tag;
+import com.jit.rec.recipetoria.security.applicationUser.ApplicationUserRole;
 import lombok.*;
 
 import jakarta.persistence.*;

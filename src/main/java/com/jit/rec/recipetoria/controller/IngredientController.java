@@ -2,15 +2,17 @@ package com.jit.rec.recipetoria.controller;
 
 import com.jit.rec.recipetoria.controllerapi.IngredientApi;
 import com.jit.rec.recipetoria.dto.IngredientDTO;
-import com.jit.rec.recipetoria.entity.Response;
+import com.jit.rec.recipetoria.dto.Response;
 import com.jit.rec.recipetoria.service.IngredientService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.Locale;
 import java.util.Map;
 
 @RestController
@@ -19,6 +21,7 @@ import java.util.Map;
 public class IngredientController implements IngredientApi {
 
     private final IngredientService ingredientService;
+    private final MessageSource messageSource;
 
     @PostMapping
     public ResponseEntity<Response> createIngredient(@RequestBody @Valid IngredientDTO newIngredientInfo) {
@@ -27,7 +30,8 @@ public class IngredientController implements IngredientApi {
                 .body(Response.builder()
                         .timeStamp(LocalDateTime.now())
                         .statusCode(HttpStatus.CREATED.value())
-                        .message("Ingredient created successfully")
+                        .message(messageSource.getMessage(
+                                "response.ingredient.createIngredient", null, Locale.getDefault()))
                         .data(Map.of("createdIngredientDTO", ingredientService.createIngredient(newIngredientInfo)))
                         .build());
     }
@@ -39,7 +43,8 @@ public class IngredientController implements IngredientApi {
                 .body(Response.builder()
                         .timeStamp(LocalDateTime.now())
                         .statusCode(HttpStatus.OK.value())
-                        .message("Ingredient retrieved successfully")
+                        .message(messageSource.getMessage(
+                                "response.ingredient.getIngredientById", null, Locale.getDefault()))
                         .data(Map.of("ingredientDTO", ingredientService.getIngredientById(ingredientId)))
                         .build());
     }
@@ -52,7 +57,8 @@ public class IngredientController implements IngredientApi {
                 .body(Response.builder()
                         .timeStamp(LocalDateTime.now())
                         .statusCode(HttpStatus.OK.value())
-                        .message("Ingredient updated successfully")
+                        .message(messageSource.getMessage(
+                                "response.ingredient.updateIngredientById", null, Locale.getDefault()))
                         .data(Map.of("updatedIngredientDTO",
                                 ingredientService.updateIngredientById(ingredientId, updatedIngredientInfo)))
                         .build());
@@ -67,7 +73,8 @@ public class IngredientController implements IngredientApi {
                 .body(Response.builder()
                         .timeStamp(LocalDateTime.now())
                         .statusCode(HttpStatus.NO_CONTENT.value())
-                        .message("Ingredient deleted successfully")
+                        .message(messageSource.getMessage(
+                                "response.ingredient.deleteIngredientById", null, Locale.getDefault()))
                         .build());
     }
 }

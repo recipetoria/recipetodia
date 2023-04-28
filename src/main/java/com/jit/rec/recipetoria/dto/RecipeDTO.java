@@ -3,7 +3,7 @@ package com.jit.rec.recipetoria.dto;
 import com.jit.rec.recipetoria.entity.Ingredient;
 import com.jit.rec.recipetoria.entity.Recipe;
 import com.jit.rec.recipetoria.entity.Tag;
-import com.jit.rec.recipetoria.security.applicationUser.ApplicationUser;
+import com.jit.rec.recipetoria.entity.ApplicationUser;
 import jakarta.annotation.Nullable;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;

@@ -1,7 +1,8 @@
-package com.jit.rec.recipetoria.configuration;
+package com.jit.rec.recipetoria.security.configuration;
 
-import com.jit.rec.recipetoria.security.applicationUser.ApplicationUserRepository;
+import com.jit.rec.recipetoria.repository.ApplicationUserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
@@ -13,16 +14,20 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.util.Locale;
+
 @Configuration
 @RequiredArgsConstructor
-public class ApplicationConfiguration {
+public class UserDetailsServiceConfiguration {
 
     private final ApplicationUserRepository applicationUserRepository;
+    private final MessageSource messageSource;
 
     @Bean
     public UserDetailsService userDetailsService() {
         return username -> applicationUserRepository.findByEmail(username).orElseThrow(() ->
-                new AuthenticationCredentialsNotFoundException("User not authenticated. Please log in to continue."));
+                new AuthenticationCredentialsNotFoundException(messageSource.getMessage(
+                        "exception.userDetails.notAuthenticated", null, Locale.getDefault())));
     }
 
     @Bean

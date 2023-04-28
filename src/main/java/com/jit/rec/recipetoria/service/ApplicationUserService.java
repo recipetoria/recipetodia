@@ -1,6 +1,7 @@
-package com.jit.rec.recipetoria.security.applicationUser;
+package com.jit.rec.recipetoria.service;
 
 import com.jit.rec.recipetoria.dto.IngredientDTO;
+import com.jit.rec.recipetoria.entity.ApplicationUser;
 import com.jit.rec.recipetoria.entity.Ingredient;
 import com.jit.rec.recipetoria.repository.IngredientRepository;
 import lombok.RequiredArgsConstructor;
