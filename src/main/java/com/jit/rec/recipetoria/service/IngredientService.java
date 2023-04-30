@@ -4,7 +4,9 @@ import com.jit.rec.recipetoria.dto.IngredientDTO;
 import com.jit.rec.recipetoria.entity.Ingredient;
 import com.jit.rec.recipetoria.exception.ResourceNotFoundException;
 import com.jit.rec.recipetoria.repository.IngredientRepository;
+import com.jit.rec.recipetoria.security.applicationUser.ApplicationUser;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -15,6 +17,7 @@ public class IngredientService {
 
     public IngredientDTO createIngredient(IngredientDTO newIngredientInfo) {
         Ingredient ingredient = IngredientDTO.convertToIngredient(newIngredientInfo);
+        ingredient.setApplicationUser((ApplicationUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         ingredientRepository.save(ingredient);
 
         return IngredientDTO.convertToDTO(ingredient);
