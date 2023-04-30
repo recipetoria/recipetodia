@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6c93b87b-ecee-4b08-8985-829324ddd8a9" name="Changes" comment="bugfix&#10;rec34, rec35, rec37">
+    <list default="true" id="6c93b87b-ecee-4b08-8985-829324ddd8a9" name="Changes" comment="rec 38 fixed">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/entity/Recipe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/entity/Recipe.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/service/RecipeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/service/RecipeService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/service/TagService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/service/TagService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -130,7 +131,7 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="9d8fdb90-e583-4a4a-ac36-8ca0b4776101" name="Changes" comment="." />
+      <changelist id="6c93b87b-ecee-4b08-8985-829324ddd8a9" name="Changes" comment="Merge remote-tracking branch 'origin/backend-34-35_bug_Fix' into backend-34-35_bug_Fix&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;src/main/java/com/jit/rec/recipetoria/entity/Recipe.java" />
       <created>1680338513539</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
@@ -152,6 +153,8 @@
       <workItem from="1682158009280" duration="13384000" />
       <workItem from="1682568984627" duration="8262000" />
       <workItem from="1682847297543" duration="7639000" />
+      <workItem from="1682873340157" duration="2743000" />
+      <workItem from="1683020440422" duration="3712000" />
     </task>
     <task id="LOCAL-00001" summary="1. Changed application.properties">
       <created>1680339848147</created>
@@ -335,7 +338,21 @@
       <option name="project" value="LOCAL" />
       <updated>1682859140233</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="Merge remote-tracking branch 'origin/backend-34-35_bug_Fix' into backend-34-35_bug_Fix&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;src/main/java/com/jit/rec/recipetoria/entity/Recipe.java">
+      <created>1682862086994</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1682862086994</updated>
+    </task>
+    <task id="LOCAL-00028" summary="rec 38 fixed">
+      <created>1682875789942</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1682875789943</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -393,6 +410,8 @@
     <MESSAGE value="1. Added ApiResponse layer for ApplicationUserController, ApplicationUserSettingsController, IngredientController;&#10;2. Removed changing email;&#10;3. Removed @NotNull at 'amount' in IngredientDTO;&#10;4. Renamed 'ApiResponse' into 'Response';&#10;5. Merged with Sergei's commit;&#10;6. Minor changes." />
     <MESSAGE value="bugfix&#10;rec34, rec35" />
     <MESSAGE value="bugfix&#10;rec34, rec35, rec37" />
-    <option name="LAST_COMMIT_MESSAGE" value="bugfix&#10;rec34, rec35, rec37" />
+    <MESSAGE value="Merge remote-tracking branch 'origin/backend-34-35_bug_Fix' into backend-34-35_bug_Fix&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;src/main/java/com/jit/rec/recipetoria/entity/Recipe.java" />
+    <MESSAGE value="rec 38 fixed" />
+    <option name="LAST_COMMIT_MESSAGE" value="rec 38 fixed" />
   </component>
 </project>

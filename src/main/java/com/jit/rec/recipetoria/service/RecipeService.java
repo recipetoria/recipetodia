@@ -68,6 +68,7 @@ public class RecipeService {
                 for (IngredientDTO ingredientDTO : newRecipeInfo.getIngredientDTOs()){
                     Ingredient recipeIngredient = IngredientDTO.convertToIngredient(ingredientDTO);
                     recipeIngredient.setRecipe(recipe);
+
                     Long currIngredientId = ingredientRepository.save(recipeIngredient).getId();
                     Ingredient currIngredient = ingredientRepository.findById(currIngredientId)
                             .orElseThrow(() -> new ResourceNotFoundException("Error during getting new ingredient during recipe creation"));
@@ -113,6 +114,12 @@ public class RecipeService {
                     ingredient.setRecipe(recipeToBeUpdated);
                     newIngredients.add(ingredient);
                 }
+                Optional.ofNullable(recipeToBeUpdated.getIngredientList())
+                                .stream()
+                                .flatMap(Collection::stream)
+                                .map(Ingredient::getId)
+                                .forEach(ingredientRepository::deleteById);
+
                 recipeToBeUpdated.setIngredientList(newIngredients);
             }
 
