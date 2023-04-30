@@ -40,7 +40,6 @@ public class Recipe {
     private List<Tag> tags;
 
     @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL)
-    //@JoinColumn(name = "recipe_id")
     private List<Ingredient> ingredientList;
 
     @ElementCollection
