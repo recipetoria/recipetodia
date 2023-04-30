@@ -32,7 +32,7 @@ public class Recipe {
     @JoinColumn
     private ApplicationUser applicationUser;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.DETACH)
     @JoinTable(
             joinColumns = @JoinColumn,
             inverseJoinColumns = @JoinColumn
@@ -40,7 +40,6 @@ public class Recipe {
     private List<Tag> tags;
 
     @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL)
-    //@JoinColumn(name = "recipe_id")
     private List<Ingredient> ingredientList;
 
     @ElementCollection
