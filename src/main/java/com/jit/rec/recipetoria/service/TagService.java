@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -31,7 +32,8 @@ public class TagService {
 
     public TagDTO createTag(TagDTO newTagInfo) {
         Tag newTag = new Tag();
-        newTag.setName(newTagInfo.name());
+        Optional.ofNullable(newTagInfo.name())
+                        .ifPresent(newTag::setName);
         newTag.setApplicationUser(
                 (ApplicationUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
 
@@ -50,7 +52,8 @@ public class TagService {
     public TagDTO updateTagById(Long tagId, TagDTO updatedTag){
         Tag tagToBeUpdated = tagRepository.findById(tagId).
                 orElseThrow(() -> new ResourceNotFoundException("Tag with ID: " + tagId + " not found!"));
-        tagToBeUpdated.setName(updatedTag.name());
+        Optional.ofNullable(updatedTag.name())
+                .ifPresent(tagToBeUpdated::setName);
         tagToBeUpdated.setIcon(updatedTag.icon());
 
         return TagDTO.convertToDTO(tagRepository.save(tagToBeUpdated));
