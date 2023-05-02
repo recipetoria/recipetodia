@@ -4,6 +4,7 @@ import com.jit.rec.recipetoria.dto.ApplicationUserDTO;
 import com.jit.rec.recipetoria.security.applicationUser.ApplicationUser;
 import com.jit.rec.recipetoria.security.applicationUser.ApplicationUserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -11,6 +12,8 @@ import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -20,8 +23,12 @@ import java.util.*;
 @RequiredArgsConstructor
 public class ApplicationUserSettingsService {
 
-    private static final String DIRECTORY_FOR_USER_PHOTOS = "src/main/resources/static/images/user-photos/";
-    private static final String[] USER_PHOTOS_SUPPORTED_EXTENSIONS = {".jpg", ".jpeg", ".png", ".gif"};
+    private static final String PROFILE_PHOTO_DIRECTORY_DEFAULT = "static/images/"; //TODO: move to .properties
+    private static final String PROFILE_PHOTO_NAME_DEFAULT = "default-profile-photo.png";
+    private static final String RESOURCES_DIRECTORY = "src/main/resources/";
+    private static final String PROFILE_PHOTO_DIRECTORY = "static/images/user-%d/profile-photo/";
+    private static final String PROFILE_PHOTO_NAME = "%d-profile-photo";
+    private static final String[] PROFILE_PHOTO_SUPPORTED_EXTENSIONS = {".jpg", ".jpeg", ".png", ".gif"};
 
     private final ApplicationUserRepository applicationUserRepository;
     private final PasswordEncoder passwordEncoder;
@@ -49,27 +56,61 @@ public class ApplicationUserSettingsService {
         return ApplicationUserDTO.convertToDTO(updatedApplicationUser);
     }
 
-    public ApplicationUserDTO updatePhoto(MultipartFile file) throws IOException {
+    public ApplicationUserDTO updateProfilePhoto(MultipartFile file) throws IOException {
         ApplicationUser applicationUser =
                 (ApplicationUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         validatePhoto(file);
 
-        String fileName = applicationUser.getId() + "-profile-photo"
-                + Objects.requireNonNull(file.getOriginalFilename())
-                .substring(file.getOriginalFilename().lastIndexOf("."));
+        return updateProfilePhoto(applicationUser, file, null, file.getOriginalFilename());
+    }
 
+    public ApplicationUserDTO updateProfilePhoto() throws IOException {
+        ApplicationUser applicationUser =
+                (ApplicationUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         deletePhoto();
+        return updateProfilePhoto(applicationUser);
+    }
 
-        Path newFileNameAndPath = Paths.get(DIRECTORY_FOR_USER_PHOTOS, fileName);
-        Files.write(newFileNameAndPath, file.getBytes());
+    public ApplicationUserDTO updateProfilePhoto(ApplicationUser applicationUser) throws IOException {
 
-        applicationUser.setPhoto(fileName);
+        return updateProfilePhoto(applicationUser, null, PROFILE_PHOTO_DIRECTORY_DEFAULT, PROFILE_PHOTO_NAME_DEFAULT);
+    }
 
-        ApplicationUser updatedApplicationUser = applicationUserRepository.save(applicationUser);
+    private ApplicationUserDTO updateProfilePhoto(ApplicationUser applicationUser,
+                                                  MultipartFile file,
+                                                  String sourceDirectory, String sourceName) throws IOException {
+        String fileName = String.format(PROFILE_PHOTO_NAME, applicationUser.getId())
+                + getFileExtension(Objects.requireNonNull(sourceName));
 
-        return ApplicationUserDTO.convertToDTO(updatedApplicationUser);
+        if (file != null) {
+            deletePhoto();
+            Path newFileNameAndPath = Paths.get(
+                    RESOURCES_DIRECTORY + String.format(PROFILE_PHOTO_DIRECTORY, applicationUser.getId()), fileName
+            );
+            Files.write(newFileNameAndPath, file.getBytes());
+        } else {
+            Path sourcePath = new ClassPathResource(sourceDirectory + sourceName).getFile().toPath();
+            Path targetPath =
+                    Paths.get(RESOURCES_DIRECTORY + String.format(PROFILE_PHOTO_DIRECTORY, applicationUser.getId()));
 
+            Files.createDirectories(targetPath);
+
+            Path profilePhotoNew = targetPath.resolve(
+                    String.format(PROFILE_PHOTO_NAME, applicationUser.getId()) + getFileExtension(sourceName)
+            );
+
+            try (InputStream inputStream = Files.newInputStream(sourcePath);
+                 OutputStream outputStream = Files.newOutputStream(profilePhotoNew)) {
+                inputStream.transferTo(outputStream);
+            } catch (IOException e) {
+                throw new IOException("Error creating default profile photo for user " + applicationUser.getId(), e);
+                //TODO: move to .properties
+            }
+        }
+
+        applicationUser.setPhoto(String.format(PROFILE_PHOTO_DIRECTORY, applicationUser.getId()) + fileName);
+        return ApplicationUserDTO.convertToDTO(applicationUserRepository.save(applicationUser));
     }
 
     private void validatePhoto(MultipartFile file) {
@@ -82,7 +123,7 @@ public class ApplicationUserSettingsService {
             throw new MaxUploadSizeExceededException(maxSize);
         }
 
-        Set<String> allowedExtensions = new HashSet<>(Arrays.asList(USER_PHOTOS_SUPPORTED_EXTENSIONS));
+        Set<String> allowedExtensions = new HashSet<>(Arrays.asList(PROFILE_PHOTO_SUPPORTED_EXTENSIONS));
         boolean isAllowedExtension = false;
         for (String extension : allowedExtensions) {
             if (Objects.requireNonNull(file.getOriginalFilename()).toLowerCase().endsWith(extension)) {
@@ -96,19 +137,20 @@ public class ApplicationUserSettingsService {
         }
     }
 
-    public ApplicationUserDTO deletePhoto() throws IOException {
+    private void deletePhoto() throws IOException {
         ApplicationUser applicationUser =
                 (ApplicationUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         if (applicationUser.getPhoto() != null) {
-            Path oldFileNameAndPath = Paths.get(DIRECTORY_FOR_USER_PHOTOS, applicationUser.getPhoto());
+            Path oldFileNameAndPath = Paths.get(RESOURCES_DIRECTORY + applicationUser.getPhoto());
             Files.delete(oldFileNameAndPath);
-            applicationUser.setPhoto(null);
         }
 
-        ApplicationUser updatedApplicationUser = applicationUserRepository.save(applicationUser);
+        applicationUserRepository.save(applicationUser);
+    }
 
-        return ApplicationUserDTO.convertToDTO(updatedApplicationUser);
+    private String getFileExtension(String fileName) {
+        return fileName.substring(fileName.lastIndexOf("."));
     }
 
     public ApplicationUserDTO updatePassword(ApplicationUserDTO applicationUserInfo) {
