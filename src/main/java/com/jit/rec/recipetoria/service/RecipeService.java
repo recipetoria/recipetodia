@@ -2,6 +2,7 @@ package com.jit.rec.recipetoria.service;
 
 import com.jit.rec.recipetoria.dto.IngredientDTO;
 import com.jit.rec.recipetoria.dto.RecipeDTO;
+import com.jit.rec.recipetoria.dto.RecipeShortInfoDTO;
 import com.jit.rec.recipetoria.dto.TagDTO;
 import com.jit.rec.recipetoria.entity.Ingredient;
 import com.jit.rec.recipetoria.entity.Recipe;
@@ -137,6 +138,15 @@ public class RecipeService {
             throw new ResourceNotFoundException("Recipe with ID: " + recipeId + " not found!");
         }
         recipeRepository.deleteById(recipeId);
+    }
+
+    public List<RecipeShortInfoDTO> getAllRecipesByTag(Long tagId){
+        List<Recipe> taggedRecipes = recipeRepository.findByTagsId(tagId);
+        List<RecipeShortInfoDTO> recipeShortInfoDTOList= new ArrayList<>();
+        for (Recipe recipe : taggedRecipes){
+            recipeShortInfoDTOList.add(RecipeShortInfoDTO.convertToRecipeShortInfoDTO(recipe));
+        }
+        return recipeShortInfoDTOList;
     }
 
 }
