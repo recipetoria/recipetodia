@@ -56,19 +56,19 @@ public class ApplicationUserSettingsController implements ApplicationUserSetting
                         .timeStamp(LocalDateTime.now())
                         .statusCode(HttpStatus.OK.value())
                         .message("User profile photo updated successfully")
-                        .data(Map.of("updatedApplicationUserDTO", applicationUserSettingsService.updatePhoto(file)))
+                        .data(Map.of("updatedApplicationUserDTO", applicationUserSettingsService.updateProfilePhoto(file)))
                         .build());
     }
 
-    @DeleteMapping("/photo-delete")
+    @PatchMapping("/photo-delete")
     public ResponseEntity<Response> deleteApplicationUserPhoto() throws IOException {
         return ResponseEntity
-                .status(HttpStatus.NO_CONTENT)
+                .status(HttpStatus.OK)
                 .body(Response.builder()
                         .timeStamp(LocalDateTime.now())
-                        .statusCode(HttpStatus.NO_CONTENT.value())
+                        .statusCode(HttpStatus.OK.value())
                         .message("User profile photo deleted successfully")
-                        .data(Map.of("updatedApplicationUserDTO", applicationUserSettingsService.deletePhoto()))
+                        .data(Map.of("updatedApplicationUserDTO", applicationUserSettingsService.updateProfilePhoto()))
                         .build());
     }
 

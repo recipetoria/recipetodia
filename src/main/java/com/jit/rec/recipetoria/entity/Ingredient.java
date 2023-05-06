@@ -25,6 +25,5 @@ public class Ingredient {
     private ApplicationUser applicationUser;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn
     private Recipe recipe;
 }
