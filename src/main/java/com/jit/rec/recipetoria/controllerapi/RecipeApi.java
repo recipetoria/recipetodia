@@ -214,6 +214,13 @@ public interface RecipeApi {
                     response: status 200(ok) \n
                     """)
     ResponseEntity<Response> deleteRecipeById(Long recipeId);
+    @Operation(summary = "Get recipes by TAG ID",
+            description = """
+                    send: TAG ID in url \n
+                    response: the RecipeShortInfoDTO with recipe ID, NAME, MAIN PIC URL \n
+                    ID and NAME fields are filled with data, pic can be null \n
+                    """)
+    ResponseEntity<Response> getAllTaggedRecipes(Long tagId);
 
 
 }

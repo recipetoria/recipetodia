@@ -2,6 +2,7 @@ package com.jit.rec.recipetoria.service;
 
 import com.jit.rec.recipetoria.dto.IngredientDTO;
 import com.jit.rec.recipetoria.dto.RecipeDTO;
+import com.jit.rec.recipetoria.dto.RecipeShortInfoDTO;
 import com.jit.rec.recipetoria.dto.TagDTO;
 import com.jit.rec.recipetoria.entity.Ingredient;
 import com.jit.rec.recipetoria.entity.Recipe;
@@ -40,47 +41,39 @@ public class RecipeService {
     public RecipeDTO createRecipe(RecipeDTO newRecipeInfo) {
         Recipe recipe = new Recipe();
         recipe.setApplicationUser((ApplicationUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        recipe.setName(newRecipeInfo.getName());
+        setPropertyValue(newRecipeInfo.getInstructions(), recipe::setInstructions);
+        setPropertyValue(newRecipeInfo.getLinks(), recipe::setLinks);
+        setPropertyValue(newRecipeInfo.getInstructionPhotos(), recipe::setInstructionPhotos);
+        setPropertyValue(newRecipeInfo.getMainPhoto(), recipe::setMainPhoto);
 
+        // future logic for creation new tag at the same time as recipe
+        // if only id in dto -> add tag(s) to recipe
+        // if no id, but name -> create new tag for user, add tag to recipe
+        Optional.ofNullable(newRecipeInfo.getTagDTOs())
+                .stream()
+                .flatMap(Collection::stream)
+                .map(TagDTO::id)
+                .map(tagService::getTagById)
+                .forEach(recipe.getTags()::add);
 
-        if (newRecipeInfo.getName() != null) {
-            recipe.setName(newRecipeInfo.getName());
+        recipe = recipeRepository.save(recipe);
 
-            setPropertyValue(newRecipeInfo.getInstructions(), recipe::setInstructions);
-            setPropertyValue(newRecipeInfo.getLinks(), recipe::setLinks);
-            setPropertyValue(newRecipeInfo.getInstructionPhotos(), recipe::setInstructionPhotos);
-            setPropertyValue(newRecipeInfo.getMainPhoto(), recipe::setMainPhoto);
+        List<Ingredient> recipeIngredientList = new ArrayList<>();
+        if (newRecipeInfo.getIngredientDTOs() != null) {
+            for (IngredientDTO ingredientDTO : newRecipeInfo.getIngredientDTOs()) {
+                Ingredient recipeIngredient = IngredientDTO.convertToIngredient(ingredientDTO);
+                recipeIngredient.setRecipe(recipe);
 
-            // future logic for creation new tag at the same time as recipe
-            // if only id in dto -> add tag(s) to recipe
-            // if no id, but name -> create new tag for user, add tag to recipe
-
-            Optional.ofNullable(newRecipeInfo.getTagDTOs())
-                    .stream()
-                    .flatMap(Collection::stream)
-                    .map(TagDTO::id)
-                    .map(tagService::getTagById)
-                    .forEach(recipe.getTags()::add);
-
-            recipe = recipeRepository.save(recipe);
-
-            List<Ingredient> recipeIngredientList = new ArrayList<>();
-            if(newRecipeInfo.getIngredientDTOs() != null){
-                for (IngredientDTO ingredientDTO : newRecipeInfo.getIngredientDTOs()){
-                    Ingredient recipeIngredient = IngredientDTO.convertToIngredient(ingredientDTO);
-                    recipeIngredient.setRecipe(recipe);
-
-                    Long currIngredientId = ingredientRepository.save(recipeIngredient).getId();
-                    Ingredient currIngredient = ingredientRepository.findById(currIngredientId)
-                            .orElseThrow(() -> new ResourceNotFoundException("Error during getting new ingredient during recipe creation"));
-                    recipeIngredientList.add(currIngredient);
-                }
-
-                for(Ingredient ingredient : recipeIngredientList){
-                    recipe.getIngredientList().add(ingredient);
-                }
+                Long currIngredientId = ingredientRepository.save(recipeIngredient).getId();
+                Ingredient currIngredient = ingredientRepository.findById(currIngredientId)
+                        .orElseThrow(() -> new ResourceNotFoundException("Error during getting new ingredient during recipe creation"));
+                recipeIngredientList.add(currIngredient);
             }
 
-
+            for (Ingredient ingredient : recipeIngredientList) {
+                recipe.getIngredientList().add(ingredient);
+            }
         }
         return RecipeDTO.convertToDTO(recipe);
     }
@@ -115,10 +108,10 @@ public class RecipeService {
                     newIngredients.add(ingredient);
                 }
                 Optional.ofNullable(recipeToBeUpdated.getIngredientList())
-                                .stream()
-                                .flatMap(Collection::stream)
-                                .map(Ingredient::getId)
-                                .forEach(ingredientRepository::deleteById);
+                        .stream()
+                        .flatMap(Collection::stream)
+                        .map(Ingredient::getId)
+                        .forEach(ingredientRepository::deleteById);
 
                 recipeToBeUpdated.setIngredientList(newIngredients);
             }
@@ -137,6 +130,15 @@ public class RecipeService {
             throw new ResourceNotFoundException("Recipe with ID: " + recipeId + " not found!");
         }
         recipeRepository.deleteById(recipeId);
+    }
+
+    public List<RecipeShortInfoDTO> getAllRecipesByTag(Long tagId) {
+        List<Recipe> taggedRecipes = recipeRepository.findByTagsId(tagId);
+        List<RecipeShortInfoDTO> recipeShortInfoDTOList = new ArrayList<>();
+        for (Recipe recipe : taggedRecipes) {
+            recipeShortInfoDTOList.add(RecipeShortInfoDTO.convertToRecipeShortInfoDTO(recipe));
+        }
+        return recipeShortInfoDTOList;
     }
 
 }
