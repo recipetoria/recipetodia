@@ -62,7 +62,7 @@ public class ApplicationUserSettingsController implements ApplicationUserSetting
                         .statusCode(HttpStatus.OK.value())
                         .message(messageSource.getMessage(
                                 "response.userSettings.updateApplicationUserPhoto", null, Locale.getDefault()))
-                        .data(Map.of("updatedApplicationUserDTO", applicationUserSettingsService.updatePhoto(file)))
+                        .data(Map.of("updatedApplicationUserDTO", applicationUserSettingsService.updateProfilePhoto(file)))
                         .build());
     }
 
@@ -75,7 +75,7 @@ public class ApplicationUserSettingsController implements ApplicationUserSetting
                         .statusCode(HttpStatus.OK.value())
                         .message(messageSource.getMessage(
                                 "response.userSettings.deleteApplicationUserPhoto", null, Locale.getDefault()))
-                        .data(Map.of("updatedApplicationUserDTO", applicationUserSettingsService.deletePhoto()))
+                        .data(Map.of("updatedApplicationUserDTO", applicationUserSettingsService.updateProfilePhoto()))
                         .build());
     }
 

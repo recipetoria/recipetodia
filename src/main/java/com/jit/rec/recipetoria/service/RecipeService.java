@@ -65,18 +65,19 @@ public class RecipeService {
             recipe = recipeRepository.save(recipe);
 
             List<Ingredient> recipeIngredientList = new ArrayList<>();
-            if(newRecipeInfo.getIngredientDTOs() != null){
-                for (IngredientDTO ingredientDTO : newRecipeInfo.getIngredientDTOs()){
+            if (newRecipeInfo.getIngredientDTOs() != null) {
+                for (IngredientDTO ingredientDTO : newRecipeInfo.getIngredientDTOs()) {
                     Ingredient recipeIngredient = IngredientDTO.convertToIngredient(ingredientDTO);
                     recipeIngredient.setRecipe(recipe);
 
                     Long currIngredientId = ingredientRepository.save(recipeIngredient).getId();
                     Ingredient currIngredient = ingredientRepository.findById(currIngredientId)
-                            .orElseThrow(() -> new ResourceNotFoundException("Error during getting new ingredient during recipe creation"));
-                    recipeIngredientList.add(currIngredient);
+                            .orElseThrow(() -> new ResourceNotFoundException(messageSource.getMessage(
+                                    "exception.recipe.notFound", null, Locale.getDefault())));
+                    recipeIngredientList.add(currIngredient); //TODO: code smells
                 }
 
-                for(Ingredient ingredient : recipeIngredientList){
+                for (Ingredient ingredient : recipeIngredientList) {
                     recipe.getIngredientList().add(ingredient);
                 }
             }
@@ -116,10 +117,10 @@ public class RecipeService {
                     newIngredients.add(ingredient);
                 }
                 Optional.ofNullable(recipeToBeUpdated.getIngredientList())
-                                .stream()
-                                .flatMap(Collection::stream)
-                                .map(Ingredient::getId)
-                                .forEach(ingredientRepository::deleteById);
+                        .stream()
+                        .flatMap(Collection::stream)
+                        .map(Ingredient::getId)
+                        .forEach(ingredientRepository::deleteById);
 
                 recipeToBeUpdated.setIngredientList(newIngredients);
             }

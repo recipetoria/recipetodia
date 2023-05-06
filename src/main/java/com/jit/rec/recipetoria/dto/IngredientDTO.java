@@ -26,14 +26,13 @@ public record IngredientDTO(
         @Nullable
         Long recipeId
 ) {
-
     public static IngredientDTO convertToDTO(Ingredient ingredient) {
         Long applicationUserId = null;
         if (ingredient.getApplicationUser() != null) {
             applicationUserId = ingredient.getApplicationUser().getId();
         }
         Long recipeId = null;
-        if (ingredient.getRecipe() != null){
+        if (ingredient.getRecipe() != null) {
             recipeId = ingredient.getRecipe().getId();
         }
         return new IngredientDTO(

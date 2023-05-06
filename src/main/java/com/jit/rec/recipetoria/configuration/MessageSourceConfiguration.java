@@ -35,7 +35,8 @@ public class MessageSourceConfiguration {
         messageSource.setBasenames(
                 "classpath:validation",
                 "classpath:responses",
-                "classpath:exceptions"
+                "classpath:exceptions",
+                "classpath:extensions"
         );
         messageSource.setDefaultEncoding("UTF-8");
         return messageSource;

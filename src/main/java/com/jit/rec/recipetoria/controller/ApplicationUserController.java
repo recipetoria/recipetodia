@@ -21,7 +21,7 @@ import java.util.Map;
 public class ApplicationUserController implements ApplicationUserApi {
 
     private final ApplicationUserService applicationUserService;
-    MessageSource messageSource;
+    private final MessageSource messageSource;
 
     @GetMapping
     public ResponseEntity<Response> getAllIngredients() {

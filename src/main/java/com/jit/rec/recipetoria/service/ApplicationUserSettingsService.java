@@ -29,7 +29,6 @@ public class ApplicationUserSettingsService {
     private static final String RESOURCES_DIRECTORY = "src/main/resources/";
     private static final String PROFILE_PHOTO_DIRECTORY = "static/images/user-%d/profile-photo/";
     private static final String PROFILE_PHOTO_NAME = "%d-profile-photo";
-    private static final String[] PROFILE_PHOTO_SUPPORTED_EXTENSIONS = {".jpg", ".jpeg", ".png", ".gif"};
 
     private final ApplicationUserRepository applicationUserRepository;
     private final PasswordEncoder passwordEncoder;
@@ -106,8 +105,8 @@ public class ApplicationUserSettingsService {
                  OutputStream outputStream = Files.newOutputStream(profilePhotoNew)) {
                 inputStream.transferTo(outputStream);
             } catch (IOException e) {
-                throw new IOException("Error creating default profile photo for user " + applicationUser.getId(), e);
-                //TODO: move to .properties
+                throw new IOException(messageSource.getMessage(
+                        "exception.applicationUserSettings.updateProfilePhoto.notCreated", null, Locale.getDefault()));
             }
         }
 
@@ -126,9 +125,11 @@ public class ApplicationUserSettingsService {
             throw new MaxUploadSizeExceededException(maxSize);
         }
 
-        Set<String> allowedExtensions = new HashSet<>(Arrays.asList(PROFILE_PHOTO_SUPPORTED_EXTENSIONS));
+        Set<String> supportedExtensions = new HashSet<>(
+                List.of(messageSource.getMessage("profilePhoto.supportedExtensions", null, Locale.getDefault()).split(","))
+        );
         boolean isAllowedExtension = false;
-        for (String extension : allowedExtensions) {
+        for (String extension : supportedExtensions) {
             if (Objects.requireNonNull(file.getOriginalFilename()).toLowerCase().endsWith(extension)) {
                 isAllowedExtension = true;
                 break;
@@ -137,7 +138,7 @@ public class ApplicationUserSettingsService {
         if (!isAllowedExtension) {
             String message = messageSource.getMessage(
                     "exception.applicationUserSettings.validatePhoto.invalidExtension", null, Locale.getDefault());
-            throw new IllegalArgumentException(message + " " + allowedExtensions);
+            throw new IllegalArgumentException(message + " " + supportedExtensions);
         }
     }
 
