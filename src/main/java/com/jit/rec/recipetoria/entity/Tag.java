@@ -14,8 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @ToString(exclude = "recipes")
 @EqualsAndHashCode(exclude = "recipes")
-public class
-Tag {
+public class Tag {
 
     @Id
     @SequenceGenerator(name = "sequence", sequenceName = "sequence", allocationSize = 1)

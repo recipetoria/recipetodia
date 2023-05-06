@@ -1,8 +1,10 @@
 package com.jit.rec.recipetoria.service;
 
 import com.jit.rec.recipetoria.dto.TagDTO;
+import com.jit.rec.recipetoria.entity.Recipe;
 import com.jit.rec.recipetoria.entity.Tag;
 import com.jit.rec.recipetoria.exception.ResourceNotFoundException;
+import com.jit.rec.recipetoria.repository.RecipeRepository;
 import com.jit.rec.recipetoria.repository.TagRepository;
 import com.jit.rec.recipetoria.entity.ApplicationUser;
 import lombok.RequiredArgsConstructor;
@@ -65,10 +67,14 @@ public class TagService {
     }
 
     public void deleteTagById(Long tagId) {
-        if (!tagRepository.existsById(tagId)) {
-            throw new ResourceNotFoundException(messageSource.getMessage(
-                    "exception.tag.notFound", null, Locale.getDefault()));
+        Tag tag = tagRepository.findById(tagId)
+                .orElseThrow(() -> new ResourceNotFoundException(messageSource.getMessage(
+                    "exception.tag.notFound", null, Locale.getDefault())));
+
+        for (Recipe recipe : tag.getRecipes()){
+            recipe.getTags().remove(tag);
         }
+
         tagRepository.deleteById(tagId);
     }
 }
