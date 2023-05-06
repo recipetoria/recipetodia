@@ -21,7 +21,10 @@ public record IngredientDTO(
         MeasurementUnit measurementUnit,
 
         @Nullable
-        Long applicationUserId
+        Long applicationUserId,
+
+        @Nullable
+        Long recipeId
 ) {
 
     public static IngredientDTO convertToDTO(Ingredient ingredient) {
@@ -29,12 +32,17 @@ public record IngredientDTO(
         if (ingredient.getApplicationUser() != null) {
             applicationUserId = ingredient.getApplicationUser().getId();
         }
+        Long recipeId = null;
+        if (ingredient.getRecipe() != null){
+            recipeId = ingredient.getRecipe().getId();
+        }
         return new IngredientDTO(
                 ingredient.getId(),
                 ingredient.getName(),
                 ingredient.getAmount(),
                 ingredient.getMeasurementUnit(),
-                applicationUserId
+                applicationUserId,
+                recipeId
         );
     }
 

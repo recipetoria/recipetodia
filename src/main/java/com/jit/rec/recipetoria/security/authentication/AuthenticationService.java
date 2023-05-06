@@ -5,6 +5,7 @@ import com.jit.rec.recipetoria.entity.ApplicationUser;
 import com.jit.rec.recipetoria.repository.ApplicationUserRepository;
 import com.jit.rec.recipetoria.security.applicationUser.ApplicationUserRole;
 import com.jit.rec.recipetoria.security.configuration.JwtService;
+import com.jit.rec.recipetoria.service.ApplicationUserSettingsService;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.context.MessageSource;
@@ -17,6 +18,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Locale;
+import java.io.*;
 import java.util.Optional;
 
 @Service
@@ -24,13 +26,14 @@ import java.util.Optional;
 public class AuthenticationService {
 
     private final ApplicationUserRepository applicationUserRepository;
+    private final ApplicationUserSettingsService applicationUserSettingsService;
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
     private final JavaMailSender javaMailSender;
     private final MessageSource messageSource;
 
-    public AuthenticationResponse register(AuthenticationRequest authenticationRequest) {
+    public AuthenticationResponse register(AuthenticationRequest authenticationRequest) throws IOException {
         checkIfEmailExists(authenticationRequest.getEmail());
 
         ApplicationUser applicationUser = ApplicationUser.builder()
@@ -44,6 +47,10 @@ public class AuthenticationService {
         String jwtToken = jwtService.generateToken(applicationUser);
 
 //        sendEmail(applicationUser, jwtToken); //TODO: uncomment
+
+        applicationUserRepository.save(applicationUser);
+
+        applicationUserSettingsService.updateProfilePhoto(applicationUser);
 
         applicationUserRepository.save(applicationUser);
 

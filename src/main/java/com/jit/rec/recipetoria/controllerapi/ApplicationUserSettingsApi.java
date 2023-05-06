@@ -112,10 +112,10 @@ public interface ApplicationUserSettingsApi {
             description = "Deletes User profile photo"
     )
     @ApiResponse(
-            responseCode = "204", description = "User profile photo deleted successfully",
+            responseCode = "200", description = "User profile photo deleted successfully",
             content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE)
     )
-    @DeleteMapping("/photo-delete")
+    @PatchMapping("/photo-delete")
     ResponseEntity<Response> deleteApplicationUserPhoto() throws IOException;
 
     @Operation(

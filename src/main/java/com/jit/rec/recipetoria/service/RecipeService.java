@@ -41,6 +41,7 @@ public class RecipeService {
 
     public RecipeDTO createRecipe(RecipeDTO newRecipeInfo) {
         Recipe recipe = new Recipe();
+        recipe.setApplicationUser((ApplicationUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
 
         if (newRecipeInfo.getName() != null) {
             recipe.setName(newRecipeInfo.getName());
@@ -61,17 +62,24 @@ public class RecipeService {
                     .map(tagService::getTagById)
                     .forEach(recipe.getTags()::add);
 
+            recipe = recipeRepository.save(recipe);
 
-            Optional.ofNullable(newRecipeInfo.getIngredientDTOs())
-                    .stream()
-                    .flatMap(Collection::stream)
-                    .map(IngredientDTO::convertToIngredient)
-                    .map(ingredientRepository::save)
-                    .forEach(recipe.getIngredientList()::add);
+            List<Ingredient> recipeIngredientList = new ArrayList<>();
+            if(newRecipeInfo.getIngredientDTOs() != null){
+                for (IngredientDTO ingredientDTO : newRecipeInfo.getIngredientDTOs()){
+                    Ingredient recipeIngredient = IngredientDTO.convertToIngredient(ingredientDTO);
+                    recipeIngredient.setRecipe(recipe);
 
-            recipe.setApplicationUser((ApplicationUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+                    Long currIngredientId = ingredientRepository.save(recipeIngredient).getId();
+                    Ingredient currIngredient = ingredientRepository.findById(currIngredientId)
+                            .orElseThrow(() -> new ResourceNotFoundException("Error during getting new ingredient during recipe creation"));
+                    recipeIngredientList.add(currIngredient);
+                }
 
-            recipeRepository.save(recipe);
+                for(Ingredient ingredient : recipeIngredientList){
+                    recipe.getIngredientList().add(ingredient);
+                }
+            }
         }
         return RecipeDTO.convertToDTO(recipe);
     }
@@ -104,8 +112,15 @@ public class RecipeService {
                 List<Ingredient> newIngredients = new ArrayList<>();
                 for (IngredientDTO newIngredientDTO : updatedRecipeDTO.getIngredientDTOs()) {
                     Ingredient ingredient = IngredientDTO.convertToIngredient(newIngredientDTO);
+                    ingredient.setRecipe(recipeToBeUpdated);
                     newIngredients.add(ingredient);
                 }
+                Optional.ofNullable(recipeToBeUpdated.getIngredientList())
+                                .stream()
+                                .flatMap(Collection::stream)
+                                .map(Ingredient::getId)
+                                .forEach(ingredientRepository::deleteById);
+
                 recipeToBeUpdated.setIngredientList(newIngredients);
             }
 
@@ -119,7 +134,7 @@ public class RecipeService {
     }
 
     public void deleteRecipeById(Long recipeId) {
-        if (!ingredientRepository.existsById(recipeId)) {
+        if (!recipeRepository.existsById(recipeId)) {
             throw new ResourceNotFoundException(messageSource.getMessage(
                     "exception.recipe.notFound", null, Locale.getDefault()));
         }

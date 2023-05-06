@@ -30,7 +30,7 @@ public class Recipe {
     @JoinColumn
     private ApplicationUser applicationUser;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.DETACH)
     @JoinTable(
             joinColumns = @JoinColumn,
             inverseJoinColumns = @JoinColumn

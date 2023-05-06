@@ -66,13 +66,13 @@ public class ApplicationUserSettingsController implements ApplicationUserSetting
                         .build());
     }
 
-    @DeleteMapping("/photo-delete")
+    @PatchMapping("/photo-delete")
     public ResponseEntity<Response> deleteApplicationUserPhoto() throws IOException {
         return ResponseEntity
-                .status(HttpStatus.NO_CONTENT)
+                .status(HttpStatus.OK)
                 .body(Response.builder()
                         .timeStamp(LocalDateTime.now())
-                        .statusCode(HttpStatus.NO_CONTENT.value())
+                        .statusCode(HttpStatus.OK.value())
                         .message(messageSource.getMessage(
                                 "response.userSettings.deleteApplicationUserPhoto", null, Locale.getDefault()))
                         .data(Map.of("updatedApplicationUserDTO", applicationUserSettingsService.deletePhoto()))
