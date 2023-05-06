@@ -9,6 +9,7 @@ import jakarta.persistence.*;
 @Entity
 @Data
 @NoArgsConstructor
+
 public class Ingredient {
 
     @Id
@@ -22,10 +23,9 @@ public class Ingredient {
 
     private MeasurementUnit measurementUnit;
 
-    @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn
+    @ManyToOne
     private ApplicationUser applicationUser;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     private Recipe recipe;
 }

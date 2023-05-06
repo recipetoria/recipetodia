@@ -3,13 +3,17 @@ package com.jit.rec.recipetoria.entity;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import jakarta.persistence.*;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.util.List;
 
 @Entity
 @Data
 @NoArgsConstructor
+@ToString(exclude = "recipes")
+@EqualsAndHashCode(exclude = "recipes")
 public class
 Tag {
 
@@ -21,11 +25,10 @@ Tag {
     @NotNull
     private String name;
 
-    @ManyToOne (cascade = CascadeType.MERGE)
-    @JoinColumn
+    @ManyToOne
     private ApplicationUser applicationUser;
     private String icon;
 
-    @ManyToMany(mappedBy = "tags", cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "tags")
     private List<Recipe> recipes;
 }

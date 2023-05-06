@@ -12,6 +12,8 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(exclude = {"ingredientList","tags", "instructions", "links"})
+@ToString(exclude = {"ingredientList","tags", "instructions", "links"})
 @Data
 public class Recipe {
 
@@ -26,18 +28,13 @@ public class Recipe {
 
     private String mainPhoto;
 
-    @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn
+    @ManyToOne
     private ApplicationUser applicationUser;
 
-    @ManyToMany(cascade = CascadeType.DETACH)
-    @JoinTable(
-            joinColumns = @JoinColumn,
-            inverseJoinColumns = @JoinColumn
-    )
+    @ManyToMany
     private List<Tag> tags;
 
-    @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Ingredient> ingredientList;
 
     @ElementCollection

@@ -16,6 +16,8 @@ import java.util.Set;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(exclude = {"shoppingList", "listOfRecipes", "tags"})
+@ToString(exclude = {"shoppingList", "listOfRecipes", "tags"})
 @Entity
 public class ApplicationUser implements UserDetails {
 
@@ -35,7 +37,7 @@ public class ApplicationUser implements UserDetails {
     @OneToMany(mappedBy = "applicationUser", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Ingredient> shoppingList;
 
-    @OneToMany(mappedBy = "applicationUser", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "applicationUser", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Recipe> listOfRecipes;
 
     @OneToMany(mappedBy = "applicationUser", cascade = CascadeType.ALL, orphanRemoval = true)
