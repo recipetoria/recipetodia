@@ -90,4 +90,17 @@ public class RecipeController implements RecipeApi {
                                 "response.recipe.deleteRecipeById", null, Locale.getDefault()))
                         .build());
     }
+
+    @GetMapping("/tagged-by/{tagId}")
+    public ResponseEntity<Response> getAllTaggedRecipes(@PathVariable("tagId") Long tagId){
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(Response.builder()
+                        .timeStamp(LocalDateTime.now())
+                        .statusCode(HttpStatus.OK.value())
+                        .message("Recipes tagged with tag id " + tagId)
+                        .data(Map.of("tagged recipes", recipeService.getAllRecipesByTag(tagId)))
+                        .build());
+    }
+
 }
