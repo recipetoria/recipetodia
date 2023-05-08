@@ -3,7 +3,6 @@ package com.jit.rec.recipetoria.service;
 import com.jit.rec.recipetoria.dto.IngredientDTO;
 import com.jit.rec.recipetoria.entity.ApplicationUser;
 import com.jit.rec.recipetoria.entity.Ingredient;
-import com.jit.rec.recipetoria.repository.IngredientRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -13,16 +12,16 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class ApplicationUserService {
+public class ShoppingListService {
 
-    private final IngredientRepository ingredientRepository;
+    private final IngredientService ingredientService;
 
-    public ApplicationUser getApplicationUser() {
+    private ApplicationUser getApplicationUser() {
         return (ApplicationUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     }
 
-    public List<IngredientDTO> getAllIngredients() {
-        List<Ingredient> allIngredients = ingredientRepository.findAllByApplicationUser(getApplicationUser());
+    public List<IngredientDTO> getAllIngredientsForShoppingList() {
+        List<Ingredient> allIngredients = ingredientService.getAllIngredientsByApplicationUser();
 
         List<IngredientDTO> allIngredientDTOs = new ArrayList<>();
         for (Ingredient oneIngredient : allIngredients) {
@@ -32,16 +31,8 @@ public class ApplicationUserService {
         return allIngredientDTOs;
     }
 
-    public IngredientDTO createIngredient(IngredientDTO newIngredientInfo) {
-        Ingredient ingredient = new Ingredient();
-
-        ingredient.setName(newIngredientInfo.name());
-        ingredient.setAmount(newIngredientInfo.amount());
-        ingredient.setMeasurementUnit(newIngredientInfo.measurementUnit());
-        ingredient.setApplicationUser(getApplicationUser());
-
-        Ingredient createdIngredient = ingredientRepository.save(ingredient);
-
+    public IngredientDTO createIngredientInShoppingList(IngredientDTO newIngredientInfo) {
+        Ingredient createdIngredient = ingredientService.createIngredient(newIngredientInfo, getApplicationUser());
         return IngredientDTO.convertToDTO(createdIngredient);
     }
 }

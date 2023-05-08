@@ -23,19 +23,6 @@ public class IngredientController implements IngredientApi {
     private final IngredientService ingredientService;
     private final MessageSource messageSource;
 
-    @PostMapping
-    public ResponseEntity<Response> createIngredient(@RequestBody @Valid IngredientDTO newIngredientInfo) {
-        return ResponseEntity
-                .status(HttpStatus.CREATED)
-                .body(Response.builder()
-                        .timeStamp(LocalDateTime.now())
-                        .statusCode(HttpStatus.CREATED.value())
-                        .message(messageSource.getMessage(
-                                "response.ingredient.createIngredient", null, Locale.getDefault()))
-                        .data(Map.of("createdIngredientDTO", ingredientService.createIngredient(newIngredientInfo)))
-                        .build());
-    }
-
     @GetMapping("/{ingredientId}")
     public ResponseEntity<Response> getIngredientById(@PathVariable("ingredientId") Long ingredientId) {
         return ResponseEntity

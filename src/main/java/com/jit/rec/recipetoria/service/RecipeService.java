@@ -7,7 +7,6 @@ import com.jit.rec.recipetoria.dto.TagDTO;
 import com.jit.rec.recipetoria.entity.Ingredient;
 import com.jit.rec.recipetoria.entity.Recipe;
 import com.jit.rec.recipetoria.exception.ResourceNotFoundException;
-import com.jit.rec.recipetoria.repository.IngredientRepository;
 import com.jit.rec.recipetoria.repository.RecipeRepository;
 import com.jit.rec.recipetoria.entity.ApplicationUser;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +22,7 @@ import java.util.function.Consumer;
 public class RecipeService {
 
     private final RecipeRepository recipeRepository;
-    private final IngredientRepository ingredientRepository;
+    private final IngredientService ingredientService;
     private final TagService tagService;
     private final MessageSource messageSource;
 
@@ -65,12 +64,9 @@ public class RecipeService {
 
         if (newRecipeInfo.getIngredientDTOs() != null) {
             for (IngredientDTO ingredientDTO : newRecipeInfo.getIngredientDTOs()) {
-                Ingredient recipeIngredient = IngredientDTO.convertToIngredient(ingredientDTO);
-                recipeIngredient.setRecipe(recipe);
-                recipe.getIngredientList().add(ingredientRepository.save(recipeIngredient));
+                Ingredient recipeIngredient = ingredientService.createIngredient(ingredientDTO, recipe);
+                recipe.getIngredientList().add(recipeIngredient);
             }
-
-
         }
         return RecipeDTO.convertToDTO(recipe);
     }

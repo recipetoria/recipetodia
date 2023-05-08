@@ -52,31 +52,6 @@ import org.springframework.web.bind.annotation.*;
 public interface IngredientApi {
 
     @Operation(
-            summary = "Create new ingredient",
-            description = "Creates new ingredient"
-    )
-    @ApiResponse(
-            responseCode = "201", description = "Ingredient created successfully",
-            content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE)
-    )
-    @Parameters({
-            @Parameter(
-                    name = "newIngredientInfo",
-                    required = true,
-                    description = """
-                            New ingredient information \n
-                            id: ignored \n
-                            name: required \n
-                            amount: not required \n
-                            measurementUnit: not required \n
-                            applicationUserId: ignored
-                            """
-            )
-    })
-    @PostMapping
-    ResponseEntity<Response> createIngredient(IngredientDTO newIngredientInfo);
-
-    @Operation(
             summary = "Get ingredient by ID",
             description = "Retrieves the ingredient"
     )

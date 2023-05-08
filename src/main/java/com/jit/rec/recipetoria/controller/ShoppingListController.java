@@ -1,9 +1,9 @@
 package com.jit.rec.recipetoria.controller;
 
-import com.jit.rec.recipetoria.controllerapi.ApplicationUserApi;
+import com.jit.rec.recipetoria.controllerapi.ShoppingListApi;
 import com.jit.rec.recipetoria.dto.IngredientDTO;
 import com.jit.rec.recipetoria.dto.Response;
-import com.jit.rec.recipetoria.service.ApplicationUserService;
+import com.jit.rec.recipetoria.service.ShoppingListService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.MessageSource;
@@ -18,13 +18,13 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/v1/client")
 @RequiredArgsConstructor
-public class ApplicationUserController implements ApplicationUserApi {
+public class ShoppingListController implements ShoppingListApi {
 
-    private final ApplicationUserService applicationUserService;
+    private final ShoppingListService shoppingListService;
     private final MessageSource messageSource;
 
     @GetMapping
-    public ResponseEntity<Response> getAllIngredients() {
+    public ResponseEntity<Response> getAllIngredientsForShoppingList() {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(Response.builder()
@@ -32,12 +32,12 @@ public class ApplicationUserController implements ApplicationUserApi {
                         .statusCode(HttpStatus.OK.value())
                         .message(messageSource.getMessage(
                                 "response.user.getAllIngredients", null, Locale.getDefault()))
-                        .data(Map.of("allIngredientDTOs", applicationUserService.getAllIngredients()))
+                        .data(Map.of("allIngredientDTOs", shoppingListService.getAllIngredientsForShoppingList()))
                         .build());
     }
 
     @PostMapping
-    public ResponseEntity<Response> createIngredient(@Valid @RequestBody IngredientDTO newIngredientInfo) {
+    public ResponseEntity<Response> createIngredientInShoppingList(@Valid @RequestBody IngredientDTO newIngredientInfo) {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(Response.builder()
@@ -45,7 +45,8 @@ public class ApplicationUserController implements ApplicationUserApi {
                         .statusCode(HttpStatus.CREATED.value())
                         .message(messageSource.getMessage(
                                 "response.user.createIngredient", null, Locale.getDefault()))
-                        .data(Map.of("createdIngredientDTO", applicationUserService.createIngredient(newIngredientInfo)))
+                        .data(Map.of("createdIngredientDTO",
+                                shoppingListService.createIngredientInShoppingList(newIngredientInfo)))
                         .build());
     }
 }

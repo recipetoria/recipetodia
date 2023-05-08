@@ -1,13 +1,17 @@
 package com.jit.rec.recipetoria.service;
 
 import com.jit.rec.recipetoria.dto.IngredientDTO;
+import com.jit.rec.recipetoria.entity.ApplicationUser;
 import com.jit.rec.recipetoria.entity.Ingredient;
+import com.jit.rec.recipetoria.entity.Recipe;
 import com.jit.rec.recipetoria.exception.ResourceNotFoundException;
 import com.jit.rec.recipetoria.repository.IngredientRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.MessageSource;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Locale;
 
 @Service
@@ -17,11 +21,18 @@ public class IngredientService {
     private final IngredientRepository ingredientRepository;
     private final MessageSource messageSource;
 
-    public IngredientDTO createIngredient(IngredientDTO newIngredientInfo) {
-        Ingredient ingredient = IngredientDTO.convertToIngredient(newIngredientInfo);
-        ingredientRepository.save(ingredient);
+    public Ingredient createIngredient(IngredientDTO newRecipeIngredientDTO, ApplicationUser applicationUser) {
+        Ingredient newRecipeIngredient = IngredientDTO.convertToIngredient(newRecipeIngredientDTO);
+        newRecipeIngredient.setApplicationUser(applicationUser);
 
-        return IngredientDTO.convertToDTO(ingredient);
+        return ingredientRepository.save(newRecipeIngredient);
+    }
+
+    public Ingredient createIngredient(IngredientDTO newRecipeIngredientDTO, Recipe recipe) {
+        Ingredient newRecipeIngredient = IngredientDTO.convertToIngredient(newRecipeIngredientDTO);
+        newRecipeIngredient.setRecipe(recipe);
+
+        return ingredientRepository.save(newRecipeIngredient);
     }
 
     public IngredientDTO getIngredientById(Long ingredientId) {
@@ -52,5 +63,12 @@ public class IngredientService {
                     "exception.ingredient.notFound", null, Locale.getDefault()));
         }
         ingredientRepository.deleteById(ingredientId);
+    }
+
+    List<Ingredient> getAllIngredientsByApplicationUser() {
+        ApplicationUser applicationUser =
+                (ApplicationUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        return ingredientRepository.findAllByApplicationUser(applicationUser);
     }
 }

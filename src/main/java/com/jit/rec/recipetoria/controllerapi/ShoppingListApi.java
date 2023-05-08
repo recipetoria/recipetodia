@@ -50,7 +50,7 @@ import org.springframework.web.bind.annotation.PostMapping;
                 )
         )
 })
-public interface ApplicationUserApi {
+public interface ShoppingListApi {
 
     @Operation(
             summary = "Get all ingredients in the Shopping List",
@@ -61,7 +61,7 @@ public interface ApplicationUserApi {
             content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE)
     )
     @GetMapping
-    ResponseEntity<Response> getAllIngredients();
+    ResponseEntity<Response> getAllIngredientsForShoppingList();
 
     @Operation(
             summary = "Create new ingredient",
@@ -86,5 +86,5 @@ public interface ApplicationUserApi {
             )
     })
     @PostMapping
-    ResponseEntity<Response> createIngredient(IngredientDTO newIngredientInfo);
+    ResponseEntity<Response> createIngredientInShoppingList(IngredientDTO newIngredientInfo);
 }
