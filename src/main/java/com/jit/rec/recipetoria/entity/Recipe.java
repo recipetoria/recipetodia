@@ -6,10 +6,9 @@ import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
-@Getter
-@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(exclude = {"ingredientList","tags", "instructions", "links"})
@@ -53,37 +52,22 @@ public class Recipe {
     }
 
     public List<Ingredient> getIngredientList() {
-        if (this.ingredientList == null) {
-            return this.ingredientList = new ArrayList<>();
-        } else
-            return this.ingredientList;
+        return Objects.requireNonNullElseGet(this.ingredientList, () -> this.ingredientList = new ArrayList<>());
     }
 
     public List<Tag> getTags() {
-        if (this.tags == null) {
-            return this.tags = new ArrayList<>();
-        } else
-            return this.tags;
+        return Objects.requireNonNullElseGet(this.tags, () -> this.tags = new ArrayList<>());
     }
 
     public List<String> getInstructions() {
-        if (this.instructions == null) {
-            return this.instructions = new ArrayList<>();
-        } else
-            return this.instructions;
+        return Objects.requireNonNullElseGet(this.instructions, () -> this.instructions = new ArrayList<>());
     }
 
     public List<String> getInstructionPhotos() {
-        if (this.instructionPhotos == null) {
-            return this.instructionPhotos = new ArrayList<>();
-        } else
-            return this.instructionPhotos;
+        return Objects.requireNonNullElseGet(this.instructionPhotos, () -> this.instructionPhotos = new ArrayList<>());
     }
 
     public List<String> getLinks() {
-        if (this.links == null) {
-            return this.links = new ArrayList<>();
-        } else
-            return this.links;
+        return Objects.requireNonNullElseGet(this.links, () -> this.links = new ArrayList<>());
     }
 }
