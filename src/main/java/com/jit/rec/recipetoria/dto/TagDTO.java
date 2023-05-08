@@ -2,7 +2,6 @@ package com.jit.rec.recipetoria.dto;
 
 import com.jit.rec.recipetoria.entity.Recipe;
 import com.jit.rec.recipetoria.entity.Tag;
-
 import jakarta.annotation.Nullable;
 import jakarta.validation.constraints.NotBlank;
 

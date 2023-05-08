@@ -5,6 +5,7 @@ import com.jit.rec.recipetoria.entity.Recipe;
 import com.jit.rec.recipetoria.entity.Tag;
 import com.jit.rec.recipetoria.entity.ApplicationUser;
 import jakarta.annotation.Nullable;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
@@ -28,6 +29,7 @@ public class RecipeDTO {
     private List<TagDTO> tagDTOs;
 
     @Nullable
+    @Valid
     private List<IngredientDTO> ingredientDTOs;
 
     @Nullable

@@ -61,7 +61,7 @@ public class TagController implements TagApi {
 
     @PatchMapping("/{tagId}")
     public ResponseEntity<Response> updateTagById(@PathVariable("tagId") Long tagId,
-                                                  TagDTO updatedTag) {
+                                                  @RequestBody @Valid TagDTO updatedTag) {
         return ResponseEntity.ok(
                 Response.builder()
                         .timeStamp(LocalDateTime.now())
