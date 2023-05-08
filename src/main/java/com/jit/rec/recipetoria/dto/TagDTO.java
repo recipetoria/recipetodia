@@ -4,6 +4,7 @@ import com.jit.rec.recipetoria.entity.Recipe;
 import com.jit.rec.recipetoria.entity.Tag;
 
 import jakarta.annotation.Nullable;
+import jakarta.validation.constraints.NotBlank;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -14,7 +15,7 @@ public record TagDTO(
         @Nullable
         Long id,
 
-        @Nullable
+        @NotBlank(message = "{validation.tagDTO.name.NotBlank}")
         String name,
 
         @Nullable
