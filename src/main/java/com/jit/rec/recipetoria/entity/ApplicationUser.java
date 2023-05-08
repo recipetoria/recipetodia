@@ -28,10 +28,16 @@ public class ApplicationUser implements UserDetails {
 
     @Enumerated(EnumType.STRING)
     private ApplicationUserRole applicationUserRole;
+
+    @Column(unique = true)
     private String email;
+
     private String password;
+
     private String name;
+
     private String photo;
+
     private boolean locked = true;
 
     @OneToMany(mappedBy = "applicationUser", cascade = CascadeType.ALL, orphanRemoval = true)
