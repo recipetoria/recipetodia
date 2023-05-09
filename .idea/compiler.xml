@@ -3,13 +3,11 @@
   <component name="CompilerConfiguration">
     <annotationProcessing>
       <profile default="true" name="Default" enabled="true" />
-<<<<<<< HEAD
-    </annotationProcessing>
-=======
       <profile name="Maven default annotation processors profile" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="recipetoria" />
         <module name="web" />
       </profile>
     </annotationProcessing>
@@ -24,6 +22,5 @@
       <module name="recipetoria" options="-parameters" />
       <module name="web" options="-parameters" />
     </option>
->>>>>>> backend
   </component>
 </project>
