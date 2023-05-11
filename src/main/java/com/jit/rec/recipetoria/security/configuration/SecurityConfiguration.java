@@ -23,7 +23,7 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
-                .cors().and()
+//                .cors().and()
                 .csrf().disable()
 
                 .authorizeHttpRequests()
@@ -49,7 +49,6 @@ public class SecurityConfiguration {
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/api/**")
                         .allowedOrigins("http://localhost:3000", "https://recipetoria.netlify.app")
-                        .allowedOriginPatterns("*")
                         .allowedMethods("*")
                         .allowedHeaders("*")
                         .allowCredentials(true);
