@@ -51,7 +51,8 @@ public class SecurityConfiguration {
                         .allowedOrigins("http://localhost:3000", "https://recipetoria.netlify.app")
                         .allowedMethods("*")
                         .allowedHeaders("*")
-                        .allowCredentials(true);
+                        .allowCredentials(true)
+                        .exposedHeaders("Authorization");
             }
         };
     }
