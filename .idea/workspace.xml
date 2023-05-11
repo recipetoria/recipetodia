@@ -4,15 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9d8fdb90-e583-4a4a-ac36-8ca0b4776101" name="Changes" comment="1. Added ApiResponse layer for ApplicationUserController, ApplicationUserSettingsController, IngredientController;&#10;2. Removed changing email;&#10;3. Removed @NotNull at 'amount' in IngredientDTO;&#10;4. Renamed 'ApiResponse' into 'Response';&#10;5. Merged with Sergei's commit;&#10;6. Minor changes.">
+    <list default="true" id="9d8fdb90-e583-4a4a-ac36-8ca0b4776101" name="Changes" comment="1. Attempt to fix CORS.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/controller/ApplicationUserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/controller/ShoppingListController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/controller/IngredientController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/controller/IngredientController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/controllerapi/ApplicationUserApi.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/controllerapi/ApplicationUserApi.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/controllerapi/IngredientApi.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/controllerapi/IngredientApi.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/service/ApplicationUserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/service/ShoppingListService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/service/IngredientService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/service/IngredientService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/service/RecipeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/service/RecipeService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/security/configuration/SecurityConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/security/configuration/SecurityConfiguration.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,17 +25,10 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="rec-16_get_all_recipes_of_category" />
+        <entry key="$PROJECT_DIR$" value="main" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-  </component>
-  <component name="GithubProjectSettings">
-    <option name="branchProtectionPatterns">
-      <list>
-        <option value="main" />
-      </list>
-    </option>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -157,6 +144,11 @@
       <workItem from="1682097244552" duration="106000" />
       <workItem from="1682158009280" duration="13384000" />
       <workItem from="1682568984627" duration="8262000" />
+      <workItem from="1683801020666" duration="439000" />
+      <workItem from="1683802984066" duration="92000" />
+      <workItem from="1683814233950" duration="2774000" />
+      <workItem from="1683817083112" duration="585000" />
+      <workItem from="1683819006732" duration="1443000" />
     </task>
     <task id="LOCAL-00001" summary="1. Changed application.properties">
       <created>1680339848147</created>
@@ -326,7 +318,14 @@
       <option name="project" value="LOCAL" />
       <updated>1682612376308</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="1. Attempt to fix CORS.">
+      <created>1683819221902</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1683819221903</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -354,7 +353,14 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="origin/backend-s" />
+                        <option value="backend" />
+                      </list>
+                    </value>
+                  </entry>
+                  <entry key="text">
+                    <value>
+                      <list>
+                        <option value="cors" />
                       </list>
                     </value>
                   </entry>
@@ -383,6 +389,7 @@
     <MESSAGE value="1. Added ApiResponse layer for ApplicationUserController, ApplicationUserSettingsController, IngredientController;&#10;2. Removed changing email;&#10;3. Removed @NotNull at 'amount' in IngredientDTO;&#10;4. Renamed 'ApiResponse' into 'Response';&#10;5. Merged with Sergei's commit." />
     <MESSAGE value="1. Added ApiResponse layer for ApplicationUserController, ApplicationUserSettingsController, IngredientController;&#10;2. Removed changing email;&#10;3. Removed @NotNull at 'amount' in IngredientDTO;&#10;4. Renamed 'ApiResponse' into 'Response';&#10;5. Merged with Sergei's commit;&#10;6. Minor changes." />
     <MESSAGE value="cascadetype adjustment" />
-    <option name="LAST_COMMIT_MESSAGE" value="cascadetype adjustment" />
+    <MESSAGE value="1. Attempt to fix CORS." />
+    <option name="LAST_COMMIT_MESSAGE" value="1. Attempt to fix CORS." />
   </component>
 </project>
