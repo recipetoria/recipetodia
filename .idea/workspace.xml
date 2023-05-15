@@ -6,7 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="9d8fdb90-e583-4a4a-ac36-8ca0b4776101" name="Changes" comment="1. Attempt to fix CORS.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/security/configuration/SecurityConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/security/configuration/SecurityConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/service/ApplicationUserSettingsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/service/ApplicationUserSettingsService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/jit/rec/book/recipetoria/RecipetoriaApplicationTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/jit/rec/recipetoria/service/RecipeServiceTest.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -149,6 +152,14 @@
       <workItem from="1683814233950" duration="2774000" />
       <workItem from="1683817083112" duration="585000" />
       <workItem from="1683819006732" duration="1443000" />
+      <workItem from="1683965877907" duration="9000" />
+      <workItem from="1683966240267" duration="7000" />
+      <workItem from="1683966303626" duration="22000" />
+      <workItem from="1683966705551" duration="9000" />
+      <workItem from="1683966861613" duration="312000" />
+      <workItem from="1684049325912" duration="29000" />
+      <workItem from="1684112143610" duration="2117000" />
+      <workItem from="1684114503569" duration="2244000" />
     </task>
     <task id="LOCAL-00001" summary="1. Changed application.properties">
       <created>1680339848147</created>

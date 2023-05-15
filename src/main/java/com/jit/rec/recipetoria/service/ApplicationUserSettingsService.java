@@ -91,7 +91,6 @@ public class ApplicationUserSettingsService {
             );
             Files.write(newFileNameAndPath, file.getBytes());
         } else {
-            Path sourcePath = new ClassPathResource(sourceDirectory + sourceName).getFile().toPath();
             Path targetPath =
                     Paths.get(RESOURCES_DIRECTORY + String.format(PROFILE_PHOTO_DIRECTORY, applicationUser.getId()));
 
@@ -101,7 +100,7 @@ public class ApplicationUserSettingsService {
                     String.format(PROFILE_PHOTO_NAME, applicationUser.getId()) + getFileExtension(sourceName)
             );
 
-            try (InputStream inputStream = Files.newInputStream(sourcePath);
+            try (InputStream inputStream = new ClassPathResource(sourceDirectory + sourceName).getInputStream();
                  OutputStream outputStream = Files.newOutputStream(profilePhotoNew)) {
                 inputStream.transferTo(outputStream);
             } catch (IOException e) {
