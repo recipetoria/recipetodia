@@ -13,6 +13,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.ErrorResponse;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -87,4 +88,15 @@ public interface ShoppingListApi {
     })
     @PostMapping
     ResponseEntity<Response> createIngredientInShoppingList(IngredientDTO newIngredientInfo);
+
+    @Operation(
+            summary = "Remove ingredients from Shopping List",
+            description = "Removes ingredients from Shopping List"
+    )
+    @ApiResponse(
+            responseCode = "204", description = "Shopping List emptied successfully",
+            content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE)
+    )
+    @DeleteMapping
+    ResponseEntity<Response> deleteAllIngredientFromShoppingList();
 }

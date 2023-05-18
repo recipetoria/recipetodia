@@ -35,4 +35,13 @@ public class ShoppingListService {
         Ingredient createdIngredient = ingredientService.createIngredient(newIngredientInfo, getApplicationUser());
         return IngredientDTO.convertToDTO(createdIngredient);
     }
+
+    public void deleteAllIngredientFromShoppingList() {
+        List<Ingredient> allIngredients = ingredientService.getAllIngredientsByApplicationUser();
+
+        for (Ingredient oneIngredient : allIngredients) {
+            ingredientService.deleteIngredientById(oneIngredient.getId());
+        }
+    }
+
 }

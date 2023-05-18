@@ -49,4 +49,18 @@ public class ShoppingListController implements ShoppingListApi {
                                 shoppingListService.createIngredientInShoppingList(newIngredientInfo)))
                         .build());
     }
+
+    @DeleteMapping
+    public ResponseEntity<Response> deleteAllIngredientFromShoppingList() {
+        shoppingListService.deleteAllIngredientFromShoppingList();
+
+        return ResponseEntity
+                .status(HttpStatus.NO_CONTENT)
+                .body(Response.builder()
+                        .timeStamp(LocalDateTime.now())
+                        .statusCode(HttpStatus.NO_CONTENT.value())
+                        .message(messageSource.getMessage(
+                                "response.ingredient.deleteAllIngredientsFromShL", null, Locale.getDefault()))
+                        .build());
+    }
 }
