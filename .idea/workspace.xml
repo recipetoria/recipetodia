@@ -4,14 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9d8fdb90-e583-4a4a-ac36-8ca0b4776101" name="Changes" comment="1. Attempt to fix CORS.">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/controller/ShoppingListController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/controller/ShoppingListController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/controllerapi/ShoppingListApi.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/controllerapi/ShoppingListApi.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/service/ShoppingListService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/service/ShoppingListService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/responses.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/responses.properties" afterDir="false" />
-    </list>
+    <list default="true" id="9d8fdb90-e583-4a4a-ac36-8ca0b4776101" name="Changes" comment="1. Added tests for IngredientService." />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -21,8 +14,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Class" />
-        <option value="JUnit5 Test Class" />
         <option value="Interface" />
+        <option value="JUnit5 Test Class" />
       </list>
     </option>
   </component>
@@ -61,9 +54,9 @@
     "WebServerToolWindowFactoryState": "false",
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
-    "git-widget-placeholder": "backend-REC-97",
+    "git-widget-placeholder": "backend-REC-tests",
     "last_directory_selection": "/Users/cgrey/projects/jit-rec/web/src/test/java/com/jit/rec",
-    "last_opened_file_path": "/Users/Nikolai/Documents/JavaWorkspaces/JuniorITClub/book-of-recipes/src/main/resources",
+    "last_opened_file_path": "/Users/Nikolai/Documents/JavaWorkspaces/JuniorITClub/book-of-recipes/src/test/java/com/jit/rec/recipetoria",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -73,7 +66,7 @@
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
     "run.code.analysis.last.selected.profile": "pProject Default",
-    "settings.editor.selected.configurable": "reference.settings.project.maven.runner",
+    "settings.editor.selected.configurable": "preferences.editor",
     "spring.configuration.checksum": "f8c453b760e87c3960dd25a1fc2e00e5",
     "vue.rearranger.settings.migration": "true"
   },
@@ -83,8 +76,12 @@
     ]
   }
 }]]></component>
+  <component name="ReactorSettings">
+    <option name="notificationShown" value="true" />
+  </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/test/java/com/jit/rec/recipetoria" />
       <recent name="$PROJECT_DIR$/src/main/resources" />
     </key>
     <key name="CreateTestDialog.Recents.Supers">
@@ -94,12 +91,91 @@
       <recent name="com.jit.rec.recipetoria.service" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.jit.rec.recipetoria.service" />
       <recent name="com.jit.rec.recipetoria.controller" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="JUnit.IngredientServiceTest">
+    <configuration name="IngredientServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="recipetoria" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.jit.rec.recipetoria.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.jit.rec.recipetoria.service" />
+      <option name="MAIN_CLASS_NAME" value="com.jit.rec.recipetoria.service.IngredientServiceTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="IngredientServiceTest.deleteIngredientById" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="recipetoria" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.jit.rec.recipetoria.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.jit.rec.recipetoria.service" />
+      <option name="MAIN_CLASS_NAME" value="com.jit.rec.recipetoria.service.IngredientServiceTest" />
+      <option name="METHOD_NAME" value="deleteIngredientById" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="IngredientServiceTest.deleteIngredientByIdException" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="recipetoria" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.jit.rec.recipetoria.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.jit.rec.recipetoria.service" />
+      <option name="MAIN_CLASS_NAME" value="com.jit.rec.recipetoria.service.IngredientServiceTest" />
+      <option name="METHOD_NAME" value="deleteIngredientByIdException" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="IngredientServiceTest.getAllIngredientsByApplicationUser" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="recipetoria" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.jit.rec.recipetoria.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.jit.rec.recipetoria.service" />
+      <option name="MAIN_CLASS_NAME" value="com.jit.rec.recipetoria.service.IngredientServiceTest" />
+      <option name="METHOD_NAME" value="getAllIngredientsByApplicationUser" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="IngredientServiceTest.testGetAllIngredientsByApplicationUser" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="recipetoria" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.jit.rec.recipetoria.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.jit.rec.recipetoria.service" />
+      <option name="MAIN_CLASS_NAME" value="com.jit.rec.recipetoria.service.IngredientServiceTest" />
+      <option name="METHOD_NAME" value="testGetAllIngredientsByApplicationUser" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="RecipetoriaApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
-      <option name="ACTIVE_PROFILES" />
       <module name="recipetoria" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.jit.rec.recipetoria.RecipetoriaApplication" />
       <extension name="net.ashald.envfile">
@@ -117,6 +193,23 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <list>
+      <item itemvalue="JUnit.IngredientServiceTest.deleteIngredientById" />
+      <item itemvalue="JUnit.IngredientServiceTest.deleteIngredientByIdException" />
+      <item itemvalue="JUnit.IngredientServiceTest.getAllIngredientsByApplicationUser" />
+      <item itemvalue="JUnit.IngredientServiceTest.testGetAllIngredientsByApplicationUser" />
+      <item itemvalue="JUnit.IngredientServiceTest" />
+      <item itemvalue="Spring Boot.RecipetoriaApplication" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.IngredientServiceTest" />
+        <item itemvalue="JUnit.IngredientServiceTest.getAllIngredientsByApplicationUser" />
+        <item itemvalue="JUnit.IngredientServiceTest.testGetAllIngredientsByApplicationUser" />
+        <item itemvalue="JUnit.IngredientServiceTest.deleteIngredientByIdException" />
+        <item itemvalue="JUnit.IngredientServiceTest.deleteIngredientById" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SpringBeansView">
@@ -161,6 +254,7 @@
       <workItem from="1684049325912" duration="29000" />
       <workItem from="1684112143610" duration="2117000" />
       <workItem from="1684114503569" duration="2244000" />
+      <workItem from="1684466484082" duration="28956000" />
     </task>
     <task id="LOCAL-00001" summary="1. Changed application.properties">
       <created>1680339848147</created>
@@ -358,7 +452,14 @@
       <option name="project" value="LOCAL" />
       <updated>1684416587765</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="1. Added tests for IngredientService.">
+      <created>1684509508448</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1684509508448</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -424,6 +525,21 @@
     <MESSAGE value="cascadetype adjustment" />
     <MESSAGE value="1. Attempt to fix CORS." />
     <MESSAGE value="1. Docker." />
-    <option name="LAST_COMMIT_MESSAGE" value="1. Docker." />
+    <MESSAGE value="1. Added tests for IngredientService." />
+    <option name="LAST_COMMIT_MESSAGE" value="1. Added tests for IngredientService." />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/book_of_recipes$IngredientServiceTest.ic" NAME="IngredientServiceTest Coverage Results" MODIFIED="1684508997174" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>com.jit.rec.recipetoria.service.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/book_of_recipes$IngredientServiceTest_willThrowExceptionWhenGetIngredientReturnsEmptyOptional.ic" NAME="IngredientServiceTest.willThrowExceptionWhenGetIngredientReturnsEmptyOptional Coverage Results" MODIFIED="1684491826349" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>com.jit.rec.recipetoria.service.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/book_of_recipes$IngredientServiceTest_getIngredientById.ic" NAME="IngredientServiceTest.getIngredientById Coverage Results" MODIFIED="1684492079393" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>com.jit.rec.recipetoria.service.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/book_of_recipes$IngredientServiceTest_updateIngredientById.ic" NAME="IngredientServiceTest.updateIngredientById Coverage Results" MODIFIED="1684497372200" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>com.jit.rec.recipetoria.service.*</FILTER>
+    </SUITE>
   </component>
 </project>

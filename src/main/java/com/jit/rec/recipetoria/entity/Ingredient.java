@@ -9,7 +9,6 @@ import jakarta.persistence.*;
 @Entity
 @Data
 @NoArgsConstructor
-
 public class Ingredient {
 
     @Id

@@ -21,17 +21,15 @@ public class IngredientService {
     private final IngredientRepository ingredientRepository;
     private final MessageSource messageSource;
 
-    public Ingredient createIngredient(IngredientDTO newRecipeIngredientDTO, ApplicationUser applicationUser) {
-        Ingredient newRecipeIngredient = IngredientDTO.convertToIngredient(newRecipeIngredientDTO);
-        newRecipeIngredient.setApplicationUser(applicationUser);
-
-        return ingredientRepository.save(newRecipeIngredient);
+    public Ingredient createIngredient(IngredientDTO newIngredientDTO, ApplicationUser applicationUser) {
+        Ingredient newIngredient = IngredientDTO.convertToIngredient(newIngredientDTO);
+        newIngredient.setApplicationUser(applicationUser);
+        return ingredientRepository.save(newIngredient);
     }
 
     public Ingredient createIngredient(IngredientDTO newRecipeIngredientDTO, Recipe recipe) {
         Ingredient newRecipeIngredient = IngredientDTO.convertToIngredient(newRecipeIngredientDTO);
         newRecipeIngredient.setRecipe(recipe);
-
         return ingredientRepository.save(newRecipeIngredient);
     }
 
@@ -65,7 +63,7 @@ public class IngredientService {
         ingredientRepository.deleteById(ingredientId);
     }
 
-    List<Ingredient> getAllIngredientsByApplicationUser() {
+    public List<Ingredient> getAllIngredientsByApplicationUser() {
         ApplicationUser applicationUser =
                 (ApplicationUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
