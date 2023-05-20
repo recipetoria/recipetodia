@@ -36,12 +36,11 @@ public class ShoppingListService {
         return IngredientDTO.convertToDTO(createdIngredient);
     }
 
-    public void deleteAllIngredientFromShoppingList() {
+    public void deleteAllIngredientsFromShoppingList() {
         List<Ingredient> allIngredients = ingredientService.getAllIngredientsByApplicationUser();
 
         for (Ingredient oneIngredient : allIngredients) {
             ingredientService.deleteIngredientById(oneIngredient.getId());
         }
     }
-
 }

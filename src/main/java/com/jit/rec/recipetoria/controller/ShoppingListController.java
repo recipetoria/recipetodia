@@ -51,8 +51,8 @@ public class ShoppingListController implements ShoppingListApi {
     }
 
     @DeleteMapping
-    public ResponseEntity<Response> deleteAllIngredientFromShoppingList() {
-        shoppingListService.deleteAllIngredientFromShoppingList();
+    public ResponseEntity<Response> deleteAllIngredientsFromShoppingList() {
+        shoppingListService.deleteAllIngredientsFromShoppingList();
 
         return ResponseEntity
                 .status(HttpStatus.NO_CONTENT)

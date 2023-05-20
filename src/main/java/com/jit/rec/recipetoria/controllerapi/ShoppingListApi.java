@@ -98,5 +98,5 @@ public interface ShoppingListApi {
             content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE)
     )
     @DeleteMapping
-    ResponseEntity<Response> deleteAllIngredientFromShoppingList();
+    ResponseEntity<Response> deleteAllIngredientsFromShoppingList();
 }
