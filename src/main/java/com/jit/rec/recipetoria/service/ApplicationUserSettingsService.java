@@ -60,9 +60,7 @@ public class ApplicationUserSettingsService {
     public ApplicationUserDTO updateProfilePhoto(MultipartFile file) throws IOException {
         ApplicationUser applicationUser =
                 (ApplicationUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
         validatePhoto(file);
-
         return updateProfilePhoto(applicationUser, file, null, file.getOriginalFilename());
     }
 
@@ -74,7 +72,6 @@ public class ApplicationUserSettingsService {
     }
 
     public ApplicationUserDTO updateProfilePhoto(ApplicationUser applicationUser) throws IOException {
-
         return updateProfilePhoto(applicationUser, null, PROFILE_PHOTO_DIRECTORY_DEFAULT, PROFILE_PHOTO_NAME_DEFAULT);
     }
 

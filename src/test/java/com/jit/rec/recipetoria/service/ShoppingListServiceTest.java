@@ -38,7 +38,7 @@ class ShoppingListServiceTest {
     }
 
     @Test
-    void getAllIngredientsForShoppingList() {
+    void testGetAllIngredientsForShoppingList() {
         // Given
         Long ingredientId = RANDOM.nextLong(1, 1000);
         String name = FAKER.food().ingredient();
@@ -81,7 +81,7 @@ class ShoppingListServiceTest {
     }
 
     @Test
-    void createIngredientInShoppingList() {
+    void testCreateIngredientInShoppingList() {
         // Given
         Long applicationUserId = RANDOM.nextLong(1, 1000);
 
@@ -130,7 +130,7 @@ class ShoppingListServiceTest {
     }
 
     @Test
-    void deleteAllIngredientsFromShoppingList() {
+    void testDeleteAllIngredientsFromShoppingList() {
         // Arrange
         Ingredient ingredient1 = new Ingredient();
         ingredient1.setId(RANDOM.nextLong(1, 1000));

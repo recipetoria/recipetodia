@@ -4,12 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9d8fdb90-e583-4a4a-ac36-8ca0b4776101" name="Changes" comment="1. Added tests for IngredientService.">
-      <change afterPath="$PROJECT_DIR$/src/test/java/com/jit/rec/recipetoria/service/ShoppingListServiceTest.java" afterDir="false" />
+    <list default="true" id="9d8fdb90-e583-4a4a-ac36-8ca0b4776101" name="Changes" comment="1. Added tests for ShoppingListService.">
+      <change afterPath="$PROJECT_DIR$/src/test/java/com/jit/rec/recipetoria/service/ApplicationUserSettingsServiceTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/controller/ShoppingListController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/controller/ShoppingListController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/controllerapi/ShoppingListApi.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/controllerapi/ShoppingListApi.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/service/ShoppingListService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/service/ShoppingListService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/service/ApplicationUserSettingsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/jit/rec/recipetoria/service/ApplicationUserSettingsService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/jit/rec/recipetoria/service/IngredientServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/jit/rec/recipetoria/service/IngredientServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/jit/rec/recipetoria/service/ShoppingListServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/jit/rec/recipetoria/service/ShoppingListServiceTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -101,8 +101,8 @@
       <recent name="com.jit.rec.recipetoria.controller" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.IngredientServiceTest">
-    <configuration name="IngredientServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Spring Boot.RecipetoriaApplication">
+    <configuration name="ApplicationUserSettingsServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="recipetoria" />
       <extension name="coverage">
         <pattern>
@@ -111,13 +111,13 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="com.jit.rec.recipetoria.service" />
-      <option name="MAIN_CLASS_NAME" value="com.jit.rec.recipetoria.service.IngredientServiceTest" />
+      <option name="MAIN_CLASS_NAME" value="com.jit.rec.recipetoria.service.ApplicationUserSettingsServiceTest" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ShoppingListServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ApplicationUserSettingsServiceTest.testCheckIfExists" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="recipetoria" />
       <extension name="coverage">
         <pattern>
@@ -126,29 +126,14 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="com.jit.rec.recipetoria.service" />
-      <option name="MAIN_CLASS_NAME" value="com.jit.rec.recipetoria.service.ShoppingListServiceTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ShoppingListServiceTest.createIngredientInShoppingList" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="recipetoria" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.jit.rec.recipetoria.service.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="com.jit.rec.recipetoria.service" />
-      <option name="MAIN_CLASS_NAME" value="com.jit.rec.recipetoria.service.ShoppingListServiceTest" />
-      <option name="METHOD_NAME" value="createIngredientInShoppingList" />
+      <option name="MAIN_CLASS_NAME" value="com.jit.rec.recipetoria.service.ApplicationUserSettingsServiceTest" />
+      <option name="METHOD_NAME" value="testCheckIfExists" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ShoppingListServiceTest.deleteAllIngredientsFromShoppingList" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ApplicationUserSettingsServiceTest.testCheckIfExistsTrue" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="recipetoria" />
       <extension name="coverage">
         <pattern>
@@ -157,14 +142,14 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="com.jit.rec.recipetoria.service" />
-      <option name="MAIN_CLASS_NAME" value="com.jit.rec.recipetoria.service.ShoppingListServiceTest" />
-      <option name="METHOD_NAME" value="deleteAllIngredientsFromShoppingList" />
+      <option name="MAIN_CLASS_NAME" value="com.jit.rec.recipetoria.service.ApplicationUserSettingsServiceTest" />
+      <option name="METHOD_NAME" value="testCheckIfExistsTrue" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ShoppingListServiceTest.getAllIngredientsForShoppingList" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ApplicationUserSettingsServiceTest.testUpdateProfilePhoto_File" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="recipetoria" />
       <extension name="coverage">
         <pattern>
@@ -173,8 +158,24 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="com.jit.rec.recipetoria.service" />
-      <option name="MAIN_CLASS_NAME" value="com.jit.rec.recipetoria.service.ShoppingListServiceTest" />
-      <option name="METHOD_NAME" value="getAllIngredientsForShoppingList" />
+      <option name="MAIN_CLASS_NAME" value="com.jit.rec.recipetoria.service.ApplicationUserSettingsServiceTest" />
+      <option name="METHOD_NAME" value="testUpdateProfilePhoto_File" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ApplicationUserSettingsServiceTest.updatePersonalInfo" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="recipetoria" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.jit.rec.recipetoria.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.jit.rec.recipetoria.service" />
+      <option name="MAIN_CLASS_NAME" value="com.jit.rec.recipetoria.service.ApplicationUserSettingsServiceTest" />
+      <option name="METHOD_NAME" value="updatePersonalInfo" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -199,20 +200,20 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="JUnit.ShoppingListServiceTest.createIngredientInShoppingList" />
-      <item itemvalue="JUnit.ShoppingListServiceTest.deleteAllIngredientsFromShoppingList" />
-      <item itemvalue="JUnit.ShoppingListServiceTest" />
-      <item itemvalue="JUnit.ShoppingListServiceTest.getAllIngredientsForShoppingList" />
-      <item itemvalue="JUnit.IngredientServiceTest" />
+      <item itemvalue="JUnit.ApplicationUserSettingsServiceTest.testUpdateProfilePhoto_File" />
+      <item itemvalue="JUnit.ApplicationUserSettingsServiceTest.updatePersonalInfo" />
+      <item itemvalue="JUnit.ApplicationUserSettingsServiceTest" />
+      <item itemvalue="JUnit.ApplicationUserSettingsServiceTest.testCheckIfExists" />
+      <item itemvalue="JUnit.ApplicationUserSettingsServiceTest.testCheckIfExistsTrue" />
       <item itemvalue="Spring Boot.RecipetoriaApplication" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.IngredientServiceTest" />
-        <item itemvalue="JUnit.ShoppingListServiceTest" />
-        <item itemvalue="JUnit.ShoppingListServiceTest.deleteAllIngredientsFromShoppingList" />
-        <item itemvalue="JUnit.ShoppingListServiceTest.getAllIngredientsForShoppingList" />
-        <item itemvalue="JUnit.ShoppingListServiceTest.createIngredientInShoppingList" />
+        <item itemvalue="JUnit.ApplicationUserSettingsServiceTest.testUpdateProfilePhoto_File" />
+        <item itemvalue="JUnit.ApplicationUserSettingsServiceTest.updatePersonalInfo" />
+        <item itemvalue="JUnit.ApplicationUserSettingsServiceTest" />
+        <item itemvalue="JUnit.ApplicationUserSettingsServiceTest.testCheckIfExistsTrue" />
+        <item itemvalue="JUnit.ApplicationUserSettingsServiceTest.testCheckIfExists" />
       </list>
     </recent_temporary>
   </component>
@@ -261,7 +262,16 @@
       <workItem from="1684114503569" duration="2244000" />
       <workItem from="1684466484082" duration="28956000" />
       <workItem from="1684509725222" duration="7888000" />
-      <workItem from="1684582619808" duration="10484000" />
+      <workItem from="1684582619808" duration="13476000" />
+      <workItem from="1684601237787" duration="1029000" />
+      <workItem from="1684635582047" duration="8657000" />
+      <workItem from="1684749317583" duration="102000" />
+      <workItem from="1685084001053" duration="70000" />
+      <workItem from="1685289803538" duration="1215000" />
+      <workItem from="1685515852042" duration="776000" />
+      <workItem from="1685604242717" duration="65000" />
+      <workItem from="1685606967266" duration="16000" />
+      <workItem from="1685627200138" duration="2743000" />
     </task>
     <task id="LOCAL-00001" summary="1. Changed application.properties">
       <created>1680339848147</created>
@@ -480,7 +490,14 @@
       <option name="project" value="LOCAL" />
       <updated>1684511080592</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="1. Added tests for ShoppingListService.">
+      <created>1684598227331</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1684598227331</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -547,13 +564,17 @@
     <MESSAGE value="1. Attempt to fix CORS." />
     <MESSAGE value="1. Docker." />
     <MESSAGE value="1. Added tests for IngredientService." />
-    <option name="LAST_COMMIT_MESSAGE" value="1. Added tests for IngredientService." />
+    <MESSAGE value="1. Added tests for ShoppingListService." />
+    <option name="LAST_COMMIT_MESSAGE" value="1. Added tests for ShoppingListService." />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/book_of_recipes$IngredientServiceTest.ic" NAME="IngredientServiceTest Coverage Results" MODIFIED="1684518046149" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+    <SUITE FILE_PATH="coverage/book_of_recipes$IngredientServiceTest.ic" NAME="IngredientServiceTest Coverage Results" MODIFIED="1684598144219" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>com.jit.rec.recipetoria.service.*</FILTER>
     </SUITE>
-    <SUITE FILE_PATH="coverage/book_of_recipes$ShoppingListServiceTest.ic" NAME="ShoppingListServiceTest Coverage Results" MODIFIED="1684586336967" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+    <SUITE FILE_PATH="coverage/book_of_recipes$ShoppingListServiceTest.ic" NAME="ShoppingListServiceTest Coverage Results" MODIFIED="1684598095522" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>com.jit.rec.recipetoria.service.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/book_of_recipes$ApplicationUserSettingsServiceTest.ic" NAME="ApplicationUserSettingsServiceTest Coverage Results" MODIFIED="1684599960666" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>com.jit.rec.recipetoria.service.*</FILTER>
     </SUITE>
     <SUITE FILE_PATH="coverage/book_of_recipes$IngredientServiceTest_willThrowExceptionWhenGetIngredientReturnsEmptyOptional.ic" NAME="IngredientServiceTest.willThrowExceptionWhenGetIngredientReturnsEmptyOptional Coverage Results" MODIFIED="1684491826349" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
@@ -563,6 +584,9 @@
       <FILTER>com.jit.rec.recipetoria.service.*</FILTER>
     </SUITE>
     <SUITE FILE_PATH="coverage/book_of_recipes$IngredientServiceTest_updateIngredientById.ic" NAME="IngredientServiceTest.updateIngredientById Coverage Results" MODIFIED="1684497372200" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>com.jit.rec.recipetoria.service.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/book_of_recipes$ApplicationUserSettingsServiceTest_testCheckIfExistsTrue.ic" NAME="ApplicationUserSettingsServiceTest.testCheckIfExistsTrue Coverage Results" MODIFIED="1684600674150" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>com.jit.rec.recipetoria.service.*</FILTER>
     </SUITE>
   </component>

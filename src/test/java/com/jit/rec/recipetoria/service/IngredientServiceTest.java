@@ -45,7 +45,7 @@ class IngredientServiceTest {
     }
 
     @Test
-    void createIngredientInShoppingList() {
+    void testCreateIngredientInShoppingList() {
         // Given
         String newIngredientDTOName = FAKER.food().ingredient();
         Double newIngredientDTOAmount = RANDOM.nextDouble(1, 1000);
@@ -118,7 +118,7 @@ class IngredientServiceTest {
     }
 
     @Test
-    void createIngredientInRecipe() {
+    void testCreateIngredientInRecipe() {
         // Given
         String newIngredientDTOName = FAKER.food().ingredient();
         Double newIngredientDTOAmount = RANDOM.nextDouble(1, 1000);
@@ -213,7 +213,7 @@ class IngredientServiceTest {
     }
 
     @Test
-    void getIngredientById() {
+    void testGetIngredientById() {
         // Given
         Long ingredientId = RANDOM.nextLong(1, 1000);
         String name = FAKER.food().ingredient();
@@ -245,7 +245,7 @@ class IngredientServiceTest {
     }
 
     @Test
-    void getIngredientByIdException() {
+    void testGetIngredientByIdException() {
         // Given
         Long ingredientId = RANDOM.nextLong(1, 1000);
 
@@ -262,7 +262,7 @@ class IngredientServiceTest {
     }
 
     @Test
-    void updateIngredientById() {
+    void testUpdateIngredientById() {
         // Given
         Long ingredientId = RANDOM.nextLong(1, 1000);
 
@@ -313,7 +313,7 @@ class IngredientServiceTest {
     }
 
     @Test
-    void updateIngredientByIdException() {
+    void testUpdateIngredientByIdException() {
         // Given
         Long ingredientId = RANDOM.nextLong(1, 1000);
 
@@ -344,7 +344,7 @@ class IngredientServiceTest {
     }
 
     @Test
-    void deleteIngredientById() {
+    void testDeleteIngredientById() {
         // Given
         Long ingredientId = RANDOM.nextLong(1, 1000);
         when(ingredientRepository.existsById(ingredientId)).thenReturn(true);
@@ -357,7 +357,7 @@ class IngredientServiceTest {
     }
 
     @Test
-    void deleteIngredientByIdException() {
+    void testDeleteIngredientByIdException() {
         // Given
         Long ingredientId = RANDOM.nextLong(1, 1000);
         when(ingredientRepository.existsById(ingredientId)).thenReturn(false);
@@ -374,7 +374,7 @@ class IngredientServiceTest {
     }
 
     @Test
-    void getAllIngredientsByApplicationUser() {
+    void testGetAllIngredientsByApplicationUser() {
         // Given
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
