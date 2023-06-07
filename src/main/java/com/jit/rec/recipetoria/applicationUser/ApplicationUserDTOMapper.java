@@ -17,4 +17,3 @@ public class ApplicationUserDTOMapper implements Function<ApplicationUser, Appli
         );
     }
 }
-
