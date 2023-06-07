@@ -3,8 +3,10 @@ package com.jit.rec.recipetoria.applicationUser.settings;
 import com.jit.rec.recipetoria.applicationUser.ApplicationUser;
 import com.jit.rec.recipetoria.applicationUser.ApplicationUserDTO;
 import com.jit.rec.recipetoria.applicationUser.ApplicationUserRepository;
+import com.jit.rec.recipetoria.exception.ResourceNotFoundException;
 import com.jit.rec.recipetoria.filestorage.FileStorageService;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.context.MessageSource;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -44,6 +46,18 @@ public class ApplicationUserSettingsService {
         ApplicationUser updatedApplicationUser = applicationUserRepository.save(applicationUser);
 
         return ApplicationUserDTO.convertToDTO(updatedApplicationUser);
+    }
+
+    public byte[] getProfilePhoto() {
+        ApplicationUser applicationUser =
+                (ApplicationUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        if (StringUtils.isBlank(applicationUser.getProfilePhoto())) {
+            throw new ResourceNotFoundException(messageSource.getMessage(
+                    "exception.applicationUserSettings.getProfilePhoto.notFound", null, Locale.getDefault()));
+        }
+
+        return fileStorageService.getProfilePhoto(applicationUser.getProfilePhoto());
     }
 
     public void updateProfilePhoto(MultipartFile file) {

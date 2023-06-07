@@ -16,8 +16,6 @@ import org.springframework.web.ErrorResponse;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
-
 @Tag(name = "User Settings")
 @ApiResponses({
         @ApiResponse(
@@ -90,33 +88,44 @@ public interface ApplicationUserSettingsApi {
     ResponseEntity<Response> updateApplicationUserInfo(ApplicationUserDTO applicationUserInfo);
 
     @Operation(
-            summary = "Update User profile profilePhoto",
-            description = "Updates User profile profilePhoto"
+            summary = "Get User profile photo",
+            description = "Retrieves User profile photo"
     )
     @ApiResponse(
-            responseCode = "200", description = "User profile profilePhoto updated successfully",
+            responseCode = "200", description = "User profile photo retrieved successfully",
+            content = @Content(mediaType = MediaType.IMAGE_JPEG_VALUE)
+    )
+    @GetMapping
+    ResponseEntity<Response> getApplicationUserPhoto();
+
+    @Operation(
+            summary = "Update User profile photo",
+            description = "Updates User profile photo"
+    )
+    @ApiResponse(
+            responseCode = "200", description = "User profile photo updated successfully",
             content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE)
     )
     @Parameters({
             @Parameter(
                     name = "file",
                     required = true,
-                    description = "New profile profilePhoto"
+                    description = "New profile photo"
             )
     })
     @PatchMapping("/photo")
-    ResponseEntity<Response> updateApplicationUserPhoto(MultipartFile file) throws IOException;
+    ResponseEntity<Response> updateApplicationUserPhoto(MultipartFile file);
 
     @Operation(
-            summary = "Delete User profile profilePhoto",
-            description = "Deletes User profile profilePhoto"
+            summary = "Delete User profile photo",
+            description = "Deletes User profile photo"
     )
     @ApiResponse(
-            responseCode = "200", description = "User profile profilePhoto deleted successfully",
+            responseCode = "200", description = "User profile photo deleted successfully",
             content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE)
     )
     @PatchMapping("/photo-delete")
-    ResponseEntity<Response> deleteApplicationUserPhoto() throws IOException;
+    ResponseEntity<Response> deleteApplicationUserPhoto();
 
     @Operation(
             summary = "Update User password",
@@ -151,5 +160,5 @@ public interface ApplicationUserSettingsApi {
             content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE)
     )
     @DeleteMapping("/account-delete")
-    ResponseEntity<Response> deleteApplicationUser() throws IOException;
+    ResponseEntity<Response> deleteApplicationUser();
 }
