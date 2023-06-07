@@ -2,6 +2,7 @@ package com.jit.rec.recipetoria.applicationUser.settings;
 
 import com.jit.rec.recipetoria.applicationUser.ApplicationUser;
 import com.jit.rec.recipetoria.applicationUser.ApplicationUserDTO;
+import com.jit.rec.recipetoria.applicationUser.ApplicationUserDTOMapper;
 import com.jit.rec.recipetoria.applicationUser.ApplicationUserRepository;
 import com.jit.rec.recipetoria.exception.ResourceNotFoundException;
 import com.jit.rec.recipetoria.filestorage.FileStorageService;
@@ -27,12 +28,13 @@ public class ApplicationUserSettingsService {
     private final ApplicationUserRepository applicationUserRepository;
     private final PasswordEncoder passwordEncoder;
     private final FileStorageService fileStorageService;
+    private final ApplicationUserDTOMapper applicationUserDTOMapper;
     private final MessageSource messageSource;
 
     public ApplicationUserDTO getApplicationUser() {
         ApplicationUser applicationUser =
                 (ApplicationUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        return ApplicationUserDTO.convertToDTO(applicationUser);
+        return applicationUserDTOMapper.apply(applicationUser);
     }
 
     public void updatePersonalInfo(ApplicationUserDTO applicationUserInfo) {
