@@ -52,6 +52,7 @@ public class ApplicationUserSettingsController implements ApplicationUserSetting
 
     @PatchMapping("/photo")
     public ResponseEntity<Response> updateApplicationUserPhoto(@RequestBody MultipartFile file) {
+        applicationUserSettingsService.updateProfilePhoto(file);
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(Response.builder()
@@ -59,12 +60,12 @@ public class ApplicationUserSettingsController implements ApplicationUserSetting
                         .statusCode(HttpStatus.OK.value())
                         .message(messageSource.getMessage(
                                 "response.userSettings.updateApplicationUserPhoto", null, Locale.getDefault()))
-                        .data(Map.of("updatedApplicationUserDTO", applicationUserSettingsService.updateProfilePhoto(file)))
                         .build());
     }
 
     @PatchMapping("/photo-delete")
     public ResponseEntity<Response> deleteApplicationUserPhoto() {
+        applicationUserSettingsService.deleteProfilePhoto();
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(Response.builder()
@@ -72,7 +73,6 @@ public class ApplicationUserSettingsController implements ApplicationUserSetting
                         .statusCode(HttpStatus.OK.value())
                         .message(messageSource.getMessage(
                                 "response.userSettings.deleteApplicationUserPhoto", null, Locale.getDefault()))
-                        .data(Map.of("updatedApplicationUserDTO", applicationUserSettingsService.updateProfilePhoto()))
                         .build());
     }
 

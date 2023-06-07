@@ -5,7 +5,6 @@ import com.jit.rec.recipetoria.applicationUser.ApplicationUser;
 import com.jit.rec.recipetoria.applicationUser.ApplicationUserRepository;
 import com.jit.rec.recipetoria.applicationUser.ApplicationUserRole;
 import com.jit.rec.recipetoria.security.jwt.JwtService;
-import com.jit.rec.recipetoria.applicationUser.settings.ApplicationUserSettingsService;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.context.MessageSource;
@@ -25,7 +24,6 @@ import java.util.Optional;
 public class AuthenticationService {
 
     private final ApplicationUserRepository applicationUserRepository;
-    private final ApplicationUserSettingsService applicationUserSettingsService;
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
@@ -46,10 +44,6 @@ public class AuthenticationService {
         String jwtToken = jwtService.generateToken(applicationUser);
 
 //        sendEmail(applicationUser, jwtToken); //TODO: uncomment
-
-        applicationUserRepository.save(applicationUser);
-
-        applicationUserSettingsService.updateProfilePhoto(applicationUser);
 
         applicationUserRepository.save(applicationUser);
 

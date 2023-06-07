@@ -81,7 +81,7 @@ public interface ApplicationUserSettingsApi {
                             New User personal information \n
                             email: ignored \n
                             name: required \n
-                            photo: ignored \n
+                            profilePhoto: ignored \n
                             password: ignored
                             """
             )
@@ -90,29 +90,29 @@ public interface ApplicationUserSettingsApi {
     ResponseEntity<Response> updateApplicationUserInfo(ApplicationUserDTO applicationUserInfo);
 
     @Operation(
-            summary = "Update User profile photo",
-            description = "Updates User profile photo"
+            summary = "Update User profile profilePhoto",
+            description = "Updates User profile profilePhoto"
     )
     @ApiResponse(
-            responseCode = "200", description = "User profile photo updated successfully",
+            responseCode = "200", description = "User profile profilePhoto updated successfully",
             content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE)
     )
     @Parameters({
             @Parameter(
                     name = "file",
                     required = true,
-                    description = "New profile photo"
+                    description = "New profile profilePhoto"
             )
     })
     @PatchMapping("/photo")
     ResponseEntity<Response> updateApplicationUserPhoto(MultipartFile file) throws IOException;
 
     @Operation(
-            summary = "Delete User profile photo",
-            description = "Deletes User profile photo"
+            summary = "Delete User profile profilePhoto",
+            description = "Deletes User profile profilePhoto"
     )
     @ApiResponse(
-            responseCode = "200", description = "User profile photo deleted successfully",
+            responseCode = "200", description = "User profile profilePhoto deleted successfully",
             content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE)
     )
     @PatchMapping("/photo-delete")
@@ -134,7 +134,7 @@ public interface ApplicationUserSettingsApi {
                             New User personal information \n
                             email: ignored \n
                             name: ignored \n
-                            photo: ignored \n
+                            profilePhoto: ignored \n
                             password: required
                             """
             )

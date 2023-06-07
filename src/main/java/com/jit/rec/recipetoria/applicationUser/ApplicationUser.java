@@ -38,7 +38,7 @@ public class ApplicationUser implements UserDetails {
 
     private String name;
 
-    private String photo;
+    private String profilePhoto;
 
     private boolean locked = true;
 

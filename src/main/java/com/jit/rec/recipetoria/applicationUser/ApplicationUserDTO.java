@@ -13,7 +13,7 @@ public record ApplicationUserDTO(
         String name,
 
         @Nullable
-        String photo,
+        String profilePhoto,
 
         @Nullable
         @Size(min = 3, max = 30, message = "{validation.applicationUserDTO.password.Size}")
@@ -23,7 +23,7 @@ public record ApplicationUserDTO(
         return new ApplicationUserDTO(
                 applicationUser.getEmail(),
                 applicationUser.getName(),
-                applicationUser.getPhoto(),
+                applicationUser.getProfilePhoto(),
                 null
         );
     }
