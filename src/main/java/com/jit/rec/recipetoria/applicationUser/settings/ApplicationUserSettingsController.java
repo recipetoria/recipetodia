@@ -35,9 +35,10 @@ public class ApplicationUserSettingsController implements ApplicationUserSetting
                         .build());
     }
 
-    @PatchMapping("/personal-info")
+    @PutMapping("/personal-info")
     public ResponseEntity<Response> updateApplicationUserInfo(
             @Valid @RequestBody ApplicationUserDTO applicationUserInfo) {
+        applicationUserSettingsService.updatePersonalInfo(applicationUserInfo);
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(Response.builder()
@@ -45,12 +46,10 @@ public class ApplicationUserSettingsController implements ApplicationUserSetting
                         .statusCode(HttpStatus.OK.value())
                         .message(messageSource.getMessage(
                                 "response.userSettings.updateApplicationUserInfo", null, Locale.getDefault()))
-                        .data(Map.of("updatedApplicationUserDTO",
-                                applicationUserSettingsService.updatePersonalInfo(applicationUserInfo)))
                         .build());
     }
 
-    @GetMapping(value = "/photo")
+    @GetMapping("/photo")
     public ResponseEntity<Response> getApplicationUserPhoto() {
         return ResponseEntity
                 .status(HttpStatus.OK)
@@ -63,7 +62,7 @@ public class ApplicationUserSettingsController implements ApplicationUserSetting
                         .build());
     }
 
-    @PatchMapping("/photo")
+    @PutMapping("/photo")
     public ResponseEntity<Response> updateApplicationUserPhoto(@RequestBody MultipartFile file) {
         applicationUserSettingsService.updateProfilePhoto(file);
         return ResponseEntity
@@ -89,8 +88,8 @@ public class ApplicationUserSettingsController implements ApplicationUserSetting
                         .build());
     }
 
-    @PatchMapping("/password")
-    public ResponseEntity<Response> updateApplicationUserPassword(
+    @GetMapping("/password")
+    public ResponseEntity<Response> checkApplicationUserPassword(
             @Valid @RequestBody ApplicationUserDTO applicationUserInfo) {
         return ResponseEntity
                 .status(HttpStatus.OK)
@@ -98,13 +97,26 @@ public class ApplicationUserSettingsController implements ApplicationUserSetting
                         .timeStamp(LocalDateTime.now())
                         .statusCode(HttpStatus.OK.value())
                         .message(messageSource.getMessage(
-                                "response.userSettings.updateApplicationUserPassword", null, Locale.getDefault()))
-                        .data(Map.of("updatedApplicationUserDTO",
-                                applicationUserSettingsService.updatePassword(applicationUserInfo)))
+                                "response.userSettings.checkApplicationUserPassword", null, Locale.getDefault()))
+                        .data(Map.of("matches", applicationUserSettingsService.checkPasswordMatches(applicationUserInfo)))
                         .build());
     }
 
-    @DeleteMapping("/account-delete")
+    @PutMapping("/password")
+    public ResponseEntity<Response> updateApplicationUserPassword(
+            @Valid @RequestBody ApplicationUserDTO applicationUserInfo) {
+        applicationUserSettingsService.updatePassword(applicationUserInfo);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(Response.builder()
+                        .timeStamp(LocalDateTime.now())
+                        .statusCode(HttpStatus.OK.value())
+                        .message(messageSource.getMessage(
+                                "response.userSettings.updateApplicationUserPassword", null, Locale.getDefault()))
+                        .build());
+    }
+
+    @DeleteMapping("/account")
     public ResponseEntity<Response> deleteApplicationUser() {
         applicationUserSettingsService.deleteApplicationUser();
 

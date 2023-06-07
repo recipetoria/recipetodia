@@ -84,7 +84,7 @@ public interface ApplicationUserSettingsApi {
                             """
             )
     })
-    @PatchMapping("/personal-info")
+    @PutMapping("/personal-info")
     ResponseEntity<Response> updateApplicationUserInfo(ApplicationUserDTO applicationUserInfo);
 
     @Operation(
@@ -113,7 +113,7 @@ public interface ApplicationUserSettingsApi {
                     description = "New profile photo"
             )
     })
-    @PatchMapping("/photo")
+    @PutMapping("/photo")
     ResponseEntity<Response> updateApplicationUserPhoto(MultipartFile file);
 
     @Operation(
@@ -121,11 +121,35 @@ public interface ApplicationUserSettingsApi {
             description = "Deletes User profile photo"
     )
     @ApiResponse(
-            responseCode = "200", description = "User profile photo deleted successfully",
+            responseCode = "204", description = "User profile photo deleted successfully",
             content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE)
     )
-    @PatchMapping("/photo-delete")
+    @DeleteMapping("/photo-delete")
     ResponseEntity<Response> deleteApplicationUserPhoto();
+
+    @Operation(
+            summary = "Check User password",
+            description = "Checks whether User password matches"
+    )
+    @ApiResponse(
+            responseCode = "200", description = "User password checked successfully",
+            content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE)
+    )
+    @Parameters({
+            @Parameter(
+                    name = "applicationUserInfo",
+                    required = true,
+                    description = """
+                            New User personal information \n
+                            email: ignored \n
+                            name: ignored \n
+                            profilePhoto: ignored \n
+                            password: required
+                            """
+            )
+    })
+    @GetMapping
+    ResponseEntity<Response> checkApplicationUserPassword(ApplicationUserDTO applicationUserInfo);
 
     @Operation(
             summary = "Update User password",
@@ -148,7 +172,7 @@ public interface ApplicationUserSettingsApi {
                             """
             )
     })
-    @PatchMapping("/password")
+    @PutMapping("/password")
     ResponseEntity<Response> updateApplicationUserPassword(ApplicationUserDTO applicationUserInfo);
 
     @Operation(

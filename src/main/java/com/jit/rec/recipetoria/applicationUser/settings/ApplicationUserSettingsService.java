@@ -35,7 +35,7 @@ public class ApplicationUserSettingsService {
         return ApplicationUserDTO.convertToDTO(applicationUser);
     }
 
-    public ApplicationUserDTO updatePersonalInfo(ApplicationUserDTO applicationUserInfo) {
+    public void updatePersonalInfo(ApplicationUserDTO applicationUserInfo) {
         ApplicationUser applicationUser =
                 (ApplicationUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
@@ -43,9 +43,7 @@ public class ApplicationUserSettingsService {
             applicationUser.setName(applicationUserInfo.name());
         }
 
-        ApplicationUser updatedApplicationUser = applicationUserRepository.save(applicationUser);
-
-        return ApplicationUserDTO.convertToDTO(updatedApplicationUser);
+        applicationUserRepository.save(applicationUser);
     }
 
     public byte[] getProfilePhoto() {
@@ -102,16 +100,21 @@ public class ApplicationUserSettingsService {
         applicationUserRepository.save(applicationUser);
     }
 
-    public ApplicationUserDTO updatePassword(ApplicationUserDTO applicationUserInfo) {
+    public boolean checkPasswordMatches(ApplicationUserDTO applicationUserInfo) {
+        ApplicationUser applicationUser =
+                (ApplicationUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        return passwordEncoder.matches(applicationUserInfo.password(), applicationUser.getPassword());
+    }
+
+    public void updatePassword(ApplicationUserDTO applicationUserInfo) {
         ApplicationUser applicationUser =
                 (ApplicationUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         String encodedPassword = passwordEncoder.encode(applicationUserInfo.password());
         applicationUser.setPassword(encodedPassword);
 
-        ApplicationUser updatedApplicationUser = applicationUserRepository.save(applicationUser);
-
-        return ApplicationUserDTO.convertToDTO(updatedApplicationUser);
+        applicationUserRepository.save(applicationUser);
     }
 
     public void deleteApplicationUser() {
