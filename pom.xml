@@ -9,7 +9,7 @@
         <relativePath/>
     </parent>
     <groupId>com.jit.rec.book</groupId>
-    <artifactId>recipetoria</artifactId>
+    <artifactId>recipetoria-backend</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>recipetoria</name>
     <description>Recipe book</description>
