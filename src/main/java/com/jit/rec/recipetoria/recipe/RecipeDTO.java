@@ -1,9 +1,6 @@
 package com.jit.rec.recipetoria.recipe;
 
 import com.jit.rec.recipetoria.tag.TagDTO;
-import com.jit.rec.recipetoria.ingredient.Ingredient;
-import com.jit.rec.recipetoria.tag.Tag;
-import com.jit.rec.recipetoria.applicationUser.ApplicationUser;
 import com.jit.rec.recipetoria.ingredient.IngredientDTO;
 import jakarta.annotation.Nullable;
 import jakarta.validation.Valid;
@@ -47,35 +44,5 @@ public class RecipeDTO {
             return this.ingredientDTOs = new ArrayList<>();
         } else
             return this.ingredientDTOs;
-    }
-
-    public static RecipeDTO convertToDTO(Recipe recipe) {
-        RecipeDTO recipeDTO = new RecipeDTO();
-
-        List<TagDTO> tagDTOs = new ArrayList<>();
-        if (recipe.getTags() != null) {
-            List<Tag> tags = recipe.getTags();
-            for (Tag tag : tags) {
-                TagDTO newTagDTO = TagDTO.convertToDTO(tag);
-                tagDTOs.add(newTagDTO);
-            }
-        }
-        recipeDTO.setTagDTOs(tagDTOs);
-
-        recipeDTO.setApplicationUserId(
-                Optional.ofNullable(recipe.getApplicationUser())
-                        .map(ApplicationUser::getId)
-                        .orElse(null)
-        );
-        recipeDTO.setId(recipe.getId());
-        recipeDTO.setName(recipe.getName());
-        recipeDTO.setMainPhoto(recipe.getMainPhoto());
-        recipeDTO.setInstructions(recipe.getInstructions());
-        recipeDTO.setInstructionPhotos((recipe.getInstructionPhotos()));
-        recipeDTO.setLinks(recipe.getLinks());
-        for (Ingredient ingredientFromRecipe : recipe.getIngredientList()) {
-            recipeDTO.getIngredientDTOs().add(IngredientDTO.convertToDTO(ingredientFromRecipe));
-        }
-        return recipeDTO;
     }
 }

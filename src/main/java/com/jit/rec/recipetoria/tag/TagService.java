@@ -18,6 +18,7 @@ import java.util.Optional;
 public class TagService {
 
     private final TagRepository tagRepository;
+    private final TagDTOMapper tagDTOMapper;
     private final MessageSource messageSource;
 
     public List<TagDTO> getAllTags() {
@@ -26,7 +27,7 @@ public class TagService {
                 (ApplicationUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         List<Tag> allTags = tagRepository.findTagsByApplicationUser(applicationUser);
         for (Tag tag : allTags) {
-            allTagDTOs.add(TagDTO.convertToDTO(tag));
+            allTagDTOs.add(tagDTOMapper.apply(tag));
         }
         return allTagDTOs;
     }
@@ -38,11 +39,11 @@ public class TagService {
         newTag.setApplicationUser(
                 (ApplicationUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
 
-        return TagDTO.convertToDTO(tagRepository.save(newTag));
+        return tagDTOMapper.apply(tagRepository.save(newTag));
     }
 
     public TagDTO getTagDTOById(Long tagId) {
-        return TagDTO.convertToDTO(getTagById(tagId));
+        return tagDTOMapper.apply(getTagById(tagId));
     }
 
     public Tag getTagById(Long tagId) {
@@ -59,7 +60,7 @@ public class TagService {
                 .ifPresent(tagToBeUpdated::setName);
         tagToBeUpdated.setIcon(updatedTag.icon());
 
-        return TagDTO.convertToDTO(tagRepository.save(tagToBeUpdated));
+        return tagDTOMapper.apply(tagRepository.save(tagToBeUpdated));
     }
 
     public void deleteTagById(Long tagId) {

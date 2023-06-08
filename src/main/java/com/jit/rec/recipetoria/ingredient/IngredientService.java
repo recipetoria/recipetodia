@@ -16,17 +16,26 @@ import java.util.Locale;
 public class IngredientService {
 
     private final IngredientRepository ingredientRepository;
+    private final IngredientDTOMapper ingredientDTOMapper;
     private final MessageSource messageSource;
 
     public Ingredient createIngredient(IngredientDTO newRecipeIngredientDTO, ApplicationUser applicationUser) {
-        Ingredient newRecipeIngredient = IngredientDTO.convertToIngredient(newRecipeIngredientDTO);
+        Ingredient newRecipeIngredient = new Ingredient();
+
+        newRecipeIngredient.setName(newRecipeIngredientDTO.name());
+        newRecipeIngredient.setAmount(newRecipeIngredientDTO.amount());
+        newRecipeIngredient.setMeasurementUnit(newRecipeIngredientDTO.measurementUnit());
         newRecipeIngredient.setApplicationUser(applicationUser);
 
         return ingredientRepository.save(newRecipeIngredient);
     }
 
     public Ingredient createIngredient(IngredientDTO newRecipeIngredientDTO, Recipe recipe) {
-        Ingredient newRecipeIngredient = IngredientDTO.convertToIngredient(newRecipeIngredientDTO);
+        Ingredient newRecipeIngredient = new Ingredient();
+
+        newRecipeIngredient.setName(newRecipeIngredientDTO.name());
+        newRecipeIngredient.setAmount(newRecipeIngredientDTO.amount());
+        newRecipeIngredient.setMeasurementUnit(newRecipeIngredientDTO.measurementUnit());
         newRecipeIngredient.setRecipe(recipe);
 
         return ingredientRepository.save(newRecipeIngredient);
@@ -37,7 +46,7 @@ public class IngredientService {
                 .orElseThrow(() -> new ResourceNotFoundException(messageSource.getMessage(
                         "exception.ingredient.notFound", null, Locale.getDefault())));
 
-        return IngredientDTO.convertToDTO(ingredient);
+        return ingredientDTOMapper.apply(ingredient);
     }
 
     public IngredientDTO updateIngredientById(Long ingredientId, IngredientDTO updatedIngredientInfo) {
@@ -51,7 +60,7 @@ public class IngredientService {
 
         ingredientRepository.save(ingredientToBeUpdated);
 
-        return IngredientDTO.convertToDTO(ingredientToBeUpdated);
+        return ingredientDTOMapper.apply(ingredientToBeUpdated);
     }
 
     public void deleteIngredientById(Long ingredientId) {

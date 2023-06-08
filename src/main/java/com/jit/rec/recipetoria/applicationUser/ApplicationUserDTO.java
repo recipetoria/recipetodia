@@ -18,4 +18,5 @@ public record ApplicationUserDTO(
         @Nullable
         @Size(min = 3, max = 30, message = "{validation.applicationUserDTO.password.Size}")
         String password
-) {}
+) {
+}

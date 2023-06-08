@@ -22,6 +22,7 @@ public class RecipeService {
     private final RecipeRepository recipeRepository;
     private final IngredientService ingredientService;
     private final TagService tagService;
+    private final RecipeDTOMapper recipeDTOMapper;
     private final MessageSource messageSource;
 
     private <T> void setPropertyValue(T value, Consumer<T> setter) {
@@ -32,7 +33,7 @@ public class RecipeService {
         List<Recipe> allRecipes = recipeRepository.findAll();
         List<RecipeDTO> recipeResponses = new ArrayList<>();
         for (Recipe recipe : allRecipes) {
-            recipeResponses.add(RecipeDTO.convertToDTO(recipe));
+            recipeResponses.add(recipeDTOMapper.apply(recipe));
         }
         return recipeResponses;
     }
@@ -66,11 +67,11 @@ public class RecipeService {
                 recipe.getIngredientList().add(recipeIngredient);
             }
         }
-        return RecipeDTO.convertToDTO(recipe);
+        return recipeDTOMapper.apply(recipe);
     }
 
     public RecipeDTO getRecipeById(Long recipeId) {
-        return RecipeDTO.convertToDTO(recipeRepository.findById(recipeId)
+        return recipeDTOMapper.apply(recipeRepository.findById(recipeId)
                 .orElseThrow(() -> new ResourceNotFoundException(messageSource.getMessage(
                         "exception.recipe.notFound", null, Locale.getDefault()))));
     }
@@ -95,8 +96,13 @@ public class RecipeService {
         if (updatedRecipeDTO.getIngredientDTOs() != null) {
             recipeToBeUpdated.getIngredientList().clear();
             for (IngredientDTO newIngredientDTO : updatedRecipeDTO.getIngredientDTOs()) {
-                Ingredient ingredient = IngredientDTO.convertToIngredient(newIngredientDTO);
+                Ingredient ingredient = new Ingredient();
+
+                ingredient.setName(newIngredientDTO.name());
+                ingredient.setAmount(newIngredientDTO.amount());
+                ingredient.setMeasurementUnit(newIngredientDTO.measurementUnit());
                 ingredient.setRecipe(recipeToBeUpdated);
+
                 recipeToBeUpdated.getIngredientList().add(ingredient);
             }
         }
@@ -108,7 +114,7 @@ public class RecipeService {
         setPropertyValue(recipeToUpdateId, recipeToBeUpdated::setId);
 
 
-        return RecipeDTO.convertToDTO(recipeRepository.save(recipeToBeUpdated));
+        return recipeDTOMapper.apply(recipeRepository.save(recipeToBeUpdated));
     }
 
     public void deleteRecipeById(Long recipeId) {
@@ -119,13 +125,20 @@ public class RecipeService {
         recipeRepository.deleteById(recipeId);
     }
 
-    public List<RecipeShortInfoDTO> getAllRecipesByTag(Long tagId) {
+    public List<RecipeDTO> getAllRecipesByTag(Long tagId) {
         List<Recipe> taggedRecipes = recipeRepository.findByTagsId(tagId);
-        List<RecipeShortInfoDTO> recipeShortInfoDTOList = new ArrayList<>();
+        List<RecipeDTO> recipeDTOs = new ArrayList<>();
+
         for (Recipe recipe : taggedRecipes) {
-            recipeShortInfoDTOList.add(RecipeShortInfoDTO.convertToRecipeShortInfoDTO(recipe));
+            RecipeDTO recipeDTO = new RecipeDTO();
+
+            recipeDTO.setId(recipe.getId());
+            recipeDTO.setName(recipe.getName());
+            recipeDTO.setMainPhoto(recipe.getMainPhoto());
+
+            recipeDTOs.add(recipeDTO);
         }
-        return recipeShortInfoDTOList;
+        return recipeDTOs;
     }
 
 }
