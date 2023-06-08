@@ -93,8 +93,8 @@ public class ApplicationUserSettingsService {
                 throw new RuntimeException(messageSource.getMessage(
                         "exception.applicationUserSettings.deleteProfilePhoto.notDeleted",
                         null,
-                        Locale.getDefault()), e
-                ); // TODO: handle exception
+                        Locale.getDefault())
+                );
             }
             applicationUser.setProfilePhoto(null);
         }

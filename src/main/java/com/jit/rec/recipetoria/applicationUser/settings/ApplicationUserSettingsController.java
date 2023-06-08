@@ -119,7 +119,6 @@ public class ApplicationUserSettingsController implements ApplicationUserSetting
     @DeleteMapping("/account")
     public ResponseEntity<Response> deleteApplicationUser() {
         applicationUserSettingsService.deleteApplicationUser();
-
         return ResponseEntity
                 .status(HttpStatus.NO_CONTENT)
                 .body(Response.builder()
