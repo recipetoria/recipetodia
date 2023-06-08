@@ -106,8 +106,7 @@ public interface TagApi {
                              "applicationUserId": 1, -- owner of a tag \n
                              "recipeIds": []  -- a list of recipe ids are tagged by this tag \n
                                         """)
-    ResponseEntity<Response> updateTagById(Long tagId,
-                                           TagDTO updatedTag);
+    ResponseEntity<Response> updateTagById(Long tagId, TagDTO updatedTag);
 
     @Operation(summary = "Delete a tag by id",
             description = """

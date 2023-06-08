@@ -56,7 +56,7 @@ public class TagController implements TagApi {
                         .build());
     }
 
-    @PatchMapping("/{tagId}")
+    @PutMapping("/{tagId}")
     public ResponseEntity<Response> updateTagById(@PathVariable("tagId") Long tagId,
                                                   @RequestBody @Valid TagDTO updatedTag) {
         return ResponseEntity.ok(
@@ -65,7 +65,6 @@ public class TagController implements TagApi {
                         .statusCode(HttpStatus.OK.value())
                         .status(HttpStatus.OK)
                         .message(messageSource.getMessage("response.tag.updateTagById", null, Locale.getDefault()))
-                        .data(Map.of("updated tagDTO", tagService.updateTagById(tagId, updatedTag)))
                         .build()
         );
     }
@@ -73,7 +72,6 @@ public class TagController implements TagApi {
     @DeleteMapping("/{tagId}")
     public ResponseEntity<Response> deleteTagById(@PathVariable("tagId") Long tagId) {
         tagService.deleteTagById(tagId);
-
         return ResponseEntity
                 .status(HttpStatus.NO_CONTENT)
                 .body(Response.builder()

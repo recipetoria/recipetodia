@@ -59,7 +59,7 @@ public class RecipeController implements RecipeApi {
                         .build());
     }
 
-    @PatchMapping("/{recipeId}")
+    @PutMapping("/{recipeId}")
     public ResponseEntity<Response> updateRecipeById(@PathVariable("recipeId") Long recipeId,
                                                      @RequestBody @Valid RecipeDTO updatedRecipeInfo) {
         return ResponseEntity
@@ -69,8 +69,6 @@ public class RecipeController implements RecipeApi {
                         .statusCode(HttpStatus.OK.value())
                         .message(messageSource.getMessage(
                                 "response.recipe.updateRecipeById", null, Locale.getDefault()))
-                        .data(Map.of("updatedRecipeDTO",
-                                recipeService.updateRecipeById(recipeId, updatedRecipeInfo)))
                         .build());
     }
 
