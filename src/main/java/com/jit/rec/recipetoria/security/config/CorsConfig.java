@@ -14,7 +14,7 @@ public class CorsConfig {
 
     @Value("#{'${cors.allowed-origins}'.split(',')}")
     private List<String> allowedOrigins;
-//
+
     @Value("#{'${cors.allowed-methods}'.split(',')}")
     private List<String> allowedMethods;
 
