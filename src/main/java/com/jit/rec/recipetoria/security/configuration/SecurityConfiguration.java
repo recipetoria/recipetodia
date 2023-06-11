@@ -48,7 +48,7 @@ public class SecurityConfiguration {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/api/**")
-                        .allowedOrigins("http://localhost:3000", "https://recipetoria.netlify.app")
+                        .allowedOrigins("http://localhost:3000", "https://recipetoria.netlify.app", "http://209.38.198.69:3000")
                         .allowedMethods("*")
                         .allowedHeaders("*")
                         .allowCredentials(true);
