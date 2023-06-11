@@ -222,3 +222,4 @@ target/
 local.env
 /.idea/workspace.xml
 /.idea/
+/Dockerfile
