@@ -28,6 +28,7 @@ public class Tag {
 
     @ManyToOne
     private ApplicationUser applicationUser;
+
     private String icon;
 
     @ManyToMany(mappedBy = "tags")

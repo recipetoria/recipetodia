@@ -2,6 +2,7 @@ package com.jit.rec.recipetoria.recipe;
 
 import com.jit.rec.recipetoria.applicationUser.ApplicationUser;
 import com.jit.rec.recipetoria.ingredient.Ingredient;
+import com.jit.rec.recipetoria.ingredient.IngredientDTO;
 import com.jit.rec.recipetoria.ingredient.IngredientDTOMapper;
 import com.jit.rec.recipetoria.tag.Tag;
 import com.jit.rec.recipetoria.tag.TagDTO;
@@ -23,7 +24,10 @@ public class RecipeDTOMapper implements Function<Recipe, RecipeDTO> {
 
     @Override
     public RecipeDTO apply(Recipe recipe) {
-        RecipeDTO recipeDTO = new RecipeDTO();
+
+        Long applicationUserId = Optional.ofNullable(recipe.getApplicationUser())
+                .map(ApplicationUser::getId)
+                .orElse(null);
 
         List<TagDTO> tagDTOs = new ArrayList<>();
         if (recipe.getTags() != null) {
@@ -33,22 +37,24 @@ public class RecipeDTOMapper implements Function<Recipe, RecipeDTO> {
                 tagDTOs.add(newTagDTO);
             }
         }
-        recipeDTO.setTagDTOs(tagDTOs);
 
-        recipeDTO.setApplicationUserId(
-                Optional.ofNullable(recipe.getApplicationUser())
-                        .map(ApplicationUser::getId)
-                        .orElse(null)
-        );
-        recipeDTO.setId(recipe.getId());
-        recipeDTO.setName(recipe.getName());
-        recipeDTO.setMainPhoto(recipe.getMainPhoto());
-        recipeDTO.setInstructions(recipe.getInstructions());
-        recipeDTO.setInstructionPhotos((recipe.getInstructionPhotos()));
-        recipeDTO.setLinks(recipe.getLinks());
-        for (Ingredient ingredientFromRecipe : recipe.getIngredientList()) {
-            recipeDTO.getIngredientDTOs().add(ingredientDTOMapper.apply(ingredientFromRecipe));
+        List<IngredientDTO> ingredientDTOs = new ArrayList<>();
+        if (recipe.getIngredientList() != null) {
+            for (Ingredient ingredientFromRecipe : recipe.getIngredientList()) {
+                ingredientDTOs.add(ingredientDTOMapper.apply(ingredientFromRecipe));
+            }
         }
-        return recipeDTO;
+
+        return new RecipeDTO(
+                recipe.getId(),
+                recipe.getName(),
+                recipe.getMainPhoto(),
+                applicationUserId,
+                tagDTOs,
+                ingredientDTOs,
+                recipe.getInstructions(),
+                recipe.getInstructionPhotos(),
+                recipe.getLinks()
+        );
     }
 }

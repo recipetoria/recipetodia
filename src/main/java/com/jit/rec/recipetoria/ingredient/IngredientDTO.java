@@ -6,6 +6,7 @@ import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 
 public record IngredientDTO(
+
         @Nullable
         Long id,
 

@@ -29,13 +29,14 @@ public class IngredientController implements IngredientApi {
                         .statusCode(HttpStatus.OK.value())
                         .message(messageSource.getMessage(
                                 "response.ingredient.getIngredientById", null, Locale.getDefault()))
-                        .data(Map.of("ingredientDTO", ingredientService.getIngredientById(ingredientId)))
+                        .data(Map.of("ingredientDTO", ingredientService.getIngredientDTOById(ingredientId)))
                         .build());
     }
 
-    @PatchMapping("/{ingredientId}")
+    @PutMapping("/{ingredientId}")
     public ResponseEntity<Response> updateIngredientById(@PathVariable("ingredientId") Long ingredientId,
                                                          @RequestBody @Valid IngredientDTO updatedIngredientInfo) {
+        ingredientService.updateIngredientById(ingredientId, updatedIngredientInfo);
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(Response.builder()
@@ -43,15 +44,12 @@ public class IngredientController implements IngredientApi {
                         .statusCode(HttpStatus.OK.value())
                         .message(messageSource.getMessage(
                                 "response.ingredient.updateIngredientById", null, Locale.getDefault()))
-                        .data(Map.of("updatedIngredientDTO",
-                                ingredientService.updateIngredientById(ingredientId, updatedIngredientInfo)))
                         .build());
     }
 
     @DeleteMapping("/{ingredientId}")
     public ResponseEntity<Response> deleteIngredientById(@PathVariable("ingredientId") Long ingredientId) {
         ingredientService.deleteIngredientById(ingredientId);
-
         return ResponseEntity
                 .status(HttpStatus.NO_CONTENT)
                 .body(Response.builder()

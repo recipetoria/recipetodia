@@ -33,14 +33,14 @@ public class TagController implements TagApi {
     }
 
     @PostMapping
-    public ResponseEntity<Response> createTag(@RequestBody @Valid TagDTO newTagDTO) {
+    public ResponseEntity<Response> createTag(@RequestBody @Valid TagDTO newTagInfo) {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(Response.builder()
                         .timeStamp(LocalDateTime.now())
                         .statusCode(HttpStatus.CREATED.value())
                         .message(messageSource.getMessage("response.tag.createTag", null, Locale.getDefault()))
-                        .data(Map.of("createdTagDTO", tagService.createTag(newTagDTO)))
+                        .data(Map.of("createdTagDTO", tagService.createTag(newTagInfo)))
                         .build());
     }
 
@@ -59,14 +59,14 @@ public class TagController implements TagApi {
     @PutMapping("/{tagId}")
     public ResponseEntity<Response> updateTagById(@PathVariable("tagId") Long tagId,
                                                   @RequestBody @Valid TagDTO updatedTag) {
-        return ResponseEntity.ok(
-                Response.builder()
+        tagService.updateTagById(tagId, updatedTag);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(Response.builder()
                         .timeStamp(LocalDateTime.now())
                         .statusCode(HttpStatus.OK.value())
-                        .status(HttpStatus.OK)
                         .message(messageSource.getMessage("response.tag.updateTagById", null, Locale.getDefault()))
-                        .build()
-        );
+                        .build());
     }
 
     @DeleteMapping("/{tagId}")

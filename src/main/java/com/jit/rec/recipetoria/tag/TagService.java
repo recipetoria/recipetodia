@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -22,20 +21,25 @@ public class TagService {
     private final MessageSource messageSource;
 
     public List<TagDTO> getAllTags() {
-        List<TagDTO> allTagDTOs = new ArrayList<>();
         ApplicationUser applicationUser =
                 (ApplicationUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        List<Tag> allTags = tagRepository.findTagsByApplicationUser(applicationUser);
-        for (Tag tag : allTags) {
-            allTagDTOs.add(tagDTOMapper.apply(tag));
+
+        List<Tag> allTags = tagRepository.findAllByApplicationUser(applicationUser);
+
+        List<TagDTO> allTagDTOs = new ArrayList<>();
+        for (Tag oneTag : allTags) {
+            allTagDTOs.add(tagDTOMapper.apply(oneTag));
         }
+
         return allTagDTOs;
     }
 
-    public TagDTO createTag(TagDTO newTagInfo) {
+    public TagDTO createTag(TagDTO newTagDTO) {
         Tag newTag = new Tag();
-        Optional.ofNullable(newTagInfo.name())
-                        .ifPresent(newTag::setName);
+
+        if (newTagDTO.name() != null) {
+            newTag.setName(newTagDTO.name());
+        }
         newTag.setApplicationUser(
                 (ApplicationUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
 
@@ -52,21 +56,19 @@ public class TagService {
                         "exception.tag.notFound", null, Locale.getDefault())));
     }
 
-    public TagDTO updateTagById(Long tagId, TagDTO updatedTag) {
-        Tag tagToBeUpdated = tagRepository.findById(tagId).
-                orElseThrow(() -> new ResourceNotFoundException(messageSource.getMessage(
-                        "exception.tag.notFound", null, Locale.getDefault())));
-        Optional.ofNullable(updatedTag.name())
-                .ifPresent(tagToBeUpdated::setName);
-        tagToBeUpdated.setIcon(updatedTag.icon());
+    public void updateTagById(Long tagId, TagDTO updatedTagInfo) {
+        Tag tagToBeUpdated = getTagById(tagId);
 
-        return tagDTOMapper.apply(tagRepository.save(tagToBeUpdated));
+        if (updatedTagInfo.name() != null) {
+            tagToBeUpdated.setName(updatedTagInfo.name());
+        }
+        tagToBeUpdated.setIcon(updatedTagInfo.icon());
+
+        tagRepository.save(tagToBeUpdated);
     }
 
     public void deleteTagById(Long tagId) {
-        Tag tag = tagRepository.findById(tagId)
-                .orElseThrow(() -> new ResourceNotFoundException(messageSource.getMessage(
-                    "exception.tag.notFound", null, Locale.getDefault())));
+        Tag tag = getTagById(tagId);
 
         for (Recipe recipe : tag.getRecipes()){
             recipe.getTags().remove(tag);

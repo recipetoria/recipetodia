@@ -55,13 +55,14 @@ public class RecipeController implements RecipeApi {
                         .statusCode(HttpStatus.OK.value())
                         .message(messageSource.getMessage(
                                 "response.recipe.getRecipeById", null, Locale.getDefault()))
-                        .data(Map.of("recipeDTO", recipeService.getRecipeById(recipeId)))
+                        .data(Map.of("recipeDTO", recipeService.getRecipeDTOById(recipeId)))
                         .build());
     }
 
     @PutMapping("/{recipeId}")
     public ResponseEntity<Response> updateRecipeById(@PathVariable("recipeId") Long recipeId,
                                                      @RequestBody @Valid RecipeDTO updatedRecipeInfo) {
+        recipeService.updateRecipeById(recipeId, updatedRecipeInfo);
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(Response.builder()
@@ -75,7 +76,6 @@ public class RecipeController implements RecipeApi {
     @DeleteMapping("/{recipeId}")
     public ResponseEntity<Response> deleteRecipeById(@PathVariable("recipeId") Long recipeId) {
         recipeService.deleteRecipeById(recipeId);
-
         return ResponseEntity
                 .status(HttpStatus.NO_CONTENT)
                 .body(Response.builder()
@@ -87,14 +87,15 @@ public class RecipeController implements RecipeApi {
     }
 
     @GetMapping("/tagged-by/{tagId}")
-    public ResponseEntity<Response> getAllTaggedRecipes(@PathVariable("tagId") Long tagId){
+    public ResponseEntity<Response> getAllRecipesByTag(@PathVariable("tagId") Long tagId) {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(Response.builder()
                         .timeStamp(LocalDateTime.now())
                         .statusCode(HttpStatus.OK.value())
-                        .message("Recipes tagged with tag id " + tagId)
-                        .data(Map.of("tagged recipes", recipeService.getAllRecipesByTag(tagId)))
+                        .message(messageSource.getMessage(
+                                "response.recipe.getAllRecipesByTag", null, Locale.getDefault()))
+                        .data(Map.of("allRecipesByTag", recipeService.getAllRecipesByTag(tagId)))
                         .build());
     }
 

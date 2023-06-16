@@ -19,7 +19,10 @@ public class IngredientService {
     private final IngredientDTOMapper ingredientDTOMapper;
     private final MessageSource messageSource;
 
-    public Ingredient createIngredient(IngredientDTO newRecipeIngredientDTO, ApplicationUser applicationUser) {
+    public Ingredient createIngredient(IngredientDTO newRecipeIngredientDTO) {
+        ApplicationUser applicationUser =
+                (ApplicationUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
         Ingredient newRecipeIngredient = new Ingredient();
 
         newRecipeIngredient.setName(newRecipeIngredientDTO.name());
@@ -41,33 +44,28 @@ public class IngredientService {
         return ingredientRepository.save(newRecipeIngredient);
     }
 
-    public IngredientDTO getIngredientById(Long ingredientId) {
-        Ingredient ingredient = ingredientRepository.findById(ingredientId)
-                .orElseThrow(() -> new ResourceNotFoundException(messageSource.getMessage(
-                        "exception.ingredient.notFound", null, Locale.getDefault())));
-
-        return ingredientDTOMapper.apply(ingredient);
+    public IngredientDTO getIngredientDTOById(Long ingredientId) {
+        return ingredientDTOMapper.apply(getIngredientById(ingredientId));
     }
 
-    public IngredientDTO updateIngredientById(Long ingredientId, IngredientDTO updatedIngredientInfo) {
-        Ingredient ingredientToBeUpdated = ingredientRepository.findById(ingredientId)
+    private Ingredient getIngredientById(Long ingredientId) {
+        return ingredientRepository.findById(ingredientId)
                 .orElseThrow(() -> new ResourceNotFoundException(messageSource.getMessage(
                         "exception.ingredient.notFound", null, Locale.getDefault())));
+    }
+
+    public void updateIngredientById(Long ingredientId, IngredientDTO updatedIngredientInfo) {
+        Ingredient ingredientToBeUpdated = getIngredientById(ingredientId);
 
         ingredientToBeUpdated.setName(updatedIngredientInfo.name());
         ingredientToBeUpdated.setAmount(updatedIngredientInfo.amount());
         ingredientToBeUpdated.setMeasurementUnit(updatedIngredientInfo.measurementUnit());
 
         ingredientRepository.save(ingredientToBeUpdated);
-
-        return ingredientDTOMapper.apply(ingredientToBeUpdated);
     }
 
     public void deleteIngredientById(Long ingredientId) {
-        if (!ingredientRepository.existsById(ingredientId)) {
-            throw new ResourceNotFoundException(messageSource.getMessage(
-                    "exception.ingredient.notFound", null, Locale.getDefault()));
-        }
+        getIngredientById(ingredientId);
         ingredientRepository.deleteById(ingredientId);
     }
 

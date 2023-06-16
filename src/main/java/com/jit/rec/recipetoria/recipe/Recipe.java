@@ -12,11 +12,11 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(exclude = {"ingredientList","tags", "instructions", "links"})
-@ToString(exclude = {"ingredientList","tags", "instructions", "links"})
-@Data
+@EqualsAndHashCode(exclude = {"ingredientList", "tags", "instructions", "links"})
+@ToString(exclude = {"ingredientList", "tags", "instructions", "links"})
 public class Recipe {
 
     @Id
