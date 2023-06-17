@@ -30,7 +30,7 @@ public record RecipeDTO(
         List<IngredientDTO> ingredientDTOs,
 
         @Nullable
-        List<String> instructions,
+        String instructions,
 
         @Nullable
         List<String> instructionPhotos,

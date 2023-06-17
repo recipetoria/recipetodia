@@ -88,7 +88,7 @@ public class ApplicationUserSettingsController implements ApplicationUserSetting
                         .build());
     }
 
-    @GetMapping("/password")
+    @PostMapping("/password")
     public ResponseEntity<Response> checkApplicationUserPassword(
             @Valid @RequestBody ApplicationUserDTO applicationUserInfo) {
         return ResponseEntity

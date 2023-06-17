@@ -1,6 +1,7 @@
 package com.jit.rec.recipetoria.recipe;
 
 import com.jit.rec.recipetoria.ingredient.IngredientDTO;
+import com.jit.rec.recipetoria.tag.Tag;
 import com.jit.rec.recipetoria.tag.TagDTO;
 import com.jit.rec.recipetoria.applicationUser.ApplicationUser;
 import com.jit.rec.recipetoria.ingredient.Ingredient;
@@ -25,7 +26,10 @@ public class RecipeService {
     private final MessageSource messageSource;
 
     public List<RecipeDTO> getAllRecipes() {
-        List<Recipe> allRecipes = recipeRepository.findAll();
+        ApplicationUser applicationUser =
+                (ApplicationUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        List<Recipe> allRecipes = recipeRepository.findAllByApplicationUser(applicationUser);
 
         List<RecipeDTO> allRecipesDTOs = new ArrayList<>();
         for (Recipe oneRecipe : allRecipes) {
@@ -80,18 +84,17 @@ public class RecipeService {
     public void updateRecipeById(Long recipeId, RecipeDTO updatedRecipeInfo) {
         Recipe recipeToBeUpdated = getRecipeById(recipeId);
 
+        recipeToBeUpdated.setId(recipeId);
         recipeToBeUpdated.setName(updatedRecipeInfo.name());
+        recipeToBeUpdated.setMainPhoto(updatedRecipeInfo.mainPhoto());
 
         if (updatedRecipeInfo.tagDTOs() != null) {
             recipeToBeUpdated.setTags(new ArrayList<>());
+            for (TagDTO newTagDTO : updatedRecipeInfo.tagDTOs()) {
+                Tag newTag = tagService.getTagById(newTagDTO.id());
+                recipeToBeUpdated.getTags().add(newTag);
+            }
         }
-
-        Optional.ofNullable(updatedRecipeInfo.tagDTOs())
-                .stream()
-                .flatMap(Collection::stream)
-                .map(TagDTO::id)
-                .map(tagService::getTagById)
-                .forEach(recipeToBeUpdated.getTags()::add);
 
         if (updatedRecipeInfo.ingredientDTOs() != null) {
             recipeToBeUpdated.setIngredientList(new ArrayList<>());
@@ -107,11 +110,9 @@ public class RecipeService {
             }
         }
 
-        recipeToBeUpdated.setMainPhoto(updatedRecipeInfo.mainPhoto());
         recipeToBeUpdated.setInstructions(updatedRecipeInfo.instructions());
         recipeToBeUpdated.setInstructionPhotos(updatedRecipeInfo.instructionPhotos());
         recipeToBeUpdated.setLinks(updatedRecipeInfo.links());
-        recipeToBeUpdated.setId(recipeId);
 
         recipeRepository.save(recipeToBeUpdated);
     }

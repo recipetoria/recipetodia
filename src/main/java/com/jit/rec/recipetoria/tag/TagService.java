@@ -34,7 +34,7 @@ public class TagService {
         return allTagDTOs;
     }
 
-    public TagDTO createTag(TagDTO newTagDTO) {
+    public TagDTO createTag(TagDTO newTagDTO) { //TODO: add support for icons
         Tag newTag = new Tag();
 
         if (newTagDTO.name() != null) {

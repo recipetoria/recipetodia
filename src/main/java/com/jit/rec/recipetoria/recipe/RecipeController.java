@@ -86,7 +86,7 @@ public class RecipeController implements RecipeApi {
                         .build());
     }
 
-    @GetMapping("/tagged-by/{tagId}")
+    @GetMapping("/tagged/{tagId}")
     public ResponseEntity<Response> getAllRecipesByTag(@PathVariable("tagId") Long tagId) {
         return ResponseEntity
                 .status(HttpStatus.OK)
@@ -98,5 +98,4 @@ public class RecipeController implements RecipeApi {
                         .data(Map.of("allRecipesByTag", recipeService.getAllRecipesByTag(tagId)))
                         .build());
     }
-
 }

@@ -78,11 +78,13 @@ public interface ShoppingListApi {
                     required = true,
                     description = """
                             New ingredient information \n
-                            id: ignored \n
-                            name: required \n
-                            amount: not required \n
-                            measurementUnit: not required \n
-                            applicationUserId: ignored \n
+                            { \n
+                                id: ignored \n
+                                name: required \n
+                                amount: not required \n
+                                measurementUnit: not required \n
+                                applicationUserId: ignored \n
+                            } \n
                             """
             )
     })
