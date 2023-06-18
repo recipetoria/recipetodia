@@ -24,7 +24,7 @@ public class TagDTOMapper implements Function<Tag, TagDTO> {
         return new TagDTO(
                 tag.getId(),
                 tag.getName(),
-                tag.getIcon(),
+                tag.getMainPhoto(),
                 tag.getApplicationUser().getId(),
                 recipeIdList
         );

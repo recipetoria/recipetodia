@@ -39,6 +39,7 @@ public class Recipe {
     @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL)
     private List<Ingredient> ingredientList;
 
+    @Column(length = 5000)
     private String instructions;
 
     @ElementCollection

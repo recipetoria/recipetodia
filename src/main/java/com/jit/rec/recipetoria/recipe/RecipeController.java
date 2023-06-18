@@ -7,6 +7,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 import java.util.Locale;
@@ -60,9 +61,9 @@ public class RecipeController implements RecipeApi {
     }
 
     @PutMapping("/{recipeId}")
-    public ResponseEntity<Response> updateRecipeById(@PathVariable("recipeId") Long recipeId,
-                                                     @RequestBody @Valid RecipeDTO updatedRecipeInfo) {
-        recipeService.updateRecipeById(recipeId, updatedRecipeInfo);
+    public ResponseEntity<Response> updateRecipeInfoById(@PathVariable("recipeId") Long recipeId,
+                                                         @RequestBody @Valid RecipeDTO updatedRecipeInfo) {
+        recipeService.updateRecipeById(recipeId, updatedRecipeInfo, null, null);
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(Response.builder()
@@ -70,6 +71,72 @@ public class RecipeController implements RecipeApi {
                         .statusCode(HttpStatus.OK.value())
                         .message(messageSource.getMessage(
                                 "response.recipe.updateRecipeById", null, Locale.getDefault()))
+                        .build());
+    }
+
+    @PutMapping("/{recipeId}/main-photo")
+    public ResponseEntity<Response> updateRecipeMainPhotoById(@PathVariable("recipeId") Long recipeId,
+                                                              @RequestBody MultipartFile file) {
+        recipeService.updateRecipeById(recipeId, null, file, null);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(Response.builder()
+                        .timeStamp(LocalDateTime.now())
+                        .statusCode(HttpStatus.OK.value())
+                        .message(messageSource.getMessage("response.recipe.updateRecipeById", null, Locale.getDefault()))
+                        .build());
+    }
+
+    @GetMapping("/{recipeId}/main-photo")
+    public ResponseEntity<Response> getRecipeMainPhoto(@PathVariable("recipeId") Long recipeId) {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(Response.builder()
+                        .timeStamp(LocalDateTime.now())
+                        .statusCode(HttpStatus.OK.value())
+                        .message(messageSource.getMessage(
+                                "response.recipe.getRecipeMainPhoto", null, Locale.getDefault()))
+                        .data(Map.of("recipeMainPhoto", recipeService.getRecipeMainPhoto(recipeId)))
+                        .build());
+    }
+
+    @PutMapping("/{recipeId}/instruction-photo")
+    public ResponseEntity<Response> addRecipeInstructionPhoto(@PathVariable("recipeId") Long recipeId,
+                                                              @RequestBody MultipartFile file) {
+        recipeService.updateRecipeById(recipeId, null, null, file);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(Response.builder()
+                        .timeStamp(LocalDateTime.now())
+                        .statusCode(HttpStatus.OK.value())
+                        .message(messageSource.getMessage("response.recipe.addRecipeInstructionPhotos", null, Locale.getDefault()))
+                        .build());
+    }
+
+    @GetMapping("/{recipeId}/instruction-photos")
+    public ResponseEntity<Response> getRecipeInstructionPhotos(@PathVariable("recipeId") Long recipeId) {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(Response.builder()
+                        .timeStamp(LocalDateTime.now())
+                        .statusCode(HttpStatus.OK.value())
+                        .message(messageSource.getMessage(
+                                "response.recipe.getRecipeInstructionPhotos", null, Locale.getDefault()))
+                        .data(Map.of("recipeInstructionPhotos", recipeService.getRecipeInstructionPhotos(recipeId)))
+                        .build());
+    }
+
+    @DeleteMapping("/{recipeId}/instruction-photo")
+    public ResponseEntity<Response> deleteRecipeInstructionPhoto(@PathVariable("recipeId") Long recipeId,
+                                                                 @RequestBody RecipeDTO recipeDTO) {
+        recipeService.deleteInstructionPhoto(recipeId, recipeDTO);
+        return ResponseEntity
+                .status(HttpStatus.NO_CONTENT)
+                .body(Response.builder()
+                        .timeStamp(LocalDateTime.now())
+                        .statusCode(HttpStatus.NO_CONTENT.value())
+                        .message(messageSource.getMessage(
+                                "response.recipe.deleteRecipeInstructionPhoto", null, Locale.getDefault()))
                         .build());
     }
 

@@ -14,6 +14,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.ErrorResponse;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @Tag(name = "Tags")
 @ApiResponses({
@@ -79,7 +80,7 @@ public interface TagApi {
                             { \n
                                 id: ignored \n
                                 name: required \n
-                                icon: not required \n
+                                mainPhoto: ignored \n
                                 applicationUserId: ignored \n
                                 recipeIds: ignored \n
                             } \n
@@ -108,11 +109,11 @@ public interface TagApi {
     ResponseEntity<Response> getTagById(@PathVariable("tagId") Long tagId);
 
     @Operation(
-            summary = "Update tag",
-            description = "Updates tag"
+            summary = "Update tag name",
+            description = "Updates tag name"
     )
     @ApiResponse(
-            responseCode = "200", description = "Tag updated successfully",
+            responseCode = "200", description = "Tag name updated successfully",
             content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE)
     )
     @Parameters({
@@ -129,7 +130,7 @@ public interface TagApi {
                             { \n
                                 id: ignored \n
                                 name: required \n
-                                icon: not required \n
+                                mainPhoto: ignored \n
                                 applicationUserId: ignored \n
                                 recipeIds: ignored \n
                             } \n
@@ -137,8 +138,30 @@ public interface TagApi {
             )
     })
     @PutMapping("/{tagId}")
-    ResponseEntity<Response> updateTagById(@PathVariable("tagId") Long tagId,
-                                           @RequestBody @Valid TagDTO updatedTag);
+    ResponseEntity<Response> updateTagNameById(@PathVariable("tagId") Long tagId, @RequestBody @Valid TagDTO updatedTag);
+
+    @Operation(
+            summary = "Update tag main photo",
+            description = "Updates tag main photo"
+    )
+    @ApiResponse(
+            responseCode = "200", description = "Tag main photo updated successfully",
+            content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE)
+    )
+    @Parameters({
+            @Parameter(
+                    name = "tagId",
+                    required = true,
+                    description = "Tag ID"
+            ),
+            @Parameter(
+                    name = "file",
+                    required = true,
+                    description = "New tag main photo"
+            )
+    })
+    @PutMapping("/{tagId}/photo")
+    ResponseEntity<Response> updateTagMainPhotoById(@PathVariable("tagId") Long tagId, @RequestBody MultipartFile file);
 
     @Operation(
             summary = "Delete tag",

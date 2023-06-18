@@ -14,6 +14,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.ErrorResponse;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @Tag(name = "Recipes")
 @ApiResponses({
@@ -222,8 +223,8 @@ public interface RecipeApi {
     ResponseEntity<Response> getRecipeById(@PathVariable("recipeId") Long recipeId);
 
     @Operation(
-            summary = "Update recipe",
-            description = "Updates recipe"
+            summary = "Update recipe info",
+            description = "Updates recipe info"
     )
     @ApiResponse(
             responseCode = "200", description = "Recipe updated successfully",
@@ -243,7 +244,7 @@ public interface RecipeApi {
                             { \n
                                 id: ignored
                                 name: required \n
-                                mainPhoto: not required \n
+                                mainPhoto: ignored \n
                                 tagDTOs: { \n
                                     { \n
                                         id: not required, \n
@@ -259,15 +260,39 @@ public interface RecipeApi {
                                     ... \n
                                 }, \n
                                 instructions: not required \n
-                                instructionPhotos: not required \n
+                                instructionPhotos: ignored \n
                                 links: not required \n
                             } \n
                             """
             )
     })
     @PutMapping("/{recipeId}")
-    ResponseEntity<Response> updateRecipeById(@PathVariable("recipeId") Long recipeId,
-                                              @RequestBody @Valid RecipeDTO updatedRecipeInfo);
+    ResponseEntity<Response> updateRecipeInfoById(@PathVariable("recipeId") Long recipeId,
+                                                  @RequestBody @Valid RecipeDTO updatedRecipeInfo);
+
+    @Operation(
+            summary = "Update recipe main photo",
+            description = "Updates recipe main photo"
+    )
+    @ApiResponse(
+            responseCode = "200", description = "Recipe main photo updated successfully",
+            content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE)
+    )
+    @Parameters({
+            @Parameter(
+                    name = "recipeId",
+                    required = true,
+                    description = "Recipe ID"
+            ),
+            @Parameter(
+                    name = "file",
+                    required = true,
+                    description = "New recipe main photo"
+            )
+    })
+    @PutMapping("/{recipeId}/main-photo")
+    ResponseEntity<Response> updateRecipeMainPhotoById(@PathVariable("recipeId") Long recipeId,
+                                                       @RequestBody MultipartFile file);
 
     @Operation(
             summary = "Delete recipe",

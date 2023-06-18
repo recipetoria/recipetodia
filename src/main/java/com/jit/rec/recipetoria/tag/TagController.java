@@ -7,6 +7,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 import java.util.Locale;
@@ -57,15 +58,42 @@ public class TagController implements TagApi {
     }
 
     @PutMapping("/{tagId}")
-    public ResponseEntity<Response> updateTagById(@PathVariable("tagId") Long tagId,
-                                                  @RequestBody @Valid TagDTO updatedTag) {
-        tagService.updateTagById(tagId, updatedTag);
+    public ResponseEntity<Response> updateTagNameById(@PathVariable("tagId") Long tagId,
+                                                      @RequestBody @Valid TagDTO updatedTagInfo) {
+        tagService.updateTagById(tagId, updatedTagInfo, null);
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(Response.builder()
                         .timeStamp(LocalDateTime.now())
                         .statusCode(HttpStatus.OK.value())
                         .message(messageSource.getMessage("response.tag.updateTagById", null, Locale.getDefault()))
+                        .build());
+    }
+
+    @PutMapping("/{tagId}/photo")
+    public ResponseEntity<Response> updateTagMainPhotoById(@PathVariable("tagId") Long tagId,
+                                                           @RequestBody MultipartFile file) {
+
+        tagService.updateTagById(tagId, null, file);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(Response.builder()
+                        .timeStamp(LocalDateTime.now())
+                        .statusCode(HttpStatus.OK.value())
+                        .message(messageSource.getMessage("response.tag.updateTagById", null, Locale.getDefault()))
+                        .build());
+    }
+
+    @GetMapping("/{tagId}/photo")
+    public ResponseEntity<Response> getTagMainPhoto(@PathVariable("tagId") Long tagId) {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(Response.builder()
+                        .timeStamp(LocalDateTime.now())
+                        .statusCode(HttpStatus.OK.value())
+                        .message(messageSource.getMessage(
+                                "response.tag.getTagMainPhoto", null, Locale.getDefault()))
+                        .data(Map.of("tagMainPhoto", tagService.getTagMainPhoto(tagId)))
                         .build());
     }
 
