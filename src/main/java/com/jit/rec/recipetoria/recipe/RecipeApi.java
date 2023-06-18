@@ -65,7 +65,7 @@ public interface RecipeApi {
                             { \n
                                 id: Long, \n
                                 name: String, \n
-                                icon: String, \n
+                                mainPhoto: String, \n
                                 applicationUserId: Long \n
                                 recipeIds: { \n
                                     Long, \n
@@ -100,7 +100,7 @@ public interface RecipeApi {
     @Operation(
             summary = "Create new recipe",
             description = """
-                    Creates a recipe and returns in the following format
+                    Creates a recipe and returns it in the following format
                     { \n
                         id: Long
                         name: String, \n
@@ -110,7 +110,7 @@ public interface RecipeApi {
                             { \n
                                 id: Long, \n
                                 name: String, \n
-                                icon: String, \n
+                                mainPhoto: String, \n
                                 applicationUserId: Long \n
                                 recipeIds: {Long...}
                             }, \n
@@ -145,7 +145,7 @@ public interface RecipeApi {
                             { \n
                                 id: ignored
                                 name: required \n
-                                mainPhoto: not required \n
+                                mainPhoto: ignored \n
                                 tagDTOs: { \n
                                     { \n
                                         id: not required, \n
@@ -161,7 +161,7 @@ public interface RecipeApi {
                                     ... \n
                                 }, \n
                                 instructions: not required \n
-                                instructionPhotos: not required \n
+                                instructionPhotos: ignored \n
                                 links: not required \n
                             } \n
                             """
@@ -183,7 +183,7 @@ public interface RecipeApi {
                             { \n
                                 id: Long, \n
                                 name: String, \n
-                                icon: String, \n
+                                mainPhoto: String, \n
                                 applicationUserId: Long \n
                                 recipeIds: { \n
                                     Long, \n
@@ -245,13 +245,15 @@ public interface RecipeApi {
                                 id: ignored
                                 name: required \n
                                 mainPhoto: ignored \n
-                                tagDTOs: { \n
+                                tagDTOs: not required \n
+                                { \n
                                     { \n
                                         id: not required, \n
                                     }, \n
                                     ... \n
                                 }, \n
-                                ingredientDTOs: { \n
+                                ingredientDTOs: not required \n
+                                { \n
                                     { \n
                                         name: required, \n
                                         amount: not required, \n
@@ -295,6 +297,90 @@ public interface RecipeApi {
                                                        @RequestBody MultipartFile file);
 
     @Operation(
+            summary = "Get recipe main photo",
+            description = "Retrieves recipe main photo"
+    )
+    @ApiResponse(
+            responseCode = "200", description = "Recipe main photo retrieved successfully",
+            content = @Content(mediaType = MediaType.IMAGE_JPEG_VALUE)
+    )
+    @Parameters({
+            @Parameter(
+                    name = "recipeId",
+                    required = true,
+                    description = "Recipe ID"
+            )
+    })
+    @GetMapping("/{recipeId}/main-photo")
+    ResponseEntity<Response> getRecipeMainPhoto(@PathVariable("recipeId") Long recipeId);
+
+    @Operation(
+            summary = "Add recipe instruction photo",
+            description = "Add new recipe instruction photo"
+    )
+    @ApiResponse(
+            responseCode = "200", description = "Recipe instruction photo added successfully",
+            content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE)
+    )
+    @Parameters({
+            @Parameter(
+                    name = "recipeId",
+                    required = true,
+                    description = "Recipe ID"
+            ),
+            @Parameter(
+                    name = "file",
+                    required = true,
+                    description = "New recipe instruction photo"
+            )
+    })
+    @PutMapping("/{recipeId}/instruction-photo")
+    ResponseEntity<Response> addRecipeInstructionPhoto(@PathVariable("recipeId") Long recipeId,
+                                                       @RequestBody MultipartFile file);
+
+    @Operation(
+            summary = "Get recipe instruction photos",
+            description = "Retrieves recipe instruction photos"
+    )
+    @ApiResponse(
+            responseCode = "200", description = "Recipe instruction photos retrieved successfully",
+            content = @Content(mediaType = MediaType.IMAGE_JPEG_VALUE)
+    )
+    @Parameters({
+            @Parameter(
+                    name = "recipeId",
+                    required = true,
+                    description = "Recipe ID"
+            )
+    })
+    @GetMapping("/{recipeId}/instruction-photos")
+    ResponseEntity<Response> getRecipeInstructionPhotos(@PathVariable("recipeId") Long recipeId);
+
+    @Operation(
+            summary = "Delete recipe instruction photo",
+            description = "Deletes recipe instruction photo"
+    )
+    @ApiResponse(
+            responseCode = "204", description = "Recipe instruction photo deleted successfully",
+            content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE)
+    )
+    @Parameters({
+            @Parameter(
+                    name = "recipeDTO",
+                    required = true,
+                    description = """
+                            Instruction photos to delete (only the first entry will be deleted) \n
+                            { \n
+                                instructionPhotos: required {String...} \n
+                            } \n
+                            """
+            )
+    })
+    @DeleteMapping("/{recipeId}/instruction-photo")
+    ResponseEntity<Response> deleteRecipeInstructionPhoto(@PathVariable("recipeId") Long recipeId,
+                                                                 @RequestBody RecipeDTO recipeDTO);
+
+    @Operation(
             summary = "Delete recipe",
             description = "Deletes recipe"
     )
@@ -325,12 +411,9 @@ public interface RecipeApi {
                             { \\n
                                 id: Long, \\n
                                 name: String, \\n
-                                icon: String, \\n
+                                mainPhoto: String, \\n
                                 applicationUserId: Long \\n
-                                recipeIds: { \\n
-                                    Long, \\n
-                                    ... \\n
-                                } \\n
+                                recipeIds: {Long...} \\n
                             }, \\n
                             ... \\n
                         }, \\n

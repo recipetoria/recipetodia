@@ -164,6 +164,24 @@ public interface TagApi {
     ResponseEntity<Response> updateTagMainPhotoById(@PathVariable("tagId") Long tagId, @RequestBody MultipartFile file);
 
     @Operation(
+            summary = "Get tag main photo",
+            description = "Retrieves tag main photo"
+    )
+    @ApiResponse(
+            responseCode = "200", description = "Tag main photo retrieved successfully",
+            content = @Content(mediaType = MediaType.IMAGE_JPEG_VALUE)
+    )
+    @Parameters({
+            @Parameter(
+                    name = "tagId",
+                    required = true,
+                    description = "Tag ID"
+            )
+    })
+    @GetMapping("/{tagId}")
+    ResponseEntity<Response> getTagMainPhoto(@PathVariable("tagId") Long tagId);
+
+    @Operation(
             summary = "Delete tag",
             description = "Deletes tag"
     )
