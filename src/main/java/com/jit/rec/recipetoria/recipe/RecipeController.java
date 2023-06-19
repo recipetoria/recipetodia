@@ -165,4 +165,18 @@ public class RecipeController implements RecipeApi {
                         .data(Map.of("allRecipesByTag", recipeService.getAllRecipesByTag(tagId)))
                         .build());
     }
+
+    @PostMapping("{recipeId}/ingredient/{ingredientId}")
+    public ResponseEntity<Response> addIngredientFromRecipeToShoppingList(@PathVariable("recipeId") Long recipeId,
+                                                                          @PathVariable("ingredientId") Long ingredientId) {
+        recipeService.addIngredientFromRecipeToShoppingList(recipeId, ingredientId);
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(Response.builder()
+                        .timeStamp(LocalDateTime.now())
+                        .statusCode(HttpStatus.CREATED.value())
+                        .message(messageSource.getMessage(
+                                "response.recipe.addIngredientFromRecipeToShoppingList", null, Locale.getDefault()))
+                        .build());
+    }
 }

@@ -378,7 +378,7 @@ public interface RecipeApi {
     })
     @DeleteMapping("/{recipeId}/instruction-photo")
     ResponseEntity<Response> deleteRecipeInstructionPhoto(@PathVariable("recipeId") Long recipeId,
-                                                                 @RequestBody RecipeDTO recipeDTO);
+                                                          @RequestBody RecipeDTO recipeDTO);
 
     @Operation(
             summary = "Delete recipe",
@@ -446,4 +446,28 @@ public interface RecipeApi {
     })
     @GetMapping("/tagged/{tagId}")
     ResponseEntity<Response> getAllRecipesByTag(@PathVariable("tagId") Long tagId);
+
+    @Operation(
+            summary = "Add Ingredient from Recipe to Shopping List",
+            description = "Adds Ingredient from Recipe to Shopping List by creating a new Ingredient"
+    )
+    @ApiResponse(
+            responseCode = "201", description = "Ingredient added to Shopping List successfully",
+            content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE)
+    )
+    @Parameters({
+            @Parameter(
+                    name = "recipeId",
+                    required = true,
+                    description = "Recipe ID"
+            ),
+            @Parameter(
+                    name = "ingredientId",
+                    required = true,
+                    description = "Ingredient ID"
+            )
+    })
+    @PostMapping("{recipeId}/ingredient/{ingredientId}")
+    ResponseEntity<Response> addIngredientFromRecipeToShoppingList(@PathVariable("recipeId") Long recipeId,
+                                                                   @PathVariable("ingredientId") Long ingredientId);
 }

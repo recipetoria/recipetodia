@@ -2,6 +2,7 @@ package com.jit.rec.recipetoria.recipe;
 
 import com.jit.rec.recipetoria.filestorage.FileStorageService;
 import com.jit.rec.recipetoria.ingredient.IngredientDTO;
+import com.jit.rec.recipetoria.ingredient.IngredientDTOMapper;
 import com.jit.rec.recipetoria.tag.Tag;
 import com.jit.rec.recipetoria.tag.TagDTO;
 import com.jit.rec.recipetoria.applicationUser.ApplicationUser;
@@ -27,6 +28,7 @@ public class RecipeService {
     private final IngredientService ingredientService;
     private final TagService tagService;
     private final RecipeDTOMapper recipeDTOMapper;
+    private final IngredientDTOMapper ingredientDTOMapper;
     private final FileStorageService fileStorageService;
     private final MessageSource messageSource;
 
@@ -163,6 +165,16 @@ public class RecipeService {
         }
 
         return instructionPhotos;
+    }
+
+    public void addIngredientFromRecipeToShoppingList(Long recipeId, Long ingredientId) {
+        Recipe recipe = getRecipeById(recipeId);
+
+        recipe.getIngredientList()
+                .stream()
+                .filter(ingredient -> Objects.equals(ingredient.getId(), ingredientId))
+                .findFirst().ifPresent(recipeIngredient ->
+                        ingredientService.createIngredient(ingredientDTOMapper.apply(recipeIngredient)));
     }
 
     private Recipe getRecipeById(Long recipeId) {
