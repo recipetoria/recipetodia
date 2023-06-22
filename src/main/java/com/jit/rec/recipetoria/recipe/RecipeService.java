@@ -53,7 +53,6 @@ public class RecipeService {
         Recipe newRecipe = new Recipe();
 
         newRecipe.setName(newRecipeDTO.name());
-        newRecipe.setMainPhoto(newRecipeDTO.mainPhoto());
         newRecipe.setApplicationUser(applicationUser);
         newRecipe.setInstructions(newRecipeDTO.instructions());
         newRecipe.setInstructionPhotos(newRecipeDTO.instructionPhotos());
