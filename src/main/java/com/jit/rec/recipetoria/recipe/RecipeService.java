@@ -55,7 +55,6 @@ public class RecipeService {
         newRecipe.setName(newRecipeDTO.name());
         newRecipe.setApplicationUser(applicationUser);
         newRecipe.setInstructions(newRecipeDTO.instructions());
-        newRecipe.setInstructionPhotos(newRecipeDTO.instructionPhotos());
         newRecipe.setLinks(newRecipeDTO.links());
 
         Optional.ofNullable(newRecipeDTO.tagDTOs())
