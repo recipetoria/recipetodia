@@ -193,6 +193,10 @@ public class RecipeService {
             }
         }
         if (updatedRecipeInfo.ingredientDTOs() != null) {
+            for (Ingredient ingredient : recipeToBeUpdated.getIngredientList()) {
+                recipeToBeUpdated.setIngredientList(new ArrayList<>());
+                ingredientService.deleteIngredientById(ingredient.getId());
+            }
             recipeToBeUpdated.setIngredientList(new ArrayList<>());
             for (IngredientDTO newIngredientDTO : updatedRecipeInfo.ingredientDTOs()) {
                 Ingredient ingredient = new Ingredient();
