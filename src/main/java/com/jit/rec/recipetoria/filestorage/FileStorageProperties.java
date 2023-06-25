@@ -11,6 +11,15 @@ import org.springframework.stereotype.Component;
 @Setter
 public class FileStorageProperties {
 
-    private String profileImageDirectory;
-    private String profileImageName;
+    private String profilePhotoDirectory;
+    private String profilePhotoName;
+
+    private String tagMainPhotoDirectory;
+    private String tagMainPhotoName;
+
+    private String recipeMainPhotoDirectory;
+    private String recipeMainPhotoName;
+
+    private String recipeInstructionPhotoDirectory;
+    private String recipeInstructionPhotoName;
 }

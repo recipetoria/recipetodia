@@ -41,8 +41,7 @@ public class ShoppingListController implements ShoppingListApi {
                 .body(Response.builder()
                         .timeStamp(LocalDateTime.now())
                         .statusCode(HttpStatus.CREATED.value())
-                        .message(messageSource.getMessage(
-                                "response.user.createIngredient", null, Locale.getDefault()))
+                        .message(messageSource.getMessage("response.user.createIngredient", null, Locale.getDefault()))
                         .data(Map.of("createdIngredientDTO",
                                 shoppingListService.createIngredientInShoppingList(newIngredientInfo)))
                         .build());
@@ -51,7 +50,6 @@ public class ShoppingListController implements ShoppingListApi {
     @DeleteMapping
     public ResponseEntity<Response> deleteAllIngredientFromShoppingList() {
         shoppingListService.deleteAllIngredientFromShoppingList();
-
         return ResponseEntity
                 .status(HttpStatus.NO_CONTENT)
                 .body(Response.builder()

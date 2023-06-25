@@ -12,11 +12,11 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(exclude = {"ingredientList","tags", "instructions", "links"})
-@ToString(exclude = {"ingredientList","tags", "instructions", "links"})
-@Data
+@EqualsAndHashCode(exclude = {"ingredientList", "tags", "instructions", "links"})
+@ToString(exclude = {"ingredientList", "tags", "instructions", "links"})
 public class Recipe {
 
     @Id
@@ -36,12 +36,11 @@ public class Recipe {
     @ManyToMany
     private List<Tag> tags;
 
-    @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL)
     private List<Ingredient> ingredientList;
 
-    @ElementCollection
-    @Column(columnDefinition = "TEXT")
-    private List<String> instructions;
+    @Column(length = 5000)
+    private String instructions;
 
     @ElementCollection
     private List<String> instructionPhotos;
@@ -60,10 +59,6 @@ public class Recipe {
 
     public List<Tag> getTags() {
         return Objects.requireNonNullElseGet(this.tags, () -> this.tags = new ArrayList<>());
-    }
-
-    public List<String> getInstructions() {
-        return Objects.requireNonNullElseGet(this.instructions, () -> this.instructions = new ArrayList<>());
     }
 
     public List<String> getInstructionPhotos() {

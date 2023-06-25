@@ -148,7 +148,7 @@ public interface ApplicationUserSettingsApi {
                             """
             )
     })
-    @GetMapping
+    @PostMapping
     ResponseEntity<Response> checkApplicationUserPassword(ApplicationUserDTO applicationUserInfo);
 
     @Operation(
@@ -183,6 +183,6 @@ public interface ApplicationUserSettingsApi {
             responseCode = "204", description = "User account deleted successfully",
             content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE)
     )
-    @DeleteMapping("/account-delete")
+    @DeleteMapping("/account")
     ResponseEntity<Response> deleteApplicationUser();
 }

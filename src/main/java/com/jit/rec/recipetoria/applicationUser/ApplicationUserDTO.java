@@ -19,12 +19,4 @@ public record ApplicationUserDTO(
         @Size(min = 3, max = 30, message = "{validation.applicationUserDTO.password.Size}")
         String password
 ) {
-    public static ApplicationUserDTO convertToDTO(ApplicationUser applicationUser) {
-        return new ApplicationUserDTO(
-                applicationUser.getEmail(),
-                applicationUser.getName(),
-                applicationUser.getProfilePhoto(),
-                null
-        );
-    }
 }

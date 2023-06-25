@@ -16,49 +16,56 @@ import java.util.Locale;
 public class IngredientService {
 
     private final IngredientRepository ingredientRepository;
+    private final IngredientDTOMapper ingredientDTOMapper;
     private final MessageSource messageSource;
 
-    public Ingredient createIngredient(IngredientDTO newRecipeIngredientDTO, ApplicationUser applicationUser) {
-        Ingredient newRecipeIngredient = IngredientDTO.convertToIngredient(newRecipeIngredientDTO);
+    public Ingredient createIngredient(IngredientDTO newRecipeIngredientDTO) {
+        ApplicationUser applicationUser =
+                (ApplicationUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        Ingredient newRecipeIngredient = new Ingredient();
+
+        newRecipeIngredient.setName(newRecipeIngredientDTO.name());
+        newRecipeIngredient.setAmount(newRecipeIngredientDTO.amount());
+        newRecipeIngredient.setMeasurementUnit(newRecipeIngredientDTO.measurementUnit());
         newRecipeIngredient.setApplicationUser(applicationUser);
 
         return ingredientRepository.save(newRecipeIngredient);
     }
 
     public Ingredient createIngredient(IngredientDTO newRecipeIngredientDTO, Recipe recipe) {
-        Ingredient newRecipeIngredient = IngredientDTO.convertToIngredient(newRecipeIngredientDTO);
+        Ingredient newRecipeIngredient = new Ingredient();
+
+        newRecipeIngredient.setName(newRecipeIngredientDTO.name());
+        newRecipeIngredient.setAmount(newRecipeIngredientDTO.amount());
+        newRecipeIngredient.setMeasurementUnit(newRecipeIngredientDTO.measurementUnit());
         newRecipeIngredient.setRecipe(recipe);
 
         return ingredientRepository.save(newRecipeIngredient);
     }
 
-    public IngredientDTO getIngredientById(Long ingredientId) {
-        Ingredient ingredient = ingredientRepository.findById(ingredientId)
-                .orElseThrow(() -> new ResourceNotFoundException(messageSource.getMessage(
-                        "exception.ingredient.notFound", null, Locale.getDefault())));
-
-        return IngredientDTO.convertToDTO(ingredient);
+    public IngredientDTO getIngredientDTOById(Long ingredientId) {
+        return ingredientDTOMapper.apply(getIngredientById(ingredientId));
     }
 
-    public IngredientDTO updateIngredientById(Long ingredientId, IngredientDTO updatedIngredientInfo) {
-        Ingredient ingredientToBeUpdated = ingredientRepository.findById(ingredientId)
+    private Ingredient getIngredientById(Long ingredientId) {
+        return ingredientRepository.findById(ingredientId)
                 .orElseThrow(() -> new ResourceNotFoundException(messageSource.getMessage(
                         "exception.ingredient.notFound", null, Locale.getDefault())));
+    }
+
+    public void updateIngredientById(Long ingredientId, IngredientDTO updatedIngredientInfo) {
+        Ingredient ingredientToBeUpdated = getIngredientById(ingredientId);
 
         ingredientToBeUpdated.setName(updatedIngredientInfo.name());
         ingredientToBeUpdated.setAmount(updatedIngredientInfo.amount());
         ingredientToBeUpdated.setMeasurementUnit(updatedIngredientInfo.measurementUnit());
 
         ingredientRepository.save(ingredientToBeUpdated);
-
-        return IngredientDTO.convertToDTO(ingredientToBeUpdated);
     }
 
     public void deleteIngredientById(Long ingredientId) {
-        if (!ingredientRepository.existsById(ingredientId)) {
-            throw new ResourceNotFoundException(messageSource.getMessage(
-                    "exception.ingredient.notFound", null, Locale.getDefault()));
-        }
+        getIngredientById(ingredientId);
         ingredientRepository.deleteById(ingredientId);
     }
 

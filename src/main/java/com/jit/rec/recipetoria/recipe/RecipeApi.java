@@ -2,14 +2,19 @@ package com.jit.rec.recipetoria.recipe;
 
 import com.jit.rec.recipetoria.dto.Response;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.ErrorResponse;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @Tag(name = "Recipes")
 @ApiResponses({
@@ -47,172 +52,422 @@ import org.springframework.web.ErrorResponse;
 })
 public interface RecipeApi {
 
-    @Operation(summary = "Get all recipes of current ApplicationUser",
+    @Operation(
+            summary = "Get all recipes for current ApplicationUser",
             description = """
-                    send: \n
-                    response: \n
-                    array of RecipeDTO objects with array of TagDTO and array IgredientDTO inside: \n
-                        { \n
-                          "name": "recipe", \n
-                          "mainPhoto": "photoUrl", \n
-                          "tagDTOs": --array of TagDTOs \n
-                                    "id": 5, \n
-                                    "name": "tag3", \n
-                                    "icon": iconUrl, \n
-                                    "applicationUserId": 1,  --owner \n
-                                    "recipeIds": [] --ids of recipes tagged with this tag \n
-                          "ingredientDTOs": --array of IngredientDTOs \n
-                                   "id": 0, \n
-                                   "name": "string", \n
-                                   "amount": 0, \n
-                                   "measurementUnit": "KG", \n
-                                   "applicationUserId": null  --owner of ingredient must be null in recipe \n
-                          "instructions": --array of Strings \n
-                                    "take a cucumber", \n
-                                    "wash", \n
-                                    "eat" \n
-                          "instructionPhotos":  --array of Strings \n
-                                  "photoUrl" \n
-                          "links": --array of Strings \n
-                                    "url" \n
-                        } \n
-                        
-                    """)
+                    Retrieves all recipes for current ApplicationUser in the following format \n
+                    { \n
+                        id: Long,
+                        name: String, \n
+                        mainPhoto: String, \n
+                        applicationUserId: Long, \n
+                        tagDTOs: {
+                            { \n
+                                id: Long, \n
+                                name: String, \n
+                                mainPhoto: String, \n
+                                applicationUserId: Long \n
+                                recipeIds: { \n
+                                    Long, \n
+                                    ... \n
+                                } \n
+                            }, \n
+                            ... \n
+                        }, \n
+                        ingredientDTOs: { \n
+                            { \n
+                                id: Long, \n
+                                name: String, \n
+                                amount: Double, \n
+                                measurementUnit: MeasurementUnit (enum), \n
+                                applicationUserId: Long \n
+                            }, \n
+                            ... \n
+                        }, \n
+                        instructions: String \n
+                        instructionPhotos: {String...} \n
+                        links: {String...} \n
+                    } \n
+                    """
+    )
+    @ApiResponse(
+            responseCode = "200", description = "List of recipes retrieved successfully",
+            content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE)
+    )
+    @GetMapping
     ResponseEntity<Response> getAllRecipes();
 
-    @Operation(summary = "Create a new recipe",
+    @Operation(
+            summary = "Create new recipe",
             description = """
-                    required info to create a recipe is name, \n
-                    required info to create an ingredient is name \n
-                    send: \n
-                          "name": "string",  --REQUIRED \n
-                          "mainPhoto": "string", --optional \n
-                          "tagDTOs": --array of TagDTOs but the only field needed is id of existing tag \n
-                              "id": 0  --optional \n
-                          "ingredientDTOs": --array of IngredientDTOs with name(required), amoung, measurement \n
-                              "name": "string", --REQUIRED for creating an ingredient (if you want to add some) \n
-                              "amount": 0, --optional \n
-                              "measurementUnit": "KG", --optional \n
-                          "instructions":  --array. optional \n
-                            "string" \n
-                          "instructionPhotos":  -- array. optional \n
-                            "string" \n
-                          "links": -- array. optional \n
-                            "string" \n
-                    response: the whole recipe with all fields filled with data, 0 or null \n
-                          RecipeDTO
-                              "id": 0, \n
-                              "name": "string", \n
-                              "applicationUserId": 0, --owner \n
-                              "mainPhoto": "string", \n
-                              "tagDTOs":  --array or TagDTOs \n
-                                  "id": 0, \n
-                                  "name": "string", \n
-                                  "icon": "string", \n
-                                  "applicationUserId": 0, \n
-                                  "recipeIds": [ ]--array of ids of recipes tagged with this tag \n
-                              "ingredientDTOs":  -- array of Ingredient DTOs \n
-                                  "id": 0, \n
-                                  "name": "string", \n
-                                  "amount": 0, \n
-                                  "measurementUnit": "KG", \n
-                                  "applicationUserId": 0 --must be null in ingredients in recipe \n
-                              "instructions":  --array of strings \n
-                                  "string" \n
-                              "instructionPhotos": [ --array of strings \n
-                                   "string" \n
-                              "links": [--array of strings \n
-                                   "string" \n
-                    """)
+                    Creates a recipe and returns it in the following format
+                    { \n
+                        id: Long
+                        name: String, \n
+                        mainPhoto: String, \n
+                        applicationUserId: Long, \n
+                        tagDTOs: {
+                            { \n
+                                id: Long, \n
+                                name: String, \n
+                                mainPhoto: String, \n
+                                applicationUserId: Long \n
+                                recipeIds: {Long...}
+                            }, \n
+                            ... \n
+                        }, \n
+                        ingredientDTOs: { \n
+                            { \n
+                                id: Long, \n
+                                name: String, \n
+                                amount: Double, \n
+                                measurementUnit: MeasurementUnit (enum), \n
+                                applicationUserId: Long \n
+                            }, \n
+                            ... \n
+                        }, \n
+                        instructions: String \n
+                        instructionPhotos: {String...} \n
+                        links: {String...} \n
+                    } \n
+                    """
+    )
+    @ApiResponse(
+            responseCode = "201", description = "Recipe created successfully",
+            content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE)
+    )
+    @Parameters({
+            @Parameter(
+                    name = "newRecipeInfo",
+                    required = true,
+                    description = """
+                            New recipe information \n
+                            { \n
+                                id: ignored
+                                name: required \n
+                                mainPhoto: ignored \n
+                                tagDTOs: { \n
+                                    { \n
+                                        id: not required, \n
+                                    }, \n
+                                    ... \n
+                                }, \n
+                                ingredientDTOs: { \n
+                                    { \n
+                                        name: required, \n
+                                        amount: not required, \n
+                                        measurementUnit: not required, \n
+                                    }, \n
+                                    ... \n
+                                }, \n
+                                instructions: not required \n
+                                instructionPhotos: ignored \n
+                                links: not required \n
+                            } \n
+                            """
+            )
+    })
+    @PostMapping
     ResponseEntity<Response> createRecipe(RecipeDTO newRecipeInfo);
 
-    @Operation(summary = "Get recipe by id",
+    @Operation(
+            summary = "Get recipe by ID",
             description = """
-                    send: id in url in \n
-                    response: the whole RecipeDTO with arrays of TagDTO, InfredientDTO, Strings \n
-                    all fields are filled with data, 0 or null. \n
-                    Ingredient IDs in recipe ingredients must be null \n
-                    """)
-    ResponseEntity<Response> getRecipeById(Long recipeId);
-
-    @Operation(summary = "Update recipe by id",
-            description = """
-                    send: \n
-                    required info to update a recipe is name, \n
-                    required info to update an ingredient is name \n
-                    send: \n
+                    Retrieves the recipe in the following format \n
                     { \n
-                          "name": "string",  --REQUIRED \n
-                          "mainPhoto": "string", --optional \n
-                          "tagDTOs": [ \n
+                        id: Long,
+                        name: String, \n
+                        mainPhoto: String, \n
+                        applicationUserId: Long, \n
+                        tagDTOs: {
                             { \n
-                              "id": 0  --optional \n
-                            } \n
-                          ], \n
-                          "ingredientDTOs": [ \n
-                            { \n
-                              "name": "string", --REQUIRED for creating an ingredient (if you want to add some) \n
-                              "amount": 0, --optional \n
-                              "measurementUnit": "KG", --optional \n
-                            } \n
-                          ], \n
-                          "instructions": [ --optional \n
-                            "string" \n
-                          ], \n
-                          "instructionPhotos": [ --optional \n
-                            "string" \n
-                          ], \n
-                          "links": [ --optional \n
-                            "string" \n
-                          ] \n
-                    response: the whole recipe with all fields filled with data, 0 or null \n
-                            { \n
-                              "id": 0, \n
-                              "name": "string", \n
-                              "applicationUserId": 0, --owner \n
-                              "mainPhoto": "string", \n
-                              "tagDTOs": [ --array or TagDTOs \n
-                                { \n
-                                  "id": 0, \n
-                                  "name": "string", \n
-                                  "icon": "string", \n
-                                  "applicationUserId": 0, \n
-                                  "recipeIds": [ --array of ids of recipes tagged with this tag \n
-                                    0 \n
-                                  ] \n
+                                id: Long, \n
+                                name: String, \n
+                                mainPhoto: String, \n
+                                applicationUserId: Long \n
+                                recipeIds: { \n
+                                    Long, \n
+                                    ... \n
                                 } \n
-                              ], \n
-                              "ingredientDTOs": [ -- array of Ingredient DTOs \n
-                                { \n
-                                  "id": 0, \n
-                                  "name": "string", \n
-                                  "amount": 0, \n
-                                  "measurementUnit": "KG", \n
-                                  "applicationUserId": 0 --must be null in ingredients in recipe \n
-                                } \n
-                              ], \n
-                              "instructions": [ --array of strings \n
-                                "string" \n
-                              ], \n
-                              "instructionPhotos": [ --array of strings \n
-                                "string" \n
-                              ], \n
-                              "links": [--array of strings \n
-                                "string" \n
-                              ] \n
-                            } \n
-                        } \n
-                    !!!!
-                    """)
-    ResponseEntity<Response> updateRecipeById(Long recipeId,
-                                              RecipeDTO updatedRecipeInfo);
+                            }, \n
+                            ... \n
+                        }, \n
+                        ingredientDTOs: { \n
+                            { \n
+                                id: Long, \n
+                                name: String, \n
+                                amount: Double, \n
+                                measurementUnit: MeasurementUnit (enum), \n
+                                applicationUserId: Long \n
+                            }, \n
+                            ... \n
+                        }, \n
+                        instructions: String \n
+                        instructionPhotos: {String...} \n
+                        links: {String...} \n
+                    } \n
+                    """
+    )
+    @ApiResponse(
+            responseCode = "200", description = "Recipe retrieved successfully",
+            content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE)
+    )
+    @Parameters({
+            @Parameter(
+                    name = "ingredientId",
+                    required = true,
+                    description = "Ingredient ID"
+            )
+    })
+    @GetMapping("/{recipeId}")
+    ResponseEntity<Response> getRecipeById(@PathVariable("recipeId") Long recipeId);
 
-    @Operation(summary = "Delete recipe by id",
+    @Operation(
+            summary = "Update recipe info",
+            description = "Updates recipe info"
+    )
+    @ApiResponse(
+            responseCode = "200", description = "Recipe updated successfully",
+            content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE)
+    )
+    @Parameters({
+            @Parameter(
+                    name = "recipeId",
+                    required = true,
+                    description = "Recipe ID"
+            ),
+            @Parameter(
+                    name = "updatedRecipeInfo",
+                    required = true,
+                    description = """
+                            Updated recipe information \n
+                            { \n
+                                id: ignored
+                                name: required \n
+                                mainPhoto: ignored \n
+                                tagDTOs: not required \n
+                                { \n
+                                    { \n
+                                        id: not required, \n
+                                    }, \n
+                                    ... \n
+                                }, \n
+                                ingredientDTOs: not required \n
+                                { \n
+                                    { \n
+                                        name: required, \n
+                                        amount: not required, \n
+                                        measurementUnit: not required, \n
+                                    }, \n
+                                    ... \n
+                                }, \n
+                                instructions: not required \n
+                                instructionPhotos: ignored \n
+                                links: not required \n
+                            } \n
+                            """
+            )
+    })
+    @PutMapping("/{recipeId}")
+    ResponseEntity<Response> updateRecipeInfoById(@PathVariable("recipeId") Long recipeId,
+                                                  @RequestBody @Valid RecipeDTO updatedRecipeInfo);
+
+    @Operation(
+            summary = "Update recipe main photo",
+            description = "Updates recipe main photo"
+    )
+    @ApiResponse(
+            responseCode = "200", description = "Recipe main photo updated successfully",
+            content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE)
+    )
+    @Parameters({
+            @Parameter(
+                    name = "recipeId",
+                    required = true,
+                    description = "Recipe ID"
+            ),
+            @Parameter(
+                    name = "file",
+                    required = true,
+                    description = "New recipe main photo"
+            )
+    })
+    @PutMapping("/{recipeId}/main-photo")
+    ResponseEntity<Response> updateRecipeMainPhotoById(@PathVariable("recipeId") Long recipeId,
+                                                       @RequestBody MultipartFile file);
+
+    @Operation(
+            summary = "Get recipe main photo",
+            description = "Retrieves recipe main photo"
+    )
+    @ApiResponse(
+            responseCode = "200", description = "Recipe main photo retrieved successfully",
+            content = @Content(mediaType = MediaType.IMAGE_JPEG_VALUE)
+    )
+    @Parameters({
+            @Parameter(
+                    name = "recipeId",
+                    required = true,
+                    description = "Recipe ID"
+            )
+    })
+    @GetMapping("/{recipeId}/main-photo")
+    ResponseEntity<Response> getRecipeMainPhoto(@PathVariable("recipeId") Long recipeId);
+
+    @Operation(
+            summary = "Add recipe instruction photo",
+            description = "Add new recipe instruction photo"
+    )
+    @ApiResponse(
+            responseCode = "200", description = "Recipe instruction photo added successfully",
+            content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE)
+    )
+    @Parameters({
+            @Parameter(
+                    name = "recipeId",
+                    required = true,
+                    description = "Recipe ID"
+            ),
+            @Parameter(
+                    name = "file",
+                    required = true,
+                    description = "New recipe instruction photo"
+            )
+    })
+    @PutMapping("/{recipeId}/instruction-photo")
+    ResponseEntity<Response> addRecipeInstructionPhoto(@PathVariable("recipeId") Long recipeId,
+                                                       @RequestBody MultipartFile file);
+
+    @Operation(
+            summary = "Get recipe instruction photos",
+            description = "Retrieves recipe instruction photos"
+    )
+    @ApiResponse(
+            responseCode = "200", description = "Recipe instruction photos retrieved successfully",
+            content = @Content(mediaType = MediaType.IMAGE_JPEG_VALUE)
+    )
+    @Parameters({
+            @Parameter(
+                    name = "recipeId",
+                    required = true,
+                    description = "Recipe ID"
+            )
+    })
+    @GetMapping("/{recipeId}/instruction-photos")
+    ResponseEntity<Response> getRecipeInstructionPhotos(@PathVariable("recipeId") Long recipeId);
+
+    @Operation(
+            summary = "Delete recipe instruction photo",
+            description = "Deletes recipe instruction photo"
+    )
+    @ApiResponse(
+            responseCode = "204", description = "Recipe instruction photo deleted successfully",
+            content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE)
+    )
+    @Parameters({
+            @Parameter(
+                    name = "recipeDTO",
+                    required = true,
+                    description = """
+                            Instruction photos to delete (only the first entry will be deleted) \n
+                            { \n
+                                instructionPhotos: required {String...} \n
+                            } \n
+                            """
+            )
+    })
+    @DeleteMapping("/{recipeId}/instruction-photo")
+    ResponseEntity<Response> deleteRecipeInstructionPhoto(@PathVariable("recipeId") Long recipeId,
+                                                          @RequestBody RecipeDTO recipeDTO);
+
+    @Operation(
+            summary = "Delete recipe",
+            description = "Deletes recipe"
+    )
+    @ApiResponse(
+            responseCode = "204", description = "Recipe deleted successfully",
+            content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE)
+    )
+    @Parameters({
+            @Parameter(
+                    name = "recipeId",
+                    required = true,
+                    description = "Recipe ID"
+            )
+    })
+    @DeleteMapping("/{recipeId}")
+    ResponseEntity<Response> deleteRecipeById(@PathVariable("recipeId") Long recipeId);
+
+    @Operation(
+            summary = "Get all recipes by tag ID",
             description = """
-                    send: id in url \n
-                    response: status 200(ok) \n
-                    """)
-    ResponseEntity<Response> deleteRecipeById(Long recipeId);
+                    Retrieves a list of recipes with a specific tag in the following format \\n
+                    { \\n
+                        id: Long,
+                        name: String, \\n
+                        mainPhoto: String, \\n
+                        applicationUserId: Long, \\n
+                        tagDTOs: {
+                            { \\n
+                                id: Long, \\n
+                                name: String, \\n
+                                mainPhoto: String, \\n
+                                applicationUserId: Long \\n
+                                recipeIds: {Long...} \\n
+                            }, \\n
+                            ... \\n
+                        }, \\n
+                        ingredientDTOs: { \\n
+                            { \\n
+                                id: Long, \\n
+                                name: String, \\n
+                                amount: Double, \\n
+                                measurementUnit: MeasurementUnit (enum), \\n
+                                applicationUserId: Long \\n
+                            }, \\n
+                            ... \\n
+                        }, \\n
+                        instructions: String \\n
+                        instructionPhotos: {String...} \\n
+                        links: {String...} \\n
+                    } \\n
+                    """
+    )
+    @ApiResponse(
+            responseCode = "200", description = "List of recipes retrieved successfully",
+            content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE)
+    )
+    @Parameters({
+            @Parameter(
+                    name = "tagId",
+                    required = true,
+                    description = "Tag ID"
+            )
+    })
+    @GetMapping("/tagged/{tagId}")
+    ResponseEntity<Response> getAllRecipesByTag(@PathVariable("tagId") Long tagId);
 
-
+    @Operation(
+            summary = "Add Ingredient from Recipe to Shopping List",
+            description = "Adds Ingredient from Recipe to Shopping List by creating a new Ingredient"
+    )
+    @ApiResponse(
+            responseCode = "201", description = "Ingredient added to Shopping List successfully",
+            content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE)
+    )
+    @Parameters({
+            @Parameter(
+                    name = "recipeId",
+                    required = true,
+                    description = "Recipe ID"
+            ),
+            @Parameter(
+                    name = "ingredientId",
+                    required = true,
+                    description = "Ingredient ID"
+            )
+    })
+    @PostMapping("{recipeId}/ingredient/{ingredientId}")
+    ResponseEntity<Response> addIngredientFromRecipeToShoppingList(@PathVariable("recipeId") Long recipeId,
+                                                                   @PathVariable("ingredientId") Long ingredientId);
 }

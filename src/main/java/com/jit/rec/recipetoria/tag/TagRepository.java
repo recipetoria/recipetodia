@@ -9,5 +9,5 @@ import java.util.List;
 @Repository
 public interface TagRepository extends JpaRepository<Tag, Long> {
 
-    List<Tag> findTagsByApplicationUser(ApplicationUser applicationUser);
+    List<Tag> findAllByApplicationUser(ApplicationUser applicationUser);
 }

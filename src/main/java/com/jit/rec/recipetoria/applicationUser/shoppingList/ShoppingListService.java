@@ -1,11 +1,10 @@
 package com.jit.rec.recipetoria.applicationUser.shoppingList;
 
 import com.jit.rec.recipetoria.ingredient.IngredientDTO;
-import com.jit.rec.recipetoria.applicationUser.ApplicationUser;
 import com.jit.rec.recipetoria.ingredient.Ingredient;
+import com.jit.rec.recipetoria.ingredient.IngredientDTOMapper;
 import com.jit.rec.recipetoria.ingredient.IngredientService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -16,25 +15,22 @@ import java.util.List;
 public class ShoppingListService {
 
     private final IngredientService ingredientService;
-
-    private ApplicationUser getApplicationUser() {
-        return (ApplicationUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-    }
+    private final IngredientDTOMapper ingredientDTOMapper;
 
     public List<IngredientDTO> getAllIngredientsForShoppingList() {
         List<Ingredient> allIngredients = ingredientService.getAllIngredientsByApplicationUser();
 
         List<IngredientDTO> allIngredientDTOs = new ArrayList<>();
         for (Ingredient oneIngredient : allIngredients) {
-            allIngredientDTOs.add(IngredientDTO.convertToDTO(oneIngredient));
+            allIngredientDTOs.add(ingredientDTOMapper.apply(oneIngredient));
         }
 
         return allIngredientDTOs;
     }
 
     public IngredientDTO createIngredientInShoppingList(IngredientDTO newIngredientInfo) {
-        Ingredient createdIngredient = ingredientService.createIngredient(newIngredientInfo, getApplicationUser());
-        return IngredientDTO.convertToDTO(createdIngredient);
+        Ingredient createdIngredient = ingredientService.createIngredient(newIngredientInfo);
+        return ingredientDTOMapper.apply(createdIngredient);
     }
 
     public void deleteAllIngredientFromShoppingList() {

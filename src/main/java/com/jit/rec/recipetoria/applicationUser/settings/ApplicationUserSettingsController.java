@@ -88,7 +88,7 @@ public class ApplicationUserSettingsController implements ApplicationUserSetting
                         .build());
     }
 
-    @GetMapping("/password")
+    @PostMapping("/password")
     public ResponseEntity<Response> checkApplicationUserPassword(
             @Valid @RequestBody ApplicationUserDTO applicationUserInfo) {
         return ResponseEntity
@@ -119,7 +119,6 @@ public class ApplicationUserSettingsController implements ApplicationUserSetting
     @DeleteMapping("/account")
     public ResponseEntity<Response> deleteApplicationUser() {
         applicationUserSettingsService.deleteApplicationUser();
-
         return ResponseEntity
                 .status(HttpStatus.NO_CONTENT)
                 .body(Response.builder()
