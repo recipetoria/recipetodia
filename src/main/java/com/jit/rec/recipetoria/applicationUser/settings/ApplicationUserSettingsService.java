@@ -48,10 +48,10 @@ public class ApplicationUserSettingsService {
         ApplicationUser applicationUser =
                 (ApplicationUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-        if (StringUtils.isBlank(applicationUser.getProfilePhoto())) {
-            throw new ResourceNotFoundException(messageSource.getMessage(
-                    "exception.applicationUserSettings.getProfilePhoto.notFound", null, Locale.getDefault()));
-        }
+//        if (StringUtils.isBlank(applicationUser.getProfilePhoto())) {
+//            throw new ResourceNotFoundException(messageSource.getMessage(
+//                    "exception.applicationUserSettings.getProfilePhoto.notFound", null, Locale.getDefault()));
+//        }
 
         return fileStorageService.getPhoto(applicationUser.getProfilePhoto());
     }
