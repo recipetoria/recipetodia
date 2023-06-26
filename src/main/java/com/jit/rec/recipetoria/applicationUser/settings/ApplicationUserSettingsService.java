@@ -4,7 +4,6 @@ import com.jit.rec.recipetoria.applicationUser.ApplicationUser;
 import com.jit.rec.recipetoria.applicationUser.ApplicationUserDTO;
 import com.jit.rec.recipetoria.applicationUser.ApplicationUserDTOMapper;
 import com.jit.rec.recipetoria.applicationUser.ApplicationUserRepository;
-import com.jit.rec.recipetoria.exception.ResourceNotFoundException;
 import com.jit.rec.recipetoria.filestorage.FileStorageService;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
@@ -49,8 +48,7 @@ public class ApplicationUserSettingsService {
                 (ApplicationUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         if (StringUtils.isBlank(applicationUser.getProfilePhoto())) {
-            throw new ResourceNotFoundException(messageSource.getMessage(
-                    "exception.applicationUserSettings.getProfilePhoto.notFound", null, Locale.getDefault()));
+            return new byte[]{};
         }
 
         return fileStorageService.getPhoto(applicationUser.getProfilePhoto());
