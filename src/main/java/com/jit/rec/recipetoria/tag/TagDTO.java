@@ -14,7 +14,7 @@ public record TagDTO(
         String name,
 
         @Nullable
-        String mainPhoto,
+        byte[] mainPhoto,
 
         @Nullable
         Long applicationUserId,

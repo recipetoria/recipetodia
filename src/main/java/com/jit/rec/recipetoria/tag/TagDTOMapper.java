@@ -1,6 +1,8 @@
 package com.jit.rec.recipetoria.tag;
 
+import com.jit.rec.recipetoria.filestorage.FileStorageService;
 import com.jit.rec.recipetoria.recipe.Recipe;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -10,7 +12,10 @@ import java.util.Optional;
 import java.util.function.Function;
 
 @Service
+@RequiredArgsConstructor
 public class TagDTOMapper implements Function<Tag, TagDTO> {
+
+    private final FileStorageService fileStorageService;
 
     @Override
     public TagDTO apply(Tag tag) {
@@ -24,7 +29,7 @@ public class TagDTOMapper implements Function<Tag, TagDTO> {
         return new TagDTO(
                 tag.getId(),
                 tag.getName(),
-                tag.getMainPhoto(),
+                fileStorageService.getPhoto(tag.getMainPhoto()),
                 tag.getApplicationUser().getId(),
                 recipeIdList
         );
