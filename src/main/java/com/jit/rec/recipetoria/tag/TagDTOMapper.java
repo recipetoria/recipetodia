@@ -26,10 +26,15 @@ public class TagDTOMapper implements Function<Tag, TagDTO> {
                 .map(Recipe::getId)
                 .forEach(recipeIdList::add);
 
+        byte[] tagPhoto = "".getBytes();
+        if (tag.getMainPhoto() != null) {
+            tagPhoto = fileStorageService.getPhoto(tag.getMainPhoto());
+        }
+
         return new TagDTO(
                 tag.getId(),
                 tag.getName(),
-                fileStorageService.getPhoto(tag.getMainPhoto()),
+                tagPhoto,
                 tag.getApplicationUser().getId(),
                 recipeIdList
         );
