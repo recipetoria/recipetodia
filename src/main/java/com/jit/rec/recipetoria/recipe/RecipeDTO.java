@@ -16,7 +16,7 @@ public record RecipeDTO(
         String name,
 
         @Nullable
-        String mainPhoto,
+        byte[] mainPhoto,
 
         @Nullable
         Long applicationUserId,
@@ -32,9 +32,12 @@ public record RecipeDTO(
         String instructions,
 
         @Nullable
-        List<String> instructionPhotos,
+        List<byte[]> instructionPhotos,
 
         @Nullable
-        List<String> links
+        List<String> links,
+
+        @Nullable
+        String instructionPhotoToDelete
 ) {
 }

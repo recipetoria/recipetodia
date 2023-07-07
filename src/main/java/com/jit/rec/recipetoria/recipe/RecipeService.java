@@ -98,7 +98,7 @@ public class RecipeService {
 
     public void deleteInstructionPhoto(Long recipeId, RecipeDTO recipeDTO) {
         if (recipeDTO.instructionPhotos() != null) {
-            String instructionPhoto = recipeDTO.instructionPhotos().get(0);
+            String instructionPhoto = recipeDTO.instructionPhotoToDelete();
             if (getRecipeById(recipeId).getInstructionPhotos().contains(instructionPhoto)) {
 
                 fileStorageService.deletePhoto(instructionPhoto);
@@ -121,10 +121,17 @@ public class RecipeService {
 
         List<RecipeDTO> recipeDTOs = new ArrayList<>();
         for (Recipe oneRecipe : recipesByTag) {
+
+            byte[] mainPhoto = "".getBytes();
+            if (oneRecipe.getMainPhoto() != null) {
+                mainPhoto = fileStorageService.getPhoto(oneRecipe.getMainPhoto());
+            }
+
             RecipeDTO recipeDTO = new RecipeDTO(
                     oneRecipe.getId(),
                     oneRecipe.getName(),
-                    oneRecipe.getMainPhoto(),
+                    mainPhoto,
+                    null,
                     null,
                     null,
                     null,

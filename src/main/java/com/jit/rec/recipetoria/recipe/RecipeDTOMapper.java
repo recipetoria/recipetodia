@@ -1,6 +1,7 @@
 package com.jit.rec.recipetoria.recipe;
 
 import com.jit.rec.recipetoria.applicationUser.ApplicationUser;
+import com.jit.rec.recipetoria.filestorage.FileStorageService;
 import com.jit.rec.recipetoria.ingredient.Ingredient;
 import com.jit.rec.recipetoria.ingredient.IngredientDTO;
 import com.jit.rec.recipetoria.ingredient.IngredientDTOMapper;
@@ -21,9 +22,15 @@ public class RecipeDTOMapper implements Function<Recipe, RecipeDTO> {
 
     private final IngredientDTOMapper ingredientDTOMapper;
     private final TagDTOMapper tagDTOMapper;
+    private final FileStorageService fileStorageService;
 
     @Override
     public RecipeDTO apply(Recipe recipe) {
+
+        byte[] mainPhoto = "".getBytes();
+        if (recipe.getMainPhoto() != null) {
+            mainPhoto = fileStorageService.getPhoto(recipe.getMainPhoto());
+        }
 
         Long applicationUserId = Optional.ofNullable(recipe.getApplicationUser())
                 .map(ApplicationUser::getId)
@@ -45,16 +52,26 @@ public class RecipeDTOMapper implements Function<Recipe, RecipeDTO> {
             }
         }
 
+        List<byte[]> instructionPhotos = new ArrayList<>();
+        for (String oneInstructionPhoto : recipe.getInstructionPhotos()) {
+            byte[] oneInstructionPhotoBytes = "".getBytes();
+            if (oneInstructionPhoto != null) {
+                oneInstructionPhotoBytes = fileStorageService.getPhoto(oneInstructionPhoto);
+            }
+            instructionPhotos.add(oneInstructionPhotoBytes);
+        }
+
         return new RecipeDTO(
                 recipe.getId(),
                 recipe.getName(),
-                recipe.getMainPhoto(),
+                mainPhoto,
                 applicationUserId,
                 tagDTOs,
                 ingredientDTOs,
                 recipe.getInstructions(),
-                recipe.getInstructionPhotos(),
-                recipe.getLinks()
+                instructionPhotos,
+                recipe.getLinks(),
+                null
         );
     }
 }
