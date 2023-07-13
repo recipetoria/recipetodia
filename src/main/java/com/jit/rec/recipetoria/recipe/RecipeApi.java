@@ -214,9 +214,9 @@ public interface RecipeApi {
     )
     @Parameters({
             @Parameter(
-                    name = "ingredientId",
+                    name = "recipeId",
                     required = true,
-                    description = "Ingredient ID"
+                    description = "Recipe ID"
             )
     })
     @GetMapping("/{recipeId}")
