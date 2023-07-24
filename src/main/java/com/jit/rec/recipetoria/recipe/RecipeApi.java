@@ -381,6 +381,30 @@ public interface RecipeApi {
                                                           @RequestBody RecipeDTO recipeDTO);
 
     @Operation(
+            summary = "Set recipe instruction photo as recipe main photo",
+            description = "Sets specific recipe instruction photo as recipe main photo"
+    )
+    @ApiResponse(
+            responseCode = "200", description = "Recipe main photo updated successfully",
+            content = @Content(mediaType = MediaType.IMAGE_JPEG_VALUE)
+    )
+    @Parameters({
+            @Parameter(
+                    name = "recipeId",
+                    required = true,
+                    description = "Recipe ID"
+            ),
+            @Parameter(
+                    name = "instructionPhotoSeqNo",
+                    required = true,
+                    description = "Sequence number of the instructionPhoto in the list of instruction photos"
+            )
+    })
+    @GetMapping("/{recipeId}/instruction-photos/{instructionPhotoSeqNo}/set-main-photo")
+    ResponseEntity<Response> setInstructionPhotoAsRecipeMainPhoto(@PathVariable("recipeId") Long recipeId,
+                                                                  @PathVariable("instructionPhotoSeqNo") int instructionPhotoSeqNo);
+
+    @Operation(
             summary = "Delete recipe",
             description = "Deletes recipe"
     )

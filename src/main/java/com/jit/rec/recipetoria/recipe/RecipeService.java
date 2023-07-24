@@ -111,6 +111,15 @@ public class RecipeService {
         }
     }
 
+    public void setInstructionPhotoAsRecipeMainPhoto(Long recipeId, int instructionPhotoSeqNo) {
+        Recipe recipe = getRecipeById(recipeId);
+
+        String newPhotoName = recipe.getInstructionPhotos().get(instructionPhotoSeqNo);
+        byte[] newPhotoBytes = fileStorageService.getPhoto(newPhotoName);
+
+        updateRecipeMainPhoto(recipe, newPhotoBytes, newPhotoName);
+    }
+
     public void deleteRecipeById(Long recipeId) {
         getRecipeById(recipeId);
         recipeRepository.deleteById(recipeId);
@@ -239,6 +248,16 @@ public class RecipeService {
             throw new RuntimeException(messageSource.getMessage(
                     "exception.recipe.updateRecipeById.notUploaded", null, Locale.getDefault()));
         }
+    }
+
+    private void updateRecipeMainPhoto(Recipe recipeToBeUpdated, byte[] fileBytes, String fileName) {
+        ApplicationUser applicationUser =
+                (ApplicationUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        deleteRecipeMainPhoto(recipeToBeUpdated);
+        String recipeMainPhotoPath = fileStorageService.putRecipeMainPhoto(
+                applicationUser.getId(), recipeToBeUpdated.getId(), fileBytes, fileName);
+        recipeToBeUpdated.setMainPhoto(recipeMainPhotoPath);
     }
 
     private void deleteRecipeMainPhoto(Recipe recipeToBeUpdated) {

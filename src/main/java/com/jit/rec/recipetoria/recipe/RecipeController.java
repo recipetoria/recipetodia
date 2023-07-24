@@ -140,6 +140,19 @@ public class RecipeController implements RecipeApi {
                         .build());
     }
 
+    @GetMapping("/{recipeId}/instruction-photos/{instructionPhotoSeqNo}/set-main-photo")
+    public ResponseEntity<Response> setInstructionPhotoAsRecipeMainPhoto(@PathVariable("recipeId") Long recipeId,
+                                                                         @PathVariable("instructionPhotoSeqNo") int instructionPhotoSeqNo) {
+        recipeService.setInstructionPhotoAsRecipeMainPhoto(recipeId, instructionPhotoSeqNo);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(Response.builder()
+                        .timeStamp(LocalDateTime.now())
+                        .statusCode(HttpStatus.OK.value())
+                        .message(messageSource.getMessage("response.recipe.setInstructionPhotoAsRecipeMainPhoto", null, Locale.getDefault()))
+                        .build());
+    }
+
     @DeleteMapping("/{recipeId}")
     public ResponseEntity<Response> deleteRecipeById(@PathVariable("recipeId") Long recipeId) {
         recipeService.deleteRecipeById(recipeId);
