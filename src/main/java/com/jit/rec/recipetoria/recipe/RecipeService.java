@@ -46,14 +46,18 @@ public class RecipeService {
         return allRecipesDTOs;
     }
 
-    public RecipeDTO createRecipe(RecipeDTO newRecipeDTO) {
-        ApplicationUser applicationUser =
-                (ApplicationUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
+    public RecipeDTO createRecipe(RecipeDTO newRecipeDTO, ApplicationUser newApplicationUser) {
         Recipe newRecipe = new Recipe();
 
+        if (newApplicationUser == null) {
+            ApplicationUser applicationUser =
+                    (ApplicationUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            newRecipe.setApplicationUser(applicationUser);
+        } else {
+            newRecipe.setApplicationUser(newApplicationUser);
+        }
+
         newRecipe.setName(newRecipeDTO.name());
-        newRecipe.setApplicationUser(applicationUser);
         newRecipe.setInstructions(newRecipeDTO.instructions());
         newRecipe.setLinks(newRecipeDTO.links());
 
@@ -116,8 +120,9 @@ public class RecipeService {
 
         String newPhotoName = recipe.getInstructionPhotos().get(instructionPhotoSeqNo);
         byte[] newPhotoBytes = fileStorageService.getPhoto(newPhotoName);
-
         updateRecipeMainPhoto(recipe, newPhotoBytes, newPhotoName);
+
+        recipeRepository.save(recipe);
     }
 
     public void deleteRecipeById(Long recipeId) {
