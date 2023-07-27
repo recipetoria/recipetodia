@@ -43,7 +43,7 @@ public class RecipeController implements RecipeApi {
                         .statusCode(HttpStatus.CREATED.value())
                         .message(messageSource.getMessage(
                                 "response.recipe.createRecipe", null, Locale.getDefault()))
-                        .data(Map.of("createdRecipeDTO", recipeService.createRecipe(newRecipeInfo)))
+                        .data(Map.of("createdRecipeDTO", recipeService.createRecipe(newRecipeInfo, null)))
                         .build());
     }
 
