@@ -126,10 +126,10 @@ public class RecipeController implements RecipeApi {
                         .build());
     }
 
-    @DeleteMapping("/{recipeId}/instruction-photo")
+    @DeleteMapping("/{recipeId}/instruction-photos/{instructionPhotoSeqNo}")
     public ResponseEntity<Response> deleteRecipeInstructionPhoto(@PathVariable("recipeId") Long recipeId,
-                                                                 @RequestBody RecipeDTO recipeDTO) {
-        recipeService.deleteInstructionPhoto(recipeId, recipeDTO);
+                                                                 @PathVariable("instructionPhotoSeqNo") int instructionPhotoSeqNo) {
+        recipeService.deleteInstructionPhoto(recipeId, instructionPhotoSeqNo);
         return ResponseEntity
                 .status(HttpStatus.NO_CONTENT)
                 .body(Response.builder()

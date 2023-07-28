@@ -100,18 +100,18 @@ public class RecipeService {
         recipeRepository.save(recipeToBeUpdated);
     }
 
-    public void deleteInstructionPhoto(Long recipeId, RecipeDTO recipeDTO) {
-        if (recipeDTO.instructionPhotos() != null) {
-            String instructionPhoto = recipeDTO.instructionPhotoToDelete();
-            if (getRecipeById(recipeId).getInstructionPhotos().contains(instructionPhoto)) {
+    public void deleteInstructionPhoto(Long recipeId, int instructionPhotoSeqNo) {
+        Recipe recipe = getRecipeById(recipeId);
 
-                fileStorageService.deletePhoto(instructionPhoto);
+        String instructionPhotoToDelete = recipe.getInstructionPhotos().get(instructionPhotoSeqNo);
+        if (getRecipeById(recipeId).getInstructionPhotos().contains(instructionPhotoToDelete)) {
 
-                Recipe recipeToBeUpdated = getRecipeById(recipeId);
-                recipeToBeUpdated.getInstructionPhotos().remove(instructionPhoto);
+            fileStorageService.deletePhoto(instructionPhotoToDelete);
 
-                recipeRepository.save(recipeToBeUpdated);
-            }
+            Recipe recipeToBeUpdated = getRecipeById(recipeId);
+            recipeToBeUpdated.getInstructionPhotos().remove(instructionPhotoToDelete);
+
+            recipeRepository.save(recipeToBeUpdated);
         }
     }
 

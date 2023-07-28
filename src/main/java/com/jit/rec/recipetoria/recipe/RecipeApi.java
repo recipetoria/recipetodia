@@ -366,19 +366,19 @@ public interface RecipeApi {
     )
     @Parameters({
             @Parameter(
-                    name = "recipeDTO",
+                    name = "recipeId",
                     required = true,
-                    description = """
-                            Instruction photos to delete (only the first entry will be deleted) \n
-                            { \n
-                                instructionPhotos: required {String...} \n
-                            } \n
-                            """
+                    description = "Recipe ID"
+            ),
+            @Parameter(
+                    name = "instructionPhotoSeqNo",
+                    required = true,
+                    description = "Sequence number of the instructionPhoto in the list of instruction photos"
             )
     })
-    @DeleteMapping("/{recipeId}/instruction-photo")
+    @DeleteMapping("/{recipeId}/instruction-photos/{instructionPhotoSeqNo}")
     ResponseEntity<Response> deleteRecipeInstructionPhoto(@PathVariable("recipeId") Long recipeId,
-                                                          @RequestBody RecipeDTO recipeDTO);
+                                                          @PathVariable("instructionPhotoSeqNo") int instructionPhotoSeqNo);
 
     @Operation(
             summary = "Set recipe instruction photo as recipe main photo",
