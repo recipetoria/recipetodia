@@ -10,4 +10,6 @@ import java.util.List;
 public interface TagRepository extends JpaRepository<Tag, Long> {
 
     List<Tag> findAllByApplicationUser(ApplicationUser applicationUser);
+
+    Tag findByApplicationUserAndName(ApplicationUser applicationUser, String tagName);
 }

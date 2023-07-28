@@ -117,6 +117,8 @@ public class AuthenticationService {
 
     private void hardCreateDefaultRecipes(ApplicationUser newApplicationUser) {
         hardCreateDefaultRecipe1(newApplicationUser);
+        hardCreateDefaultRecipe2(newApplicationUser);
+        hardCreateDefaultRecipe3(newApplicationUser);
     }
 
     private void hardCreateDefaultRecipe1(ApplicationUser newApplicationUser) {
@@ -147,7 +149,7 @@ public class AuthenticationService {
 
         RecipeDTO recipeDTO = new RecipeDTO(
                 null,
-                "Chicken with potatoes and lemon in the oven",
+                "Chicken with Potatoes and Lemon in the Oven",
                 null,
                 null,
                 List.of(tagDto1, tagDto2, tagDto3, tagDto4, tagDto5, tagDto6),
@@ -174,6 +176,99 @@ public class AuthenticationService {
                 null,
                 List.of(
                         "https://youtube/jrfgklgepopcsbdknsdfghiuytfdxcvbnmsdfghjjhgf",
+                        "https://youtube/jrfgklgepopcsbdknsdfghiuytfdxcvbnmsdfghjjhgfdscvbnbvcxzxkjshgfnjsnsh"
+                ),
+                null
+        );
+
+        recipeService.createRecipe(recipeDTO, newApplicationUser);
+    }
+
+    private void hardCreateDefaultRecipe2(ApplicationUser newApplicationUser) {
+        TagDTO tagDto1 = tagService.getTagDTOByName("Dinner", newApplicationUser);
+        TagDTO tagDto2 = tagService.getTagDTOByName("Oven", newApplicationUser);
+        TagDTO tagDto3 = tagService.getTagDTOByName("Quick Recipe", newApplicationUser);
+        TagDTO tagDto4 = tagService.createTag(
+                new TagDTO(null, "Spaghetti", null, null, null),
+                newApplicationUser
+        );
+        TagDTO tagDto5 = tagService.createTag(
+                new TagDTO(null, "Mom's Recipe", null, null, null),
+                newApplicationUser
+        );
+
+        RecipeDTO recipeDTO = new RecipeDTO(
+                null,
+                "Spaghetti with Tomato Sauce Recipe",
+                null,
+                null,
+                List.of(tagDto1, tagDto2, tagDto3, tagDto4, tagDto5),
+                List.of(
+                        new IngredientDTO(null, "Spaghetti Pasta", 450.0, MeasurementUnit.GRAM, null, null),
+                        new IngredientDTO(null, "Crushed Tomatoes", 800.0, MeasurementUnit.GRAM, null, null),
+                        new IngredientDTO(null, "Onion", 1.0, MeasurementUnit.PIECE, null, null),
+                        new IngredientDTO(null, "Garlic", 1.0, MeasurementUnit.PIECE, null, null),
+                        new IngredientDTO(null, "Olive Oil", 60.0, MeasurementUnit.MILLILITER, null, null),
+                        new IngredientDTO(null, "Salt", 0.5, MeasurementUnit.TEASPOON, null, null),
+                        new IngredientDTO(null, "Pepper", 0.5, MeasurementUnit.TEASPOON, null, null),
+                        new IngredientDTO(null, "Fresh Basil ", 1.0, MeasurementUnit.PIECE, null, null),
+                        new IngredientDTO(null, "Grated Parmesan Cheese", 1.0, MeasurementUnit.TEASPOON, null, null)
+                ),
+                """
+                        Cook the spaghetti according to the package instructions until al dente. Drain and set aside.
+                        Heat the olive oil in a large pan over medium heat.
+                        Add the chopped onion and minced garlic to the pan. Sauté until the onion becomes translucent and the garlic is fragrant.
+                        Add the canned diced tomatoes, tomato paste, sugar, dried basil, dried oregano, salt, and pepper to the pan. Stir well to combine.
+                        Reduce the heat to low and let the sauce simmer for about 15-20 minutes, stirring occasionally to prevent sticking.
+                        Taste the sauce and adjust the seasoning if needed.
+                        Once the sauce has thickened to your desired consistency, remove it from the heat.
+                        Serve the cooked spaghetti onto plates or bowls.
+                        Pour the tomato sauce over the spaghetti, ensuring it coats the pasta evenly.
+                        If desired, sprinkle grated Parmesan cheese on top.
+                        Garnish with fresh basil leaves for an extra touch of flavor and presentation.
+                        """,
+                null,
+                List.of(
+                        "https://youtube/jrfgklgepopcsbdknsdfghiuytfdxcvbnmsdfghjjhgf",
+                        "https://youtube/jrfgklgepopcsbdknsdfghiuytfdxcvbnmsdfghjjhgfdscvbnbvcxzxkjshgfnjsnsh"
+                ),
+                null
+        );
+
+        recipeService.createRecipe(recipeDTO, newApplicationUser);
+    }
+
+    private void hardCreateDefaultRecipe3(ApplicationUser newApplicationUser) {
+        RecipeDTO recipeDTO = new RecipeDTO(
+                null,
+                "Autumn Pie Made From Tart Apples",
+                null,
+                null,
+                null,
+                List.of(
+                        new IngredientDTO(null, "Refrigerated Pie Crust", 2000.0, MeasurementUnit.GRAM, null, null),
+                        new IngredientDTO(null, "Thinly Sliced Apples", 5.0, MeasurementUnit.PIECE, null, null),
+                        new IngredientDTO(null, "Granulated Sugar", 1.0, MeasurementUnit.PIECE, null, null),
+                        new IngredientDTO(null, "Flour", 1.0, MeasurementUnit.PIECE, null, null),
+                        new IngredientDTO(null, "Ground Cinnamon", 3.0, MeasurementUnit.TABLESPOON, null, null),
+                        new IngredientDTO(null, "Ground Nutmeg", 1.0, MeasurementUnit.TEASPOON, null, null),
+                        new IngredientDTO(null, "Salt", 1.0, MeasurementUnit.TEASPOON, null, null),
+                        new IngredientDTO(null, "Unsalted Butter", 1.0, MeasurementUnit.TEASPOON, null, null)
+                ),
+                """
+                        In a large bowl, toss the sliced tart apples with lemon juice to prevent browning.
+                        In a bowl, combine the granulated sugar, brown sugar, all-purpose flour, ground cinnamon, ground nutmeg, and salt. Mix well.
+                        Add the sugar and spice mixture to the apples, tossing until the apples are evenly coated.
+                        Place one sheet of ready-made pie crust in a 9-inch pie dish, pressing it gently against the bottom and sides.
+                        Pour the apple mixture into the pie crust, spreading it out evenly. Dot the top of the apples with small pieces of unsalted butter.
+                        Place the second sheet of ready-made pie crust over the apple filling. You can create a lattice design or simply cover the pie and cut a few slits in the top to allow steam to escape.
+                        Trim the excess dough from the edges and crimp the crust to seal it.
+                        Brush the top crust with the beaten egg to give it a shiny finish.
+                        Sprinkle some additional sugar and cinnamon over the top crust.
+                        Place the pie on a baking sheet to catch any drips and bake in the preheated oven for about 45-50 minutes.
+                        """,
+                null,
+                List.of(
                         "https://youtube/jrfgklgepopcsbdknsdfghiuytfdxcvbnmsdfghjjhgf",
                         "https://youtube/jrfgklgepopcsbdknsdfghiuytfdxcvbnmsdfghjjhgfdscvbnbvcxzxkjshgfnjsnsh"
                 ),

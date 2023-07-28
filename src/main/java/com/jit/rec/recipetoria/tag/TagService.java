@@ -59,6 +59,10 @@ public class TagService {
         return tagDTOMapper.apply(getTagById(tagId));
     }
 
+    public TagDTO getTagDTOByName(String tagName, ApplicationUser applicationUser) {
+        return tagDTOMapper.apply(tagRepository.findByApplicationUserAndName(applicationUser, tagName));
+    }
+
     public Tag getTagById(Long tagId) {
         return tagRepository.findById(tagId)
                 .orElseThrow(() -> new ResourceNotFoundException(messageSource.getMessage(
