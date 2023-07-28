@@ -39,14 +39,18 @@ public class TagService {
         return allTagDTOs;
     }
 
-    public TagDTO createTag(TagDTO newTagDTO) {
+    public TagDTO createTag(TagDTO newTagDTO, ApplicationUser applicationUser) {
         Tag newTag = new Tag();
 
         if (newTagDTO.name() != null) {
             newTag.setName(newTagDTO.name());
         }
-        newTag.setApplicationUser(
-                (ApplicationUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        if (applicationUser != null) {
+            newTag.setApplicationUser(applicationUser);
+        } else {
+            newTag.setApplicationUser(
+                    (ApplicationUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        }
 
         return tagDTOMapper.apply(tagRepository.save(newTag));
     }

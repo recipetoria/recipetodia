@@ -10,6 +10,7 @@ import com.jit.rec.recipetoria.recipe.RecipeDTO;
 import com.jit.rec.recipetoria.recipe.RecipeService;
 import com.jit.rec.recipetoria.security.jwt.JwtService;
 import com.jit.rec.recipetoria.tag.TagDTO;
+import com.jit.rec.recipetoria.tag.TagService;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.context.MessageSource;
@@ -36,6 +37,7 @@ public class AuthenticationService {
     private final JavaMailSender javaMailSender;
     private final MessageSource messageSource;
     private final RecipeService recipeService;
+    private final TagService tagService;
 
     public AuthenticationResponse register(AuthenticationRequest authenticationRequest) {
         checkIfEmailExists(authenticationRequest.email());
@@ -54,7 +56,7 @@ public class AuthenticationService {
 
         ApplicationUser newApplicationUser = applicationUserRepository.save(applicationUser);
 
-//        createDefaultRecipes(newApplicationUser);
+        hardCreateDefaultRecipes(newApplicationUser);
 
         return new AuthenticationResponse(jwtToken);
     }
@@ -113,20 +115,42 @@ public class AuthenticationService {
         return new AuthenticationResponse(jwtToken);
     }
 
-    private void createDefaultRecipes(ApplicationUser newApplicationUser) {
+    private void hardCreateDefaultRecipes(ApplicationUser newApplicationUser) {
+        hardCreateDefaultRecipe1(newApplicationUser);
+    }
+
+    private void hardCreateDefaultRecipe1(ApplicationUser newApplicationUser) {
+        TagDTO tagDto1 = tagService.createTag(
+                new TagDTO(null, "Chicken", null, null, null),
+                newApplicationUser
+        );
+        TagDTO tagDto2 = tagService.createTag(
+                new TagDTO(null, "Dinner", null, null, null),
+                newApplicationUser
+        );
+        TagDTO tagDto3 = tagService.createTag(
+                new TagDTO(null, "Meat", null, null, null),
+                newApplicationUser
+        );
+        TagDTO tagDto4 = tagService.createTag(
+                new TagDTO(null, "Oven", null, null, null),
+                newApplicationUser
+        );
+        TagDTO tagDto5 = tagService.createTag(
+                new TagDTO(null, "Potato", null, null, null),
+                newApplicationUser
+        );
+        TagDTO tagDto6 = tagService.createTag(
+                new TagDTO(null, "Quick Recipe", null, null, null),
+                newApplicationUser
+        );
+
         RecipeDTO recipeDTO = new RecipeDTO(
                 null,
                 "Chicken with potatoes and lemon in the oven",
                 null,
                 null,
-                List.of(
-                        new TagDTO(null, "Chicken", null, null, null),
-                        new TagDTO(null, "Dinner", null, null, null),
-                        new TagDTO(null, "Meat", null, null, null),
-                        new TagDTO(null, "Oven", null, null, null),
-                        new TagDTO(null, "Potato", null, null, null),
-                        new TagDTO(null, "Quick Recipe", null, null, null)
-                ),
+                List.of(tagDto1, tagDto2, tagDto3, tagDto4, tagDto5, tagDto6),
                 List.of(
                         new IngredientDTO(null, "Whole Chicken", 2000.0, MeasurementUnit.GRAM, null, null),
                         new IngredientDTO(null, "Potato", 5.0, MeasurementUnit.PIECE, null, null),

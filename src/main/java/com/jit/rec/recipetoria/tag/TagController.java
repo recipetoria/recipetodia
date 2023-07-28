@@ -41,7 +41,7 @@ public class TagController implements TagApi {
                         .timeStamp(LocalDateTime.now())
                         .statusCode(HttpStatus.CREATED.value())
                         .message(messageSource.getMessage("response.tag.createTag", null, Locale.getDefault()))
-                        .data(Map.of("createdTagDTO", tagService.createTag(newTagInfo)))
+                        .data(Map.of("createdTagDTO", tagService.createTag(newTagInfo, null)))
                         .build());
     }
 
