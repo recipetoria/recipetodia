@@ -4,6 +4,7 @@ import com.jit.rec.recipetoria.exception.EmailAlreadyExistsException;
 import com.jit.rec.recipetoria.applicationUser.ApplicationUser;
 import com.jit.rec.recipetoria.applicationUser.ApplicationUserRepository;
 import com.jit.rec.recipetoria.applicationUser.ApplicationUserRole;
+import com.jit.rec.recipetoria.filestorage.FileStorageService;
 import com.jit.rec.recipetoria.ingredient.IngredientDTO;
 import com.jit.rec.recipetoria.ingredient.MeasurementUnit;
 import com.jit.rec.recipetoria.recipe.RecipeDTO;
@@ -38,6 +39,7 @@ public class AuthenticationService {
     private final MessageSource messageSource;
     private final RecipeService recipeService;
     private final TagService tagService;
+    private final FileStorageService fileStorageService;
 
     public AuthenticationResponse register(AuthenticationRequest authenticationRequest) {
         checkIfEmailExists(authenticationRequest.email());
@@ -181,7 +183,19 @@ public class AuthenticationService {
                 null
         );
 
-        recipeService.createRecipe(recipeDTO, newApplicationUser);
+        RecipeDTO createdRecipeDTO = recipeService.createRecipe(recipeDTO, newApplicationUser);
+
+        byte[] mainPhotoBytes = fileStorageService.getPhoto(
+                "src/main/resources/static/images/default-upon-registration/recipe-1-main-photo.png");
+        String mainPhotoName = "recipe-1-main-photo.png";
+        recipeService.addDefaultRecipeMainPhoto(newApplicationUser.getId(), createdRecipeDTO, mainPhotoBytes, mainPhotoName);
+
+        for (int i = 1; i <= 4; i++) {
+            byte[] instructionPhotoBytes1 = fileStorageService.getPhoto(
+                    "src/main/resources/static/images/default-upon-registration/recipe-1-instruction-photo-%s.png".formatted(i));
+            String instructionPhotoName1 = "recipe-1-instruction-photo-%s.png".formatted(i);
+            recipeService.addDefaultRecipeInstructionPhoto(newApplicationUser.getId(), createdRecipeDTO, instructionPhotoBytes1, instructionPhotoName1);
+        }
     }
 
     private void hardCreateDefaultRecipe2(ApplicationUser newApplicationUser) {
@@ -235,7 +249,20 @@ public class AuthenticationService {
                 null
         );
 
-        recipeService.createRecipe(recipeDTO, newApplicationUser);
+        RecipeDTO createdRecipeDTO = recipeService.createRecipe(recipeDTO, newApplicationUser);
+
+        byte[] mainPhotoBytes = fileStorageService.getPhoto(
+                "src/main/resources/static/images/default-upon-registration/recipe-2-main-photo.png");
+        String mainPhotoName = "recipe-2-main-photo.png";
+        recipeService.addDefaultRecipeMainPhoto(newApplicationUser.getId(), createdRecipeDTO, mainPhotoBytes, mainPhotoName);
+
+        for (int i = 1; i <= 3; i++) {
+            byte[] instructionPhotoBytes1 = fileStorageService.getPhoto(
+                    "src/main/resources/static/images/default-upon-registration/recipe-2-instruction-photo-%s.png".formatted(i));
+            String instructionPhotoName1 = "recipe-2-instruction-photo-%s.png".formatted(i);
+            recipeService.addDefaultRecipeInstructionPhoto(newApplicationUser.getId(), createdRecipeDTO, instructionPhotoBytes1, instructionPhotoName1);
+        }
+
     }
 
     private void hardCreateDefaultRecipe3(ApplicationUser newApplicationUser) {

@@ -196,6 +196,24 @@ public class RecipeService {
                         ingredientService.createIngredient(ingredientDTOMapper.apply(recipeIngredient)));
     }
 
+    public void addDefaultRecipeMainPhoto(Long applicationUserId, RecipeDTO recipeToBeUpdatedDTO, byte[] fileBytes, String fileName) {
+        Recipe recipeToBeUpdated = getRecipeById(recipeToBeUpdatedDTO.id());
+
+        String recipeMainPhotoPath = fileStorageService.putRecipeMainPhoto(
+                applicationUserId, recipeToBeUpdatedDTO.id(), fileBytes, fileName);
+        recipeToBeUpdated.setMainPhoto(recipeMainPhotoPath);
+    }
+
+    public void addDefaultRecipeInstructionPhoto(Long applicationUserId, RecipeDTO recipeToBeUpdatedDTO, byte[] fileBytes, String fileName) {
+        Recipe recipeToBeUpdated = getRecipeById(recipeToBeUpdatedDTO.id());
+
+        int instructionPhotoUniqueNumber = generateInstructionPhotoUniqueNumber(recipeToBeUpdated);
+
+        String recipeInstructionPhotoPath = fileStorageService.putRecipeInstructionPhoto(
+                applicationUserId, recipeToBeUpdatedDTO.id(), fileBytes, fileName, instructionPhotoUniqueNumber);
+        recipeToBeUpdated.getInstructionPhotos().add(recipeInstructionPhotoPath);
+    }
+
     private Recipe getRecipeById(Long recipeId) {
         return recipeRepository.findById(recipeId)
                 .orElseThrow(() -> new ResourceNotFoundException(messageSource.getMessage(
