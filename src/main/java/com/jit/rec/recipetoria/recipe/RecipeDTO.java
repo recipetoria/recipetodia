@@ -4,6 +4,7 @@ import com.jit.rec.recipetoria.tag.TagDTO;
 import com.jit.rec.recipetoria.ingredient.IngredientDTO;
 import jakarta.annotation.Nullable;
 import jakarta.validation.Valid;
+import org.springframework.validation.annotation.Validated;
 
 import java.util.*;
 
@@ -25,6 +26,7 @@ public record RecipeDTO(
         List<TagDTO> tagDTOs,
 
         @Nullable
+        @Validated
         @Valid
         List<IngredientDTO> ingredientDTOs,
 

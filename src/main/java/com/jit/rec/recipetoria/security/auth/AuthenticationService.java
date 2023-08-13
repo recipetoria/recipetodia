@@ -128,33 +128,13 @@ public class AuthenticationService {
                 new TagDTO(null, "Chicken", null, null, null),
                 newApplicationUser
         );
-        TagDTO tagDto2 = tagService.createTag(
-                new TagDTO(null, "Dinner", null, null, null),
-                newApplicationUser
-        );
-        TagDTO tagDto3 = tagService.createTag(
-                new TagDTO(null, "Meat", null, null, null),
-                newApplicationUser
-        );
-        TagDTO tagDto4 = tagService.createTag(
-                new TagDTO(null, "Oven", null, null, null),
-                newApplicationUser
-        );
-        TagDTO tagDto5 = tagService.createTag(
-                new TagDTO(null, "Potato", null, null, null),
-                newApplicationUser
-        );
-        TagDTO tagDto6 = tagService.createTag(
-                new TagDTO(null, "Quick Recipe", null, null, null),
-                newApplicationUser
-        );
 
         RecipeDTO recipeDTO = new RecipeDTO(
                 null,
                 "Chicken with Potatoes and Lemon in the Oven",
                 null,
                 null,
-                List.of(tagDto1, tagDto2, tagDto3, tagDto4, tagDto5, tagDto6),
+                List.of(tagDto1),
                 List.of(
                         new IngredientDTO(null, "Whole Chicken", 2000.0, MeasurementUnit.GRAM, null, null),
                         new IngredientDTO(null, "Potato", 5.0, MeasurementUnit.PIECE, null, null),
@@ -199,15 +179,8 @@ public class AuthenticationService {
     }
 
     private void hardCreateDefaultRecipe2(ApplicationUser newApplicationUser) {
-        TagDTO tagDto1 = tagService.getTagDTOByName("Dinner", newApplicationUser);
-        TagDTO tagDto2 = tagService.getTagDTOByName("Oven", newApplicationUser);
-        TagDTO tagDto3 = tagService.getTagDTOByName("Quick Recipe", newApplicationUser);
-        TagDTO tagDto4 = tagService.createTag(
-                new TagDTO(null, "Spaghetti", null, null, null),
-                newApplicationUser
-        );
-        TagDTO tagDto5 = tagService.createTag(
-                new TagDTO(null, "Mom's Recipe", null, null, null),
+        TagDTO tagDto1 = tagService.createTag(
+                new TagDTO(null, "Dinner", null, null, null),
                 newApplicationUser
         );
 
@@ -216,7 +189,7 @@ public class AuthenticationService {
                 "Spaghetti with Tomato Sauce Recipe",
                 null,
                 null,
-                List.of(tagDto1, tagDto2, tagDto3, tagDto4, tagDto5),
+                List.of(tagDto1),
                 List.of(
                         new IngredientDTO(null, "Spaghetti Pasta", 450.0, MeasurementUnit.GRAM, null, null),
                         new IngredientDTO(null, "Crushed Tomatoes", 800.0, MeasurementUnit.GRAM, null, null),
