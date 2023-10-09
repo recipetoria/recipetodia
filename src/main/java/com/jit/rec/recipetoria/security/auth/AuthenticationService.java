@@ -6,7 +6,6 @@ import com.jit.rec.recipetoria.applicationUser.ApplicationUserRepository;
 import com.jit.rec.recipetoria.applicationUser.ApplicationUserRole;
 import com.jit.rec.recipetoria.filestorage.FileStorageService;
 import com.jit.rec.recipetoria.ingredient.IngredientDTO;
-import com.jit.rec.recipetoria.ingredient.MeasurementUnit;
 import com.jit.rec.recipetoria.recipe.RecipeDTO;
 import com.jit.rec.recipetoria.recipe.RecipeService;
 import com.jit.rec.recipetoria.security.jwt.JwtService;
@@ -26,6 +25,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
+
+import static com.jit.rec.recipetoria.ingredient.MeasurementUnit.*;
 
 @Service
 @RequiredArgsConstructor
@@ -136,13 +137,13 @@ public class AuthenticationService {
                 null,
                 List.of(tagDto1),
                 List.of(
-                        new IngredientDTO(null, "Whole Chicken", 2000.0, MeasurementUnit.GRAM, null, null),
-                        new IngredientDTO(null, "Potato", 5.0, MeasurementUnit.PIECE, null, null),
-                        new IngredientDTO(null, "Lemon", 1.0, MeasurementUnit.PIECE, null, null),
-                        new IngredientDTO(null, "Garlic", 1.0, MeasurementUnit.PIECE, null, null),
-                        new IngredientDTO(null, "Olive Oil", 3.0, MeasurementUnit.TABLESPOON, null, null),
-                        new IngredientDTO(null, "Salt", 1.0, MeasurementUnit.TEASPOON, null, null),
-                        new IngredientDTO(null, "Pepper", 1.0, MeasurementUnit.TEASPOON, null, null)
+                        new IngredientDTO(null, "Whole Chicken", 2000.0, G, null, null),
+                        new IngredientDTO(null, "Potato", 5.0, PC, null, null),
+                        new IngredientDTO(null, "Lemon", 1.0, PC, null, null),
+                        new IngredientDTO(null, "Garlic", 1.0, PC, null, null),
+                        new IngredientDTO(null, "Olive Oil", 3.0, TBSP, null, null),
+                        new IngredientDTO(null, "Salt", 1.0, TSP, null, null),
+                        new IngredientDTO(null, "Pepper", 1.0, TSP, null, null)
                 ),
                 """
                         Preheat the oven to 200°C.
@@ -191,15 +192,15 @@ public class AuthenticationService {
                 null,
                 List.of(tagDto1),
                 List.of(
-                        new IngredientDTO(null, "Spaghetti Pasta", 450.0, MeasurementUnit.GRAM, null, null),
-                        new IngredientDTO(null, "Crushed Tomatoes", 800.0, MeasurementUnit.GRAM, null, null),
-                        new IngredientDTO(null, "Onion", 1.0, MeasurementUnit.PIECE, null, null),
-                        new IngredientDTO(null, "Garlic", 1.0, MeasurementUnit.PIECE, null, null),
-                        new IngredientDTO(null, "Olive Oil", 60.0, MeasurementUnit.MILLILITER, null, null),
-                        new IngredientDTO(null, "Salt", 0.5, MeasurementUnit.TEASPOON, null, null),
-                        new IngredientDTO(null, "Pepper", 0.5, MeasurementUnit.TEASPOON, null, null),
-                        new IngredientDTO(null, "Fresh Basil ", 1.0, MeasurementUnit.PIECE, null, null),
-                        new IngredientDTO(null, "Grated Parmesan Cheese", 1.0, MeasurementUnit.TEASPOON, null, null)
+                        new IngredientDTO(null, "Spaghetti Pasta", 450.0, G, null, null),
+                        new IngredientDTO(null, "Crushed Tomatoes", 800.0, G, null, null),
+                        new IngredientDTO(null, "Onion", 1.0, PC, null, null),
+                        new IngredientDTO(null, "Garlic", 1.0, PC, null, null),
+                        new IngredientDTO(null, "Olive Oil", 60.0, ML, null, null),
+                        new IngredientDTO(null, "Salt", 0.5, TSP, null, null),
+                        new IngredientDTO(null, "Pepper", 0.5, TSP, null, null),
+                        new IngredientDTO(null, "Fresh Basil ", 1.0, PC, null, null),
+                        new IngredientDTO(null, "Grated Parmesan Cheese", 1.0, TSP, null, null)
                 ),
                 """
                         Cook the spaghetti according to the package instructions until al dente. Drain and set aside.
@@ -246,14 +247,14 @@ public class AuthenticationService {
                 null,
                 null,
                 List.of(
-                        new IngredientDTO(null, "Refrigerated Pie Crust", 2000.0, MeasurementUnit.GRAM, null, null),
-                        new IngredientDTO(null, "Thinly Sliced Apples", 5.0, MeasurementUnit.PIECE, null, null),
-                        new IngredientDTO(null, "Granulated Sugar", 1.0, MeasurementUnit.PIECE, null, null),
-                        new IngredientDTO(null, "Flour", 1.0, MeasurementUnit.PIECE, null, null),
-                        new IngredientDTO(null, "Ground Cinnamon", 3.0, MeasurementUnit.TABLESPOON, null, null),
-                        new IngredientDTO(null, "Ground Nutmeg", 1.0, MeasurementUnit.TEASPOON, null, null),
-                        new IngredientDTO(null, "Salt", 1.0, MeasurementUnit.TEASPOON, null, null),
-                        new IngredientDTO(null, "Unsalted Butter", 1.0, MeasurementUnit.TEASPOON, null, null)
+                        new IngredientDTO(null, "Refrigerated Pie Crust", 2000.0, G, null, null),
+                        new IngredientDTO(null, "Thinly Sliced Apples", 5.0, PC, null, null),
+                        new IngredientDTO(null, "Granulated Sugar", 1.0, PC, null, null),
+                        new IngredientDTO(null, "Flour", 1.0, PC, null, null),
+                        new IngredientDTO(null, "Ground Cinnamon", 3.0, TBSP, null, null),
+                        new IngredientDTO(null, "Ground Nutmeg", 1.0, TSP, null, null),
+                        new IngredientDTO(null, "Salt", 1.0, TSP, null, null),
+                        new IngredientDTO(null, "Unsalted Butter", 1.0, TSP, null, null)
                 ),
                 """
                         In a large bowl, toss the sliced tart apples with lemon juice to prevent browning.
